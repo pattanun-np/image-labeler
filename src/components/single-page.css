@@ -1,0 +1,40 @@
+#contrainer {
+    margin: 15px;
+
+}
+.signIn {
+    position: relative;
+    margin-left: 5px;
+    padding: 15px;
+    width: auto;
+    height: auto;
+    border-radius: 10px;
+
+}
+.text {
+    margin-left: 30px;
+    font-family: kanit;
+    font-size: 24px;
+    align-content: center;
+}
+.Input-Box {
+    margin: 5px;
+}
+.hero-head {
+    margin-bottom: 15px;
+}
+
+.Upload-Image {
+    position: relative;
+    align-content: center;
+    margin-top: 15px;
+    margin-left: 5px;
+    padding: 15px;
+    width: 1000px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.Tabs {
+    margin-right: 8px;
+}
