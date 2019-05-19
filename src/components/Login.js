@@ -4,7 +4,6 @@ import {
     Button,
     Card,
     Input,
-    Control,
     Field,
     Notification,
     Tabs,
