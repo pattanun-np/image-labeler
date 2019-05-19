@@ -2,39 +2,67 @@ import React, {Component} from 'react';
 import firebase from './firebase'
 import Home from './components/Home';
 import Page from './components/single-page';
+import Loading from './components/Loading';
+import PrivateRoute from './components/PrivateRoute';
+import {BrowserRouter as Router, Route} from "react-router-dom";
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user:null
+            name: '',
+            email: '',
+            password: '',
+            currentUser: '',
+            message: '',
+            loading: true,
+            authenticated: false,
+            user: null,
+            register: 'Tabs1',
+            position: "Undefind"
         }
     }
-    componentDidMount() {
-        this.authListener();
-    }
-    authListener() {
+    componentWillMount() {
         firebase
             .auth()
-            .onAuthStateChanged((user) => {
-                console.log(user);
+            .onAuthStateChanged(user => {
                 if (user) {
-                    this.setState({user});
-                    localStorage.setItem('user', user.uid);
+                    this.setState({authenticated: true, currentUser: user, loading: false});
                 } else {
-                    this.setState({user: null});
-                    localStorage.removeItem('user');
+                    this.setState({authenticated: false, currentUser: null, loading: false});
                 }
             });
     }
     render() {
+        const {authenticated, loading} = this.state;
+
+        if (loading) {
+            return <Loading/>;
+        }
         return (
-            <div>
 
-                {this.state.user
-                    ? (<Page/>)
-                    : (<Home/>)}
+            <Router>
+                <div>
+                    <PrivateRoute exact path="/" component={Page} authenticated={authenticated}/>
 
-            </div>
+                    <PrivateRoute
+                        exact
+                        path="/upload"
+                        component={Page}
+                        authenticated={authenticated}/>
+
+                    <PrivateRoute
+                        exact
+                        path="/edit"
+                        component={Page}
+                        authenticated={authenticated}/>
+                    <Route exact path="/home" component={Home}/>
+                    <Route exact path="/signup" component={Home}/>
+
+                    <Route exact path="/login" component={Home}/>
+
+                </div>
+            </Router>
+
         );
     }
 }

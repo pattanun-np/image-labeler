@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import './single-page.css'
 import StorageDataTable from './StorageDataTable';
-
+import Loading from './Loading';
+import _ from 'lodash';
 import {
     Button,
     Card,
@@ -13,9 +14,12 @@ import {
     SubTitle,
     Progress,
     Tabs,
-    Image
+    Image,
+    Tag,
+    Control
 } from 'reactbulma';
 import firebase from '../firebase';
+import Field from 'reactbulma/lib/components/Field/Field';
 var DB = firebase.database();
 
 class Page extends Component {
@@ -26,14 +30,14 @@ class Page extends Component {
             .bind(this);
 
         this.state = {
-            name: '',
-            email: '',
-            password: '',
-            currentUser: null,
+            name: "Loading ...",
+            uid: "Loading ...",
+            email: "Loading ...",
+            position: "Loading ...",
             massage: '',
-            Data: 0,
-            Types: 0,
-            Labeled: 0,
+            Data: 110,
+            Types: 8,
+            Labeled: 20,
             activeTab: 'Tab1',
             files: [], //ใช้เก็บข้อมูล File ที่ Upload
             uploadValue: 0, //ใช้เพื่อดู Process การ Upload
@@ -41,33 +45,60 @@ class Page extends Component {
             rows: []
         };
     }
+
     logout() {
         firebase
             .auth()
             .signOut();
     };
+    componentDidMount() {
+        console.log("fetching data ...");
+        this.getUserData();
+        console.log("done");
+    }
+    getUserData = () => {
+        const user = firebase
+            .auth()
+            .currentUser
+            .uid;
+        const userdataRef = DB
+            .ref('/data')
+            .child('users/' + user);
 
+        userdataRef.on('value', (snapshot) => {
+            var getuserdata = snapshot.val();
+
+            this.setState({name: getuserdata.name, email: getuserdata.email, position: getuserdata.position, uid: getuserdata.uid});
+
+        });
+    }
     render() {
 
-        var user = firebase
-            .auth()
-            .currentUser;
-        var name,
-            email,
-            uid;
+        const {loading, name, position, Labeled, Data} = this.state;
 
-        if (user != null) {
-            name = user.displayName;
-            email = user.email;
-            uid = user.uid;
+        if (loading) {
+            return <Loading/>;
         }
-
         return (
-            <div id="contrainer">
+            <div medium className="contrainer">
                 <Hero primary className="hero-head">
                     <Hero.Body>
-                        <h1 className="label">welcome : {email}
-                        </h1>
+
+                        <Title is='5'>Welcome
+                            <span>
+                                :
+                            </span>
+                            <Tag medium warning>{name}</Tag>
+
+                        </Title>
+                        <Title is='5'>Login as
+                            <span>
+                                :
+                            </span>
+
+                            <Tag medium info>{position}</Tag>
+
+                        </Title>
                         <Button danger onClick={this.logout}>Logout</Button>
                         <Container>
                             <Title>
@@ -99,11 +130,12 @@ class Page extends Component {
                             </Level>
                             <h3>Projects process calculate from target sample dataset:
                             </h3>
-                            <Progress medium danger value={this.state.Labeled} max={this.state.Data}></Progress>
+                            <Progress medium danger value={Labeled} max={Data}></Progress>
+
                         </Container>
                     </Hero.Body>
                 </Hero >
-                <Card className="Upload-Image">
+                < Card className="Upload-Image">
                     <Tabs centered boxed>
                         <ul>
                             <li
@@ -111,7 +143,7 @@ class Page extends Component {
                                 onClick={() => {
                                 this.setState({activeTab: 'Tab1'})
                             }}>
-                                <a href='#Upload' className="Tabs">
+                                <a href='/upload' className="Tabs">
                                     <Image is="16x16" src="https://image.flaticon.com/icons/svg/685/685686.svg"/>
                                     <span>Upload Image</span>
                                 </a>
@@ -121,7 +153,7 @@ class Page extends Component {
                                 onClick={() => {
                                 this.setState({activeTab: 'Tab2'})
                             }}>
-                                <a href='#Editor' className="Tabs">
+                                <a href='/edit' className="Tabs">
                                     <Image is="16x16" src="https://image.flaticon.com/icons/svg/138/138747.svg"/>
                                     <span>Label Image</span>
                                 </a>
@@ -130,16 +162,16 @@ class Page extends Component {
                     </Tabs>
                     {this.state.activeTab === 'Tab1' && <div>
                         <h1>Upload image</h1>
-                      
-                            
 
-                        </div>}
+                    </div>
+}
                     {this.state.activeTab === 'Tab2' && <div>
                         <h1>Edit & Label</h1>
 
-                    </div>}
-
+                    </div>
+}
                 </Card>
+
                 <p>
                     Copyright © 2019
                 </p>

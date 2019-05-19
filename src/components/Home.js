@@ -1,11 +1,6 @@
 import React, {Component} from 'react';
 
-import {
-    Title,
-    Container,
-    Hero,
-    SubTitle
-} from 'reactbulma'
+import {Title, Container, Hero, SubTitle} from 'reactbulma'
 import Login from './Login';
 
 class Home extends Component {

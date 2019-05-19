@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import './Login.css'
+import './Login.css';
+import {withRouter} from "react-router";
 import {
     Button,
     Card,
@@ -17,6 +18,7 @@ class Login extends Component {
     constructor(props) {
 
         super(props);
+
         this.state = this.initialState;
 
         this.login = this
@@ -38,10 +40,10 @@ class Login extends Component {
             name: '',
             email: '',
             password: '',
-            currentUser:'',
+            currentUser: '',
             message: '',
-            register: 'Tabs1',
-            position: "Undefind"
+            register: 'Tabs2',
+            position: "Undefind please select!"
         }
     }
     get initialState() {
@@ -51,7 +53,7 @@ class Login extends Component {
             password: '',
             message: '',
             register: 'Tabs1',
-            position: "Undefind"
+            position: "Undefind please select!"
         };
     }
 
@@ -63,9 +65,12 @@ class Login extends Component {
         firebase
             .auth()
             .signInWithEmailAndPassword(this.state.email, this.state.password)
-            .then((u) => {})
-            .then(response => {
-                this.setState({currentUser: response.user})
+            .then(user => {
+                console.log(" Login success")
+                this
+                    .props
+                    .history
+                    .push("/");
             })
             .catch((error) => {
                 console.log(error);
@@ -79,14 +84,22 @@ class Login extends Component {
         firebase
             .auth()
             .createUserWithEmailAndPassword(this.state.email, this.state.password)
-            .then(response => {
-              
+            .then(user => {
+                var userId = firebase
+                    .auth()
+                    .currentUser
+                    .uid;
+                console.log("Create User Success")
+                this
+                    .props
+                    .history
+                    .push("/");
+
                 DB
                     .ref('/data')
-                    .child('users')
-                    .push({name: this.state.name, email: this.state.email, position: this.state.position})
+                    .child('users/' + userId)
+                    .set({name: this.state.name, email: this.state.email, position: this.state.position, uid: userId})
 
-         
             })
             .catch((error) => {
                 console.log(error);
@@ -146,13 +159,15 @@ class Login extends Component {
                             Please Sign Up Before the record data</h1>
                         <form>
                             <div className="field">
-                                <label className="label">Name</label>
+                                <label className="label">Name :
+                                </label>
                                 <div className="Input-Box">
                                     <Input
                                         primary
                                         className="input"
                                         type="name"
                                         name="name"
+                                        placeholder="Name"
                                         id="InputName"
                                         value={this.state.name}
                                         onChange={this.handleChange}/>
@@ -160,11 +175,13 @@ class Login extends Component {
                             </div>
 
                             <div className="field">
-                                <label className="label">Email</label>
+                                <label className="label">Email :
+                                </label>
                                 <div className="Input-Box">
                                     <Input
                                         primary
                                         className="input"
+                                        placeholder="Email"
                                         type="email"
                                         name="email"
                                         id="InputEmail"
@@ -174,11 +191,13 @@ class Login extends Component {
                             </div>
 
                             <div className="field">
-                                <label className="label">Password</label>
+                                <label className="label">Password :
+                                </label>
                                 <div className="Input-Box">
                                     <Input
                                         primary
                                         className="input"
+                                        placeholder="Password"
                                         type="password"
                                         name="password"
                                         id="InputPassword"
@@ -232,12 +251,14 @@ class Login extends Component {
                         <h1 className="label">Please Login Before the record data</h1>
                         <form>
                             <div className="field">
-                                <label className="label">Email</label>
+                                <label className="label">Email :
+                                </label>
                                 <div className="Input-Box">
                                     <Input
                                         primary
                                         className="input"
                                         type="email"
+                                        placeholder="Email"
                                         name="email"
                                         id="InputEmail"
                                         value={this.state.email}
@@ -246,12 +267,14 @@ class Login extends Component {
                             </div>
 
                             <div className="field">
-                                <label className="label">Password</label>
+                                <label className="label">Password :
+                                </label>
                                 <div className="control">
                                     <Input
                                         primary
                                         className="input"
                                         type="password"
+                                        placeholder="Password"
                                         name="password"
                                         id="InputPassword"
                                         value={this.state.password}
@@ -275,4 +298,4 @@ class Login extends Component {
         );
     }
 }
-export default Login;
+export default withRouter(Login);

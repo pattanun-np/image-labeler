@@ -3,11 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@uppy/core": "^0.30.4",
-    "@uppy/dashboard": "^0.30.4",
-    "@uppy/react": "^0.30.4",
-    "@uppy/tus": "^0.30.4",
-    "@uppy/xhr-upload": "^0.30.4",
     "filepond": "^4.4.6",
     "filepond-plugin-image-preview": "^4.1.1",
     "firebase": "^5.9.4",
@@ -15,8 +10,8 @@
     "react-cropper-image-editor": "^1.0.9",
     "react-dom": "^16.8.6",
     "react-filepond": "^7.0.1",
+    "react-loading-screen": "0.0.17",
     "react-router-dom": "^5.0.0",
-    "react-s3": "^1.3.1",
     "react-scripts": "2.1.8",
     "reactbulma": "^3.0.4"
   },
