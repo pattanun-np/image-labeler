@@ -4,10 +4,22 @@
     width: 125px;
     height:30px ;
     border: 10px;
-    border-radius: 15px;
+    border-radius: 5px;
     text-align: center;
     color:#ffff;
     background-color:#fa3754;
+ 
+}
+.selectBTN1:hover{
+    margin-top: 5px;
+    margin-left: 5px;
+    width: 125px;
+    height:30px ;
+    border: 10px;
+    border-radius: 5px;
+    text-align: center;
+    color:#ffff;
+    background-color:#fd193c;
  
 }
 
@@ -18,7 +30,7 @@
     width: 125px;
     height:30px ;
     border: 10px;
-    border-radius: 15px;
+    border-radius: 5px;
     text-align: center;
     color:#ffff;
    
@@ -30,10 +42,22 @@
     width: 125px;
     height:30px ;
     border: 10px;
-    border-radius: 15px;
+    border-radius: 5px;
     text-align: center;
     color:#ffff;
     background-color:#37fab9;
+   
+}
+.selectBTN2:hover{
+    margin-top: 5px;
+    margin-left: 5px;
+    width: 125px;
+    height:30px ;
+    border: 10px;
+    border-radius: 5px;
+    text-align: center;
+    color:#ffff;
+    background-color:hsl(160, 98%, 52%);
    
 }
 .selectBTN2:active{
@@ -43,7 +67,7 @@
     width: 125px;
     height:30px ;
     border: 10px;
-    border-radius: 15px;
+    border-radius: 5px;
     text-align: center;
     color:#ffff;
    
@@ -55,10 +79,22 @@
     width: 250px;
     height:30px ;
     border: 10px;
-    border-radius: 15px;
+    border-radius: 5px;
     text-align: center;
     color:rgb(0, 0, 0);
     background-color:#fdc730;
+
+}
+.selectBTN3:hover{
+    margin-top: 5px;
+    margin-left: 5px;
+    width: 250px;
+    height:30px ;
+    border: 10px;
+    border-radius: 5px;
+    text-align: center;
+    color:rgb(0, 0, 0);
+    background-color:hsl(44, 96%, 53%);
 
 }
 .selectBTN3:active{
@@ -68,7 +104,7 @@
     width: 250px;
     height:30px ;
     border: 10px;
-    border-radius: 15px;
+    border-radius: 5px;
     text-align: center;
 
    
@@ -80,10 +116,22 @@
     width: 125px;
     height:30px ;
     border: 10px;
-    border-radius: 15px;
+    border-radius: 5px;
     text-align: center;
     color:#ffff;
     background-color:#37d3fa;
+  
+}
+.selectBTN4:hover{
+    margin-top: 5px;
+    margin-left: 5px;
+    width: 125px;
+    height:30px ;
+    border: 10px;
+    border-radius: 5px;
+    text-align: center;
+    color:#ffff;
+    background-color:#1fccf7;
   
 }
 .selectBTN4:active{
@@ -93,7 +141,7 @@
     width: 125px;
     height:30px ;
     border: 10px;
-    border-radius: 15px;
+    border-radius: 5px;
     text-align: center;
     color:#ffff;
    

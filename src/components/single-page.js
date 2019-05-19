@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './single-page.css'
+import StorageDataTable from './StorageDataTable';
 
 import {
     Button,
@@ -23,6 +24,7 @@ class Page extends Component {
         this.logout = this
             .logout
             .bind(this);
+
         this.state = {
             name: '',
             email: '',
@@ -32,17 +34,21 @@ class Page extends Component {
             Data: 0,
             Types: 0,
             Labeled: 0,
-            activeTab: 'Tab1'
-        }
-
+            activeTab: 'Tab1',
+            files: [], //ใช้เก็บข้อมูล File ที่ Upload
+            uploadValue: 0, //ใช้เพื่อดู Process การ Upload
+            filesMetadata: [], //ใช้เพื่อรับข้อมูล Metadata จาก Firebase
+            rows: []
+        };
     }
     logout() {
         firebase
             .auth()
             .signOut();
-    }
+    };
 
     render() {
+
         var user = firebase
             .auth()
             .currentUser;
@@ -52,7 +58,7 @@ class Page extends Component {
 
         if (user != null) {
             name = user.displayName;
-            email = user.email; 
+            email = user.email;
             uid = user.uid;
         }
 
@@ -60,7 +66,8 @@ class Page extends Component {
             <div id="contrainer">
                 <Hero primary className="hero-head">
                     <Hero.Body>
-                        <h1 className="label">welcome : {email} </h1>
+                        <h1 className="label">welcome : {email}
+                        </h1>
                         <Button danger onClick={this.logout}>Logout</Button>
                         <Container>
                             <Title>
@@ -123,8 +130,10 @@ class Page extends Component {
                     </Tabs>
                     {this.state.activeTab === 'Tab1' && <div>
                         <h1>Upload image</h1>
-                        {/* <UppyComp/> */}
-                    </div>}
+                      
+                            
+
+                        </div>}
                     {this.state.activeTab === 'Tab2' && <div>
                         <h1>Edit & Label</h1>
 
