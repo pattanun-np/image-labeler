@@ -1,9 +1,10 @@
+
 cache:
   directories:
   - node_modules # cache node_module
 language: node_js # set language to node_js
 node_js:
-  11.4.0 # use node version 7
+ "11.4.0" # use node version 
 branches:
   only: 
   - master # auto build and deploy in only master branch
