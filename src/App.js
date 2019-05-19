@@ -44,17 +44,7 @@ class App extends Component {
                 <div>
                     <PrivateRoute exact path="/" component={Page} authenticated={authenticated}/>
 
-                    <PrivateRoute
-                        exact
-                        path="/upload"
-                        component={Page}
-                        authenticated={authenticated}/>
-
-                    <PrivateRoute
-                        exact
-                        path="/edit"
-                        component={Page}
-                        authenticated={authenticated}/>
+           
                     <Route exact path="/home" component={Home}/>
                     <Route exact path="/signup" component={Home}/>
 

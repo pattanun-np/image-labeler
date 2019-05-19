@@ -3,6 +3,15 @@ import './single-page.css'
 import StorageDataTable from './StorageDataTable';
 import Loading from './Loading';
 import _ from 'lodash';
+import {FilePond, File, registerPlugin} from 'react-filepond';
+
+// Import FilePond styles
+import 'filepond/dist/filepond.min.css';
+
+// FilePond Register plugin
+import FilePondImagePreview from 'filepond-plugin-image-preview';
+import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
+
 import {
     Button,
     Card,
@@ -21,7 +30,8 @@ import {
 import firebase from '../firebase';
 import Field from 'reactbulma/lib/components/Field/Field';
 var DB = firebase.database();
-
+var storage = firebase.storage();
+registerPlugin(FilePondImagePreview);
 class Page extends Component {
     constructor(props) {
         super(props);
@@ -31,7 +41,7 @@ class Page extends Component {
 
         this.state = {
             name: "Loading ...",
-            uid: "Loading ...",
+            uid: '',
             email: "Loading ...",
             position: "Loading ...",
             massage: '',
@@ -72,9 +82,49 @@ class Page extends Component {
 
         });
     }
+    handleProcessing(fieldName, file, metadata, load, error, progress, abort) {
+        const user = firebase
+            .auth()
+            .currentUser
+            .uid;
+        // handle file upload here
+        console.log(" handle file upload here");
+        console.log(file);
+        const fileUpload = file;
+        const storageRef = firebase
+            .storage()
+            .ref(`UserData/${user}/${file.name}`);
+        const task = storageRef.put(fileUpload)
+        task.on(`state_changed`, (snapshort) => {
+            console.log(snapshort.bytesTransferred, snapshort.totalBytes)
+            let percentage = (snapshort.bytesTransferred / snapshort.totalBytes) * 100;
+            //Process
+            this.setState({uploadValue: percentage})
+        }, (error) => {
+            //Error
+            this.setState({messag: `Upload error : ${error.message}`})
+        }, () => {
+            //Success
+            this.setState({
+                messag: `Upload Success`, picture: task.snapshot.downloadURL //เผื่อนำไปใช้ต่อในการแสดงรูปที่ Upload ไป
+            })
+        })
+    }
+    handleInit() {
+        // handle init file upload here
+        console.log('now initialised', this.pond);
+    }
     render() {
 
-        const {loading, name, position, Labeled, Data} = this.state;
+        const {
+            loading,
+            name,
+            position,
+            Labeled,
+            Data,
+            rows,
+            filesMetadata
+        } = this.state;
 
         if (loading) {
             return <Loading/>;
@@ -143,7 +193,7 @@ class Page extends Component {
                                 onClick={() => {
                                 this.setState({activeTab: 'Tab1'})
                             }}>
-                                <a href='/upload' className="Tabs">
+                                <a className="Tabs">
                                     <Image is="16x16" src="https://image.flaticon.com/icons/svg/685/685686.svg"/>
                                     <span>Upload Image</span>
                                 </a>
@@ -153,7 +203,7 @@ class Page extends Component {
                                 onClick={() => {
                                 this.setState({activeTab: 'Tab2'})
                             }}>
-                                <a href='/edit' className="Tabs">
+                                <a className="Tabs">
                                     <Image is="16x16" src="https://image.flaticon.com/icons/svg/138/138747.svg"/>
                                     <span>Label Image</span>
                                 </a>
@@ -162,11 +212,38 @@ class Page extends Component {
                     </Tabs>
                     {this.state.activeTab === 'Tab1' && <div>
                         <h1>Upload image</h1>
+                        <div className="Margin-25">
+
+                            {/* Pass FilePond properties as attributes */}
+                            <FilePond
+                                allowMultiple={true}
+                                maxFiles={100}
+                                ref=
+                                {ref => this.pond = ref}
+                                server={{
+                                process: this
+                                    .handleProcessing
+                                    .bind(this)
+                            }}
+                                oninit={() => this.handleInit()}>
+
+                                {/* Set current files using the <File/> component */}
+                                {this
+                                    .state
+                                    .files
+                                    .map(file => (<File key={file} source={file}/>))}
+
+                            </FilePond>
+
+                        </div>
 
                     </div>
 }
                     {this.state.activeTab === 'Tab2' && <div>
                         <h1>Edit & Label</h1>
+                        {this.state.files.map(file => (
+                          <File key={file} source={file} />
+                      ))}
 
                     </div>
 }
