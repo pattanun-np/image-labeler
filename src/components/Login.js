@@ -81,7 +81,7 @@ class Login extends Component {
             .auth()
             .createUserWithEmailAndPassword(this.state.email, this.state.password)
             .then(response => {
-                this.setState({currentUser: response.user})
+              
                 DB
                     .ref('/data')
                     .child('users')
