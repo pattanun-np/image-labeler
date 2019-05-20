@@ -15,13 +15,14 @@ class StorageDataTable extends Component {
                     <tr key={r.no + r.name}>
                         <td>{r.no}</td>
                         <td>{r.name}</td>
+                        <td>{r.fullPath}</td>
                         <td>{r.contentType}</td>
                         <td>{r.size}
-                            Mb</td>
+
+                            byte</td>
+
                         <td>
-                            <a target="_blank" href={r.downloadURLs}>Download</a>
-                        </td>
-                        <td>
+
                             <a target="_blank" onClick={(e) => this.props.deleteData(e, r)}>Delete</a>
                         </td>
                     </tr>
@@ -36,9 +37,10 @@ class StorageDataTable extends Component {
                         <tr>
                             <th>No.</th>
                             <th>File Name</th>
+                            <th>fullPath</th>
                             <th>File Type</th>
                             <th>File Size</th>
-                            <th>Download</th>
+
                             <th>Delete</th>
                         </tr>
                     </thead>

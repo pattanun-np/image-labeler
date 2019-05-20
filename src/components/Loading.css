@@ -82,4 +82,8 @@
       transform: rotate(360deg);
     }
   }
-  
+  .messag{
+    animation-duration: 3s;
+    animation-delay: 2s;
+    animation-iteration-count: slideInDown;
+  }
