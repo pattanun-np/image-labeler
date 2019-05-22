@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import './single-page.css'
 import StorageDataTable from './StorageDataTable';
 import Loading from './Loading';
-import _ from 'lodash';
+// import _ from 'lodash';
 import {FilePond, File, registerPlugin} from 'react-filepond';
-
+import Label from './Label';
 // Import FilePond styles
 import 'filepond/dist/filepond.min.css';
 
@@ -20,18 +20,17 @@ import {
     Title,
     Container,
     Hero,
-    Delete,
+    // Delete,
     SubTitle,
     Progress,
     Tabs,
     Image,
     Tag,
     Notification,
-    Control
+    // Control
 } from 'reactbulma';
 import firebase from '../firebase';
 var DB = firebase.database();
-var storage = firebase.storage();
 registerPlugin(FilePondImagePreview);
 class Page extends Component {
     constructor(props) {
@@ -55,7 +54,7 @@ class Page extends Component {
             uploadValue: 0, //ใช้เพื่อดู Process การ Upload
             filesMetadata: [], //ใช้เพื่อรับข้อมูล Metadata จาก Firebase
             rows: [],
-            picture: ''
+            picture: null
         };
     }
 
@@ -134,10 +133,37 @@ class Page extends Component {
         }, () => {
             //Success
             this.setState({
-                messag_success: `Upload Success`, picture: task.snapshot.downloadURL //เผื่อนำไปใช้ต่อในการแสดงรูปที่ Upload ไป
+                messag_success: `Upload Success` //เผื่อนำไปใช้ต่อในการแสดงรูปที่ Upload ไป
 
-            })
+            });
             setTimeout(() => this.setState({messag_success: null}), 1000);
+            storageRef
+                .getDownloadURL()
+                .then(function (url) {
+                    console.log(url)
+                    this.setState({picture: url})
+                })
+                .catch((error) => {
+                    switch (error.code) {
+                        case 'storage/object-not-found':
+                            // File doesn't exist
+                            break;
+
+                        case 'storage/unauthorized':
+                            // User doesn't have permission to access the object
+                            break;
+
+                        case 'storage/canceled':
+                            // User canceled the upload
+                            break;
+
+                        case 'storage/unknown':
+                            // Unknown error occurred, inspect the server response
+                            break;
+
+                            console.log(error.message)
+                    }
+                });
             //Get metadata
             storageRef
                 .getMetadata()
@@ -214,8 +240,7 @@ class Page extends Component {
             .delete()
             .then(() => {
                 console.log("Delete file success");
-                this.setState({messag_error: "Delete file success"})
-                setTimeout(() => this.setState({messag_error: null}), 1000);
+
                 // Delete the file on realtime database
                 filedataRef
                     .child(rowData.key)
@@ -227,15 +252,13 @@ class Page extends Component {
                     })
                     .catch((error) => {
                         console.log("Delete metada error : ", error.message);
-                        this.setState({messag_error: null})
-                        setTimeout(() => this.setState({messag_error: null}), 1000);
+
                     });
 
             })
             .catch((error) => {
                 console.log("Delete file error : ", error.message);
-                this.setState({messag_error: null})
-                setTimeout(() => this.setState({messag_error: null}), 1000);
+
             });
 
     }
@@ -249,7 +272,7 @@ class Page extends Component {
             Labeled,
             Data,
             rows,
-            files,
+            // files,
             messag_error,
             messag_success,
             filesMetadata
@@ -274,31 +297,30 @@ class Page extends Component {
                 <Hero primary className="hero-head">
                     <Hero.Body>
 
-                        <Title is='5'>Welcome
-                            <span>
-                                :
-                            </span>
-                            <Tag medium warning>{name}</Tag>
-
-                        </Title>
-                        <Title is='5'>Login as
-                            <span>
-                                :
-                            </span>
-
-                            <Tag medium info>{position}</Tag>
-
-                        </Title>
-                        <Button danger onClick={this.logout}>Logout</Button>
-
                         <Container>
                             <Title>
                                 Datasets Collector & Labeler Tool.
                             </Title>
-
                             <SubTitle>
                                 For collect & label data for root canal detect with deep nerual networks.
                             </SubTitle>
+                            <Title is='5'>Welcome
+                                <span>
+                                    :
+                                </span>
+                                <Tag medium warning>{name}</Tag>
+
+                            </Title>
+                            <Title is='5'>Login as
+                                <span>
+                                    :
+                                </span>
+
+                                <Tag medium info>{position}</Tag>
+
+                            </Title>
+                            <Button danger onClick={this.logout}>Logout</Button>
+
                             <Level>
                                 <Level.Item hasTextCentered>
                                     <div>
@@ -339,6 +361,7 @@ class Page extends Component {
                                     <span>Upload Image</span>
                                 </a>
                             </li>
+
                             <li
                                 className={this.state.activeTab === 'Tab2' && 'is-active'}
                                 onClick={() => {
@@ -346,7 +369,17 @@ class Page extends Component {
                             }}>
                                 <a className="Tabs">
                                     <Image is="16x16" src="https://image.flaticon.com/icons/svg/138/138747.svg"/>
-                                    <span>Label Image</span>
+                                    <span>List of Image</span>
+                                </a>
+                            </li>
+                            <li
+                                className={this.state.activeTab === 'Tab3' && 'is-active'}
+                                onClick={() => {
+                                this.setState({activeTab: 'Tab3'})
+                            }}>
+                                <a className="Tabs">
+                                    <Image is="16x16" src="https://image.flaticon.com/icons/svg/1158/1158164.svg"/>
+                                    <span>Labeling Tool</span>
                                 </a>
                             </li>
                         </ul>
@@ -390,10 +423,27 @@ class Page extends Component {
 
                     </div>
 }
+                    {this.state.activeTab === 'Tab3' && <div>
+                        <h1>
+                            Label draw segmentation</h1>
+                        <Label/>
+
+                    </div>
+}
                 </Card>
 
                 <p>
                     Copyright © 2019
+                    <div>Icons made by
+                        <a href="https://www.freepik.com/" title="Freepik">Freepik</a>
+                        from
+                        <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+                        is licensed by
+                        <a
+                            href="http://creativecommons.org/licenses/by/3.0/"
+                            title="Creative Commons BY 3.0"
+                            target="_blank">CC 3.0 BY</a>
+                    </div>
                 </p>
             </div>
         );

@@ -27,11 +27,11 @@
 .Upload-Image {
     position: relative;
     align-content: center;
-    margin-top: 15px;
-    margin-left: 250px;
+    margin: 15px;
     padding: 15px;
-    width: 1000px;
+    width: auto;
     height: auto;
+    overflow-x: auto;
     border-radius: 5px;
 }
 

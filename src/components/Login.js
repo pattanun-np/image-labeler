@@ -5,7 +5,6 @@ import {
     Button,
     Card,
     Input,
-    Field,
     Notification,
     Tabs,
     Delete,
@@ -47,14 +46,7 @@ class Login extends Component {
         }
     }
     get initialState() {
-        return {
-            name: '',
-            email: '',
-            password: '',
-            message: '',
-            register: 'Tabs1',
-            position: "Undefind please select!"
-        };
+        return {name: null, email: null, password: null, message: null, position: null};
     }
 
     reset() {
@@ -71,6 +63,7 @@ class Login extends Component {
                     .props
                     .history
                     .push("/");
+                this.reset();
             })
             .catch((error) => {
                 console.log(error);
@@ -99,6 +92,7 @@ class Login extends Component {
                     .ref('/data')
                     .child('users/' + userId)
                     .set({name: this.state.name, email: this.state.email, position: this.state.position, uid: userId})
+                this.reset();
 
             })
             .catch((error) => {
@@ -207,7 +201,7 @@ class Login extends Component {
                             </div>
                             <h1 className="label">
                                 What is your position please select your position in this project</h1>
-                            <Field grouped>
+                            <div className="field is-grouped">
 
                                 <div className="selectBTN1">
                                     <h1
@@ -223,16 +217,15 @@ class Login extends Component {
                                 </div>
                                 <div className="selectBTN3">
                                     <h1
-                                        value=" Asoc. Prof. Engineer (Co-Advicer)"
-                                        onClick={() => this.setState({position: 'Assoc. Prof. Engineer (Co-Advicer)'})}>
-                                        Assoc. Prof. Engineer (Co-Advicer)</h1>
+                                        value="Engineer(Co-Advicer)"
+                                        onClick={() => this.setState({position: 'Engineer(Co-Advicer)'})}>
+                                        Engineer(Co-Advicer)</h1>
                                 </div>
                                 <div className="selectBTN4">
                                     <h1 value="Reseacher" onClick={() => this.setState({position: 'Researcher'})}>
                                         Reseacher</h1>
                                 </div>
-
-                            </Field>
+                            </div>
                             <h1 className="label">Selected : {this.state.position}</h1>
                             <div className="field is-grouped">
                                 <div className="control">

@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
+import {Table} from 'reactbulma';
 
 class StorageDataTable extends Component {
-
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         let messageNodes = this
@@ -12,42 +9,41 @@ class StorageDataTable extends Component {
             .rows
             .map((r) => {
                 return (
-                    <tr key={r.no + r.name}>
-                        <td>{r.no}</td>
-                        <td>{r.name}</td>
-                        <td>{r.fullPath}</td>
-                        <td>{r.contentType}</td>
-                        <td>{r.size}
+                    <Table.Tr key={r.no + r.name}>
+                        <Table.Th>{r.no}</Table.Th>
+                        <Table.Th>{r.name}</Table.Th>
+                        <Table.Th>{r.fullPath}</Table.Th>
+                        <Table.Th>{r.contentType}</Table.Th>
+                        <Table.Th>{r.size}
 
-                            byte</td>
+                            B</Table.Th>
 
-                        <td>
+                        <Table.Th>
 
                             <a target="_blank" onClick={(e) => this.props.deleteData(e, r)}>Delete</a>
-                        </td>
-                    </tr>
+                        </Table.Th>
+                    </Table.Tr>
                 )
             });
         return (
             <div>
-                <table
-                    border="1"
+                <Table
+                    border="0.5"
                     className="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>File Name</th>
-                            <th>fullPath</th>
-                            <th>File Type</th>
-                            <th>File Size</th>
-
-                            <th>Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                    <Table.Head>
+                        <Table.Tr>
+                            <Table.Th>No.</Table.Th>
+                            <Table.Th>File Name</Table.Th>
+                            <Table.Th>fullPath</Table.Th>
+                            <Table.Th>File Type</Table.Th>
+                            <Table.Th>File Size</Table.Th>
+                            <Table.Th>Delete</Table.Th>
+                        </Table.Tr>
+                    </Table.Head>
+                    <Table.Body>
                         {messageNodes}
-                    </tbody>
-                </table>
+                    </Table.Body>
+                </Table>
                 {/* <button id="addBtn" onClick={this.onClick}>ADD</button> */}
             </div>
         );
