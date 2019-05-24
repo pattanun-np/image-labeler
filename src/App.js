@@ -4,6 +4,7 @@ import Home from './components/Home';
 import Page from './components/single-page';
 import Loading from './components/Loading';
 import PrivateRoute from './components/PrivateRoute';
+import Navbar from './components/Navbar';
 import {BrowserRouter as Router, Route} from "react-router-dom";
 class App extends Component {
     constructor(props) {
@@ -12,7 +13,6 @@ class App extends Component {
             name: '',
             email: '',
             password: '',
-            currentUser: '',
             message: '',
             loading: true,
             authenticated: false,
@@ -43,8 +43,8 @@ class App extends Component {
             <Router>
                 <div>
                     <PrivateRoute exact path="/" component={Page} authenticated={authenticated}/>
+                    
 
-           
                     <Route exact path="/home" component={Home}/>
                     <Route exact path="/signup" component={Home}/>
 

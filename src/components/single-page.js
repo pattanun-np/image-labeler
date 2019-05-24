@@ -5,6 +5,7 @@ import Loading from './Loading';
 // import _ from 'lodash';
 import {FilePond, File, registerPlugin} from 'react-filepond';
 import Label from './Label';
+import Navbar from './Navbar'
 // Import FilePond styles
 import 'filepond/dist/filepond.min.css';
 
@@ -270,6 +271,7 @@ class Page extends Component {
             name,
             position,
             Labeled,
+            picture,
             Data,
             rows,
             // files,
@@ -293,7 +295,7 @@ class Page extends Component {
                                 {messag_error}
                             </Notification>
                         : null}</div>
-
+                <Navbar/>
                 <Hero primary className="hero-head">
                     <Hero.Body>
 
@@ -304,22 +306,6 @@ class Page extends Component {
                             <SubTitle>
                                 For collect & label data for root canal detect with deep nerual networks.
                             </SubTitle>
-                            <Title is='5'>Welcome
-                                <span>
-                                    :
-                                </span>
-                                <Tag medium warning>{name}</Tag>
-
-                            </Title>
-                            <Title is='5'>Login as
-                                <span>
-                                    :
-                                </span>
-
-                                <Tag medium info>{position}</Tag>
-
-                            </Title>
-                            <Button danger onClick={this.logout}>Logout</Button>
 
                             <Level>
                                 <Level.Item hasTextCentered>
@@ -382,6 +368,16 @@ class Page extends Component {
                                     <span>Labeling Tool</span>
                                 </a>
                             </li>
+                            <li
+                                className={this.state.activeTab === 'Tab4' && 'is-active'}
+                                onClick={() => {
+                                this.setState({activeTab: 'Tab4'})
+                            }}>
+                                <a className="Tabs">
+                                    <Image is="16x16" src="https://image.flaticon.com/icons/svg/1728/1728561.svg"/>
+                                    <span>Analysis</span>
+                                </a>
+                            </li>
                         </ul>
                     </Tabs>
                     {this.state.activeTab === 'Tab1' && <div>
@@ -427,6 +423,12 @@ class Page extends Component {
                         <h1>
                             Label draw segmentation</h1>
                         <Label/>
+
+                    </div>
+}
+                    {this.state.activeTab === 'Tab4' && <div>
+                        <h1>
+                            Modle</h1>
 
                     </div>
 }

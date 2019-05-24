@@ -11,6 +11,7 @@ import {
     Image
 } from 'reactbulma'
 import firebase from '../firebase';
+import Navbar from './Navbar';
 const DB = firebase.database();
 
 class Login extends Component {
@@ -116,7 +117,6 @@ class Login extends Component {
         const {message} = this.state
         return (
             <div>
-                <h2>{this.state.currentUser}</h2>
                 {message
                     ? <Notification danger>
                             <Delete onClick={this.handleClose}/> {message}

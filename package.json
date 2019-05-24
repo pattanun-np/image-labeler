@@ -12,6 +12,7 @@
     "react-cropper-image-editor": "^1.0.9",
     "react-dom": "^16.8.6",
     "react-filepond": "^7.0.1",
+    "react-input-slider": "^5.0.14",
     "react-keyed-file-browser": "'~'1.5.0",
     "react-loading-screen": "0.0.17",
     "react-router-dom": "^5.0.0",
