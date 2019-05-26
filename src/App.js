@@ -4,7 +4,6 @@ import Home from './components/Home';
 import Page from './components/single-page';
 import Loading from './components/Loading';
 import PrivateRoute from './components/PrivateRoute';
-import Navbar from './components/Navbar';
 import {BrowserRouter as Router, Route} from "react-router-dom";
 class App extends Component {
     constructor(props) {

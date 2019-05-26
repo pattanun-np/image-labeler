@@ -1,23 +1,11 @@
 import React, {Component} from 'react';
 import {
     Button,
-    Card,
-    Level,
-    Heading,
     Title,
     Container,
-    Hero,
     Nav,
-    SubTitle,
-    Progress,
-    Tabs,
     Image,
-    Field,
-    Icon,
-    Control,
-    Tag,
-    Notification,
-    // Control
+    Tag
 } from 'reactbulma';
 import './Navbar.css'
 import firebase from '../firebase';
@@ -31,7 +19,7 @@ class Navbar extends Component {
 
         this.state = {
             name: "No login",
-            uid: '',
+            uid: 'Loading ...',
             email: "Loading ...",
             position: "Loading ..."
         };

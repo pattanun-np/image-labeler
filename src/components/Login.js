@@ -11,7 +11,6 @@ import {
     Image
 } from 'reactbulma'
 import firebase from '../firebase';
-import Navbar from './Navbar';
 const DB = firebase.database();
 
 class Login extends Component {

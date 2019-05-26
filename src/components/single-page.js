@@ -14,21 +14,18 @@ import FilePondImagePreview from 'filepond-plugin-image-preview';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 
 import {
-    Button,
     Card,
     Level,
     Heading,
     Title,
     Container,
     Hero,
-    // Delete,
     SubTitle,
     Progress,
     Tabs,
     Image,
-    Tag,
     Notification,
-    // Control
+
 } from 'reactbulma';
 import firebase from '../firebase';
 var DB = firebase.database();
@@ -54,8 +51,10 @@ class Page extends Component {
             files: [], //ใช้เก็บข้อมูล File ที่ Upload
             uploadValue: 0, //ใช้เพื่อดู Process การ Upload
             filesMetadata: [], //ใช้เพื่อรับข้อมูล Metadata จาก Firebase
+            Download_urls: [],
+            urls: [],
             rows: [],
-            picture: null
+            picture: ''
         };
     }
 
@@ -71,6 +70,7 @@ class Page extends Component {
     }
     componentWillMount() {
         this.getMetaDataFromDatabase();
+        //this.getDownloadFromDatabase();
 
     }
     getMetaDataFromDatabase() {
@@ -88,6 +88,23 @@ class Page extends Component {
             this.setState({
                 filesMetadata: snapshot.val()
             }, () => this.addMetadataToList());
+        });
+    }
+    getDownloadFromDatabase() {
+        console.log("getDownloadFromDatabase");
+        const user = firebase
+            .auth()
+            .currentUser
+            .uid;
+        const databaseRef = firebase
+            .database()
+            .ref('/UserData')
+            .child('Files_Url/' + user);
+
+        databaseRef.on('value', (snapshot) => {
+            this.setState({
+                Download_urls: snapshot.val()
+            }, () => this.addDowloadUrlToList());
         });
     }
     getUserData = () => {
@@ -124,24 +141,33 @@ class Page extends Component {
         task.on(`state_changed`, (snapshort) => {
             console.log(snapshort.bytesTransferred, snapshort.totalBytes)
             let percentage = (snapshort.bytesTransferred / snapshort.totalBytes) * 100;
+            percentage = percentage.toFixed(2);
             //Process
-            this.setState({uploadValue: percentage})
+            this.setState({uploadValue: percentage, messag_success: `Uploading:${this.state.uploadValue}%`})
         }, (error) => {
             //Error
             this.setState({messag_error: `Upload error : ${error.message}`})
 
-            setTimeout(() => this.setState({messag_error: null}), 1000);
+            setTimeout(() => this.setState({messag_error: null}), 2000);
         }, () => {
             //Success
             this.setState({
                 messag_success: `Upload Success` //เผื่อนำไปใช้ต่อในการแสดงรูปที่ Upload ไป
 
             });
-            setTimeout(() => this.setState({messag_success: null}), 1000);
+            setTimeout(() => this.setState({messag_success: null}), 2000);
             storageRef
                 .getDownloadURL()
-                .then(function (url) {
-                    console.log(url)
+                .then((url) => {
+                    let DownloadURL = {
+                        link_url: url
+                    }
+
+                    const databaseRef = firebase
+                        .database()
+                        .ref('/UserData')
+                        .child('Files_Url/' + user);
+                    databaseRef.push({DownloadURL});
                     this.setState({picture: url})
                 })
                 .catch((error) => {
@@ -168,26 +194,27 @@ class Page extends Component {
             //Get metadata
             storageRef
                 .getMetadata()
-                .then((metadata) => {
+                .then((metadata, url) => {
                     // Metadata now contains the metadata for 'filepond/${file.name}'
                     let metadataFile = {
                         name: metadata.name,
                         size: metadata.size,
                         contentType: metadata.contentType,
-                        fullPath: metadata.fullPath
+                        fullPath: metadata.fullPath,
+                        // DownloadURL: url
                     }
 
                     //Process save metadata
                     const databaseRef = firebase
                         .database()
                         .ref('/UserData')
-                        .child('files/' + user);
+                        .child('files/' + user)
                     databaseRef.push({metadataFile});
 
                 })
                 .catch((error) => {
                     this.setState({messag_error: `Upload error : ${error.message}`})
-                    setTimeout(() => this.setState({messag_error: null}), 1000);
+                    setTimeout(() => this.setState({messag_error: null}), 2000);
                 });
         })
     }
@@ -200,9 +227,7 @@ class Page extends Component {
         let i = 1;
         let rows = [];
 
-        //Loop add data to rows
         for (let key in this.state.filesMetadata) {
-
             let fileData = this.state.filesMetadata[key];
 
             let objRows = {
@@ -210,21 +235,46 @@ class Page extends Component {
                 key: key, //ใช้เพื่อ Delete
                 name: fileData.metadataFile.name,
                 fullPath: fileData.metadataFile.fullPath,
-                size: (fileData.metadataFile.size),
+                size: fileData.metadataFile.size,
                 contentType: fileData.metadataFile.contentType
             }
 
             rows.push(objRows)
+
         }
 
         this.setState({
             rows: rows
         }, () => {
-            console.log('Set Rows')
+            console.log(this.state.rows)
+        });
+    }
+    addDowloadUrlToList() {
+        let j = 1;
+        let file_urls = [];
+
+        for (let key_urls in this.state.Download_urls) {
+            let link_urls = this.state.Download_urls[key_urls];
+            let objUrl = {
+                no: j++,
+                key_urls: key_urls, //ใช้เพื่อ Delete
+                url: link_urls.DownloadURL.link_url
+            }
+
+            file_urls.push(objUrl)
+
+        }
+
+        this.setState({
+            urls: file_urls
+        }, () => {
+
+            console.log('url')
         });
     }
 
     deleteMetaDataFromDatabase(e, rowData) {
+
         const user = firebase
             .auth()
             .currentUser
@@ -236,7 +286,6 @@ class Page extends Component {
             .storage()
             .ref(`UserData/${user}/${rowData.name}`);
 
-        // Delete the file on storage
         storageRef
             .delete()
             .then(() => {
@@ -247,14 +296,12 @@ class Page extends Component {
                     .child(rowData.key)
                     .remove()
                     .then(() => {
-                        console.log("Delete metada success");
+                        console.log("Delete metadata success");
                         console.log(this);
-                        this.getMetaDataFromDatabase()
-                    })
-                    .catch((error) => {
-                        console.log("Delete metada error : ", error.message);
+                        
+                        this.getMetaDataFromDatabase();
 
-                    });
+                    })
 
             })
             .catch((error) => {
@@ -264,17 +311,36 @@ class Page extends Component {
 
     }
 
+    deleteUrlsFromDatabase(e, urlData) {
+
+        const user = firebase
+            .auth()
+            .currentUser
+            .uid;
+        const urldataRef = DB.ref(`UserData/Files/${user}/${urlData.name}`)
+        console.log(urlData.name)
+
+        urldataRef
+            .child(urlData.key_urls)
+            .remove()
+            .then(() => {
+                console.log("Delete urls data success");
+                console.log(this);
+
+            })
+            .catch((error) => {
+                console.log("Delete url error : ", error.message);
+
+            });
+
+    }
     render() {
 
         const {
             loading,
-            name,
-            position,
             Labeled,
-            picture,
             Data,
             rows,
-            // files,
             messag_error,
             messag_success,
             filesMetadata
@@ -388,7 +454,7 @@ class Page extends Component {
                             <FilePond
                                 allowMultiple={true}
                                 files={this.state.files}
-                                maxFiles={1000000}
+                                maxFiles={1000000000}
                                 ref=
                                 {ref => this.pond = ref}
                                 server={{
@@ -412,6 +478,7 @@ class Page extends Component {
 }
                     {this.state.activeTab === 'Tab2' && <div>
                         <h1>Edit & Label</h1>
+
                         <StorageDataTable
                             rows={rows}
                             filesMetadata={filesMetadata}
@@ -422,13 +489,14 @@ class Page extends Component {
                     {this.state.activeTab === 'Tab3' && <div>
                         <h1>
                             Label draw segmentation</h1>
-                        <Label/>
+                        <Card><Label/>
+                        </Card>
 
                     </div>
 }
                     {this.state.activeTab === 'Tab4' && <div>
                         <h1>
-                            Modle</h1>
+                            Model</h1>
 
                     </div>
 }
