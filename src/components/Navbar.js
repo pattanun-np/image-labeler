@@ -30,9 +30,9 @@ class Navbar extends Component {
             .signOut();
     };
     componentDidMount() {
-        console.log("fetching data ...");
+ 
         this.getUserData();
-        console.log("done");
+
     }
     getUserData = () => {
         const user = firebase

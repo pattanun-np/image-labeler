@@ -2,11 +2,10 @@ import React, {PureComponent} from "react";
 import PropTypes from "prop-types";
 import {LazyBrush} from "lazy-brush";
 import {Catenary} from "catenary-curve";
-
 import ResizeObserver from "resize-observer-polyfill";
-
 import drawImage from "./drawImage";
-
+import firebase from '../firebase';
+var DB = firebase.database();
 function midPointBtw(p1, p2) {
     return {
         x: p1.x + (p2.x - p1.x) / 2,
@@ -82,6 +81,7 @@ export default class extends PureComponent {
 
         this.points = [];
         this.lines = [];
+        this.data_images = [];
 
         this.mouseHasMoved = true;
         this.valuesChanged = true;
@@ -180,7 +180,15 @@ export default class extends PureComponent {
     };
 
     getSaveData = () => {
-        // Construct and return the stringified saveData object
+        const user = firebase
+            .auth()
+            .currentUser
+            .uid;
+        const DBRef = DB
+            .ref('/Labeled_Images')
+            .child(user);
+        DBRef.push(this.data_images);
+ 
         return JSON.stringify({lines: this.lines, width: this.props.canvasWidth, height: this.props.canvasHeight});
     };
 
@@ -222,8 +230,7 @@ export default class extends PureComponent {
     };
 
     simulateDrawingLines = ({lines, immediate}) => {
-        // Simulate live-drawing of the loaded lines
-        // TODO use a generator
+
         let curTime = 0;
         let timeoutGap = immediate
             ? 0
@@ -438,8 +445,12 @@ export default class extends PureComponent {
                 brushColor: brushColor || this.props.brushColor,
                 brushRadius: brushRadius || this.props.brushRadius
             });
-
-        // Reset points array
+        this
+            .data_images
+            .push({
+                points: [...this.points]
+            });
+      
         this.points.length = 0;
 
         const width = this.canvas.temp.width;
@@ -485,6 +496,7 @@ export default class extends PureComponent {
             this.drawInterface(this.ctx.interface, pointer, brush);
             this.mouseHasMoved = false;
             this.valuesChanged = false;
+            this.drawImage();
         }
 
         if (!once) {
@@ -616,6 +628,7 @@ export default class extends PureComponent {
                         ? this.handleTouchEnd
                         : undefined}/>);
                 })}
+
             </div>
         );
     }

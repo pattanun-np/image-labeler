@@ -8,7 +8,9 @@ import {
     Notification,
     Tabs,
     Delete,
-    Image
+    Image,
+    Field,
+    Control
 } from 'reactbulma'
 import firebase from '../firebase';
 const DB = firebase.database();
@@ -41,7 +43,7 @@ class Login extends Component {
             password: '',
             currentUser: '',
             message: '',
-            register: 'Tabs2',
+            register: 'Tabs1',
             position: "Undefind please select!"
         }
     }
@@ -130,7 +132,7 @@ class Login extends Component {
                                 this.setState({register: 'Tabs1'})
                             }}>
 
-                                <a href='#signup' className="Tabs"><Image is="16x16" src="https://image.flaticon.com/icons/svg/40/40358.svg"/>
+                                <a className="Tabs"><Image is="16x16" src="https://image.flaticon.com/icons/svg/40/40358.svg"/>
                                     <span >
                                         SignUp
                                     </span>
@@ -140,7 +142,7 @@ class Login extends Component {
                                 className={this.state.register === 'Tabs2' && 'is-active'}
                                 onClick=
                                 {() => { this.setState({register: 'Tabs2'}) } }>
-                                <a href='#login' className="Tabs"><Image is="16x16" src="https://image.flaticon.com/icons/svg/149/149071.svg"/>
+                                <a  className="Tabs"><Image is="16x16" src="https://image.flaticon.com/icons/svg/149/149071.svg"/>
                                     <span>Login</span>
                                 </a>
                             </li>
@@ -200,38 +202,45 @@ class Login extends Component {
                             </div>
                             <h1 className="label">
                                 What is your position please select your position in this project</h1>
-                            <div className="field is-grouped">
-
-                                <div className="selectBTN1">
-                                    <h1
-                                        value="Dentist(Student)"
-                                        onClick={() => this.setState({position: 'Dentist(Student)'})}>
-                                        Dentist(Student)</h1>
-                                </div>
-                                <div className="selectBTN2">
-                                    <h1
+                            <Field grouped>
+                                <Control>
+                                    <Button
+                                        success
+                                        className="button is-link"
                                         value="Dentist(Advicer)"
                                         onClick={() => this.setState({position: 'Dentist(Advicer)'})}>
-                                        Dentist(Advicer)</h1>
-                                </div>
-                                <div className="selectBTN3">
-                                    <h1
+                                        Dentist(Advicer)</Button>
+                                </Control>
+                                <Control>
+                                    <Button
+                                        danger
+                                        className="button is-link"
+                                        value="Dentist(Student)"
+                                        onClick={() => this.setState({position: 'Dentist(Student)'})}>
+                                        Dentist(Student)</Button>
+                                </Control>
+                                <Control>
+                                    <Button
+                                        warning
+                                        className="button is-link"
                                         value="Engineer(Co-Advicer)"
                                         onClick={() => this.setState({position: 'Engineer(Co-Advicer)'})}>
-                                        Engineer(Co-Advicer)</h1>
-                                </div>
-                                <div className="selectBTN4">
-                                    <h1 value="Reseacher" onClick={() => this.setState({position: 'Researcher'})}>
-                                        Reseacher</h1>
-                                </div>
-                            </div>
+                                        Engineer(Co-Advicer)</Button>
+                                </Control>
+                                <Control>
+                                    <Button
+                                        info
+                                        className="button is-link"
+                                        value="Reseacher"
+                                        onClick={() => this.setState({position: 'Researcher'})}>
+                                        Researcher</Button>
+                                </Control>
+                            </Field>
+
                             <h1 className="label">Selected : {this.state.position}</h1>
                             <div className="field is-grouped">
                                 <div className="control">
-                                    <Button success className="button is-link" onClick={this.signup}>Submit</Button>
-                                </div>
-                                <div className="control">
-                                    <Button danger className="button is-link" onClick={this.reset}>Cancel</Button>
+                                    <Button primary className="button is-link" onClick={this.signup}>Submit</Button>
                                 </div>
 
                             </div>
@@ -276,10 +285,7 @@ class Login extends Component {
 
                             <div className="field is-grouped">
                                 <div className="control">
-                                    <Button success className="button is-link" type="submit" onClick={this.login}>Login</Button>
-                                </div>
-                                <div className="control">
-                                    <Button danger className="button is-link" onClick={this.reset}>Cancel</Button>
+                                    <Button primary className="button is-link" type="submit" onClick={this.login}>Login</Button>
                                 </div>
                             </div>
                         </form>

@@ -2,14 +2,10 @@ import React, {Component} from 'react';
 import './single-page.css'
 import StorageDataTable from './StorageDataTable';
 import Loading from './Loading';
-// import _ from 'lodash';
 import {FilePond, File, registerPlugin} from 'react-filepond';
 import Label from './Label';
 import Navbar from './Navbar'
-// Import FilePond styles
 import 'filepond/dist/filepond.min.css';
-
-// FilePond Register plugin
 import FilePondImagePreview from 'filepond-plugin-image-preview';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 
@@ -21,11 +17,9 @@ import {
     Container,
     Hero,
     SubTitle,
-    Progress,
     Tabs,
     Image,
-    Notification,
-
+    Notification
 } from 'reactbulma';
 import firebase from '../firebase';
 var DB = firebase.database();
@@ -47,7 +41,7 @@ class Page extends Component {
             Data: 0,
             Types: 2,
             Labeled: 0,
-            activeTab: 'Tab1',
+            activeTab: 'Tab3',
             files: [], //ใช้เก็บข้อมูล File ที่ Upload
             uploadValue: 0, //ใช้เพื่อดู Process การ Upload
             filesMetadata: [], //ใช้เพื่อรับข้อมูล Metadata จาก Firebase
@@ -57,16 +51,15 @@ class Page extends Component {
             picture: ''
         };
     }
-
     logout() {
         firebase
             .auth()
             .signOut();
     };
     componentDidMount() {
-        console.log("fetching data ...");
+
         this.getUserData();
-        console.log("done");
+
     }
     componentWillMount() {
         this.getMetaDataFromDatabase();
@@ -74,7 +67,7 @@ class Page extends Component {
 
     }
     getMetaDataFromDatabase() {
-        console.log("getMetaDataFromDatabase");
+
         const user = firebase
             .auth()
             .currentUser
@@ -91,7 +84,7 @@ class Page extends Component {
         });
     }
     getDownloadFromDatabase() {
-        console.log("getDownloadFromDatabase");
+
         const user = firebase
             .auth()
             .currentUser
@@ -115,7 +108,6 @@ class Page extends Component {
         const userdataRef = DB
             .ref('/data')
             .child('users/' + user);
-
         userdataRef.on('value', (snapshot) => {
             var getuserdata = snapshot.val();
 
@@ -125,8 +117,6 @@ class Page extends Component {
     }
     handleProcessing(fieldName, file, metadata, load, error, progress, abort) {
         // handle file upload here
-        console.log(" handle file upload here");
-        console.log(file);
 
         const fileUpload = file;
         const user = firebase
@@ -137,9 +127,8 @@ class Page extends Component {
             .storage()
             .ref(`UserData/${user}/${file.name}`);
         const task = storageRef.put(fileUpload)
-
         task.on(`state_changed`, (snapshort) => {
-            console.log(snapshort.bytesTransferred, snapshort.totalBytes)
+
             let percentage = (snapshort.bytesTransferred / snapshort.totalBytes) * 100;
             percentage = percentage.toFixed(2);
             //Process
@@ -147,14 +136,10 @@ class Page extends Component {
         }, (error) => {
             //Error
             this.setState({messag_error: `Upload error : ${error.message}`})
-
             setTimeout(() => this.setState({messag_error: null}), 2000);
         }, () => {
             //Success
-            this.setState({
-                messag_success: `Upload Success` //เผื่อนำไปใช้ต่อในการแสดงรูปที่ Upload ไป
-
-            });
+            this.setState({messag_success: `Upload Success`});
             setTimeout(() => this.setState({messag_success: null}), 2000);
             storageRef
                 .getDownloadURL()
@@ -162,7 +147,6 @@ class Page extends Component {
                     let DownloadURL = {
                         link_url: url
                     }
-
                     const databaseRef = firebase
                         .database()
                         .ref('/UserData')
@@ -188,7 +172,6 @@ class Page extends Component {
                             // Unknown error occurred, inspect the server response
                             break;
 
-                            console.log(error.message)
                     }
                 });
             //Get metadata
@@ -221,7 +204,7 @@ class Page extends Component {
 
     handleInit() {
         // handle init file upload here
-        console.log('now initialised', this.pond);
+
     }
     addMetadataToList() {
         let i = 1;
@@ -232,7 +215,7 @@ class Page extends Component {
 
             let objRows = {
                 no: i++,
-                key: key, //ใช้เพื่อ Delete
+                key: key,
                 name: fileData.metadataFile.name,
                 fullPath: fileData.metadataFile.fullPath,
                 size: fileData.metadataFile.size,
@@ -245,32 +228,7 @@ class Page extends Component {
 
         this.setState({
             rows: rows
-        }, () => {
-            console.log(this.state.rows)
-        });
-    }
-    addDowloadUrlToList() {
-        let j = 1;
-        let file_urls = [];
-
-        for (let key_urls in this.state.Download_urls) {
-            let link_urls = this.state.Download_urls[key_urls];
-            let objUrl = {
-                no: j++,
-                key_urls: key_urls, //ใช้เพื่อ Delete
-                url: link_urls.DownloadURL.link_url
-            }
-
-            file_urls.push(objUrl)
-
-        }
-
-        this.setState({
-            urls: file_urls
-        }, () => {
-
-            console.log('url')
-        });
+        }, () => {});
     }
 
     deleteMetaDataFromDatabase(e, rowData) {
@@ -289,25 +247,19 @@ class Page extends Component {
         storageRef
             .delete()
             .then(() => {
-                console.log("Delete file success");
 
                 // Delete the file on realtime database
                 filedataRef
                     .child(rowData.key)
                     .remove()
                     .then(() => {
-                        console.log("Delete metadata success");
-                        console.log(this);
-                        
+
                         this.getMetaDataFromDatabase();
 
                     })
 
             })
-            .catch((error) => {
-                console.log("Delete file error : ", error.message);
-
-            });
+            .catch((error) => {});
 
     }
 
@@ -318,20 +270,12 @@ class Page extends Component {
             .currentUser
             .uid;
         const urldataRef = DB.ref(`UserData/Files/${user}/${urlData.name}`)
-        console.log(urlData.name)
 
         urldataRef
             .child(urlData.key_urls)
             .remove()
-            .then(() => {
-                console.log("Delete urls data success");
-                console.log(this);
-
-            })
-            .catch((error) => {
-                console.log("Delete url error : ", error.message);
-
-            });
+            .then(() => {})
+            .catch((error) => {});
 
     }
     render() {
@@ -362,7 +306,7 @@ class Page extends Component {
                             </Notification>
                         : null}</div>
                 <Navbar/>
-                <Hero primary className="hero-head">
+                <Hero info className="hero-head">
                     <Hero.Body>
 
                         <Container>
@@ -377,25 +321,18 @@ class Page extends Component {
                                 <Level.Item hasTextCentered>
                                     <div>
                                         <Heading className="label">Sum of Data</Heading>
-                                        <Title>{this.state.Data}</Title>
+                                        <Title>{this.state.Data}</Title>Images
                                     </div>
                                 </Level.Item>
-                                <Level.Item hasTextCentered>
-                                    <div>
-                                        <Heading className="label">Sum of Types</Heading>
-                                        <Title>{this.state.Types}</Title>
-                                    </div>
-                                </Level.Item>
+                        
                                 <Level.Item hasTextCentered>
                                     <div>
                                         <Heading className="label">Sum of Labled Data</Heading>
                                         <Title>{this.state.Labeled}</Title>
+                                        Images
                                     </div>
                                 </Level.Item>
                             </Level>
-                            <h3>Projects process calculate from target sample dataset:
-                            </h3>
-                            <Progress medium danger value={Labeled} max={Data}></Progress>
 
                         </Container>
                     </Hero.Body>
@@ -450,7 +387,6 @@ class Page extends Component {
                         <h1>Upload image</h1>
                         <div className="Margin-25">
 
-                            {/* Pass FilePond properties as attributes */}
                             <FilePond
                                 allowMultiple={true}
                                 files={this.state.files}
@@ -471,9 +407,7 @@ class Page extends Component {
                                     .map(file => (<File key={file} source={file}/>))}
 
                             </FilePond>
-
                         </div>
-
                     </div>
 }
                     {this.state.activeTab === 'Tab2' && <div>
@@ -483,25 +417,17 @@ class Page extends Component {
                             rows={rows}
                             filesMetadata={filesMetadata}
                             deleteData={this.deleteMetaDataFromDatabase}/>
-
                     </div>
 }
                     {this.state.activeTab === 'Tab3' && <div>
-                        <h1>
-                            Label draw segmentation</h1>
-                        <Card><Label/>
-                        </Card>
-
-                    </div>
-}
+                        <Label/>
+                    </div>}
                     {this.state.activeTab === 'Tab4' && <div>
                         <h1>
                             Model</h1>
-
                     </div>
 }
                 </Card>
-
                 <p>
                     Copyright © 2019
                     <div>Icons made by

@@ -1,0 +1,70 @@
+.color_picker {
+    margin-left: 200px;
+    padding: 10px;
+    width: 265px;
+    box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 10px;
+    align-content: center;
+}
+.color_picker:hover {
+    margin-left: 200px;
+    padding: 10px;
+    width: 265px;
+    box-shadow: 0 4px 15px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 10px;
+    align-content: center;
+}
+.tools {
+    position: relative;
+    margin-top: 10px;
+    margin-left: 120px;
+    padding: 10px;
+    width: 450px;
+    box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+.tools:hover {
+    margin-top: 10px;
+    padding: 10px;
+    box-shadow: 0 4px 15px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 10px;
+
+}
+.card_label {
+    position: sticky;
+    margin-top: 10px;
+    margin-left:auto;
+    padding: 10px;
+    width: 670px;
+    height: 990px;
+    box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+.canvas {
+
+    padding: 5px;
+}
+
+.tools-brush {
+    position: relative;
+    margin-top: 10px;
+    margin-left: 120px;
+    padding: 5px;
+    width: 450px;
+    transition: 0.3s;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2);
+}
+.tools-brush:hover {
+
+    box-shadow: 0 4px 15px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+
+}
