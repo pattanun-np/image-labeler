@@ -51,7 +51,8 @@ export default class extends PureComponent {
         disabled: PropTypes.bool,
         imgSrc: PropTypes.string,
         saveData: PropTypes.string,
-        immediateLoading: PropTypes.bool
+        immediateLoading: PropTypes.bool,
+        mode: PropTypes.bool
     };
 
     static defaultProps = {
@@ -68,7 +69,8 @@ export default class extends PureComponent {
         disabled: false,
         imgSrc: "",
         saveData: "",
-        immediateLoading: false
+        immediateLoading: false,
+        mode: 'destination-out'
     };
 
     constructor(props) {
@@ -188,7 +190,7 @@ export default class extends PureComponent {
             .ref('/Labeled_Images')
             .child(user);
         DBRef.push(this.data_images);
- 
+
         return JSON.stringify({lines: this.lines, width: this.props.canvasWidth, height: this.props.canvasHeight});
     };
 
@@ -353,6 +355,7 @@ export default class extends PureComponent {
             x: clientX - rect.left,
             y: clientY - rect.top
         };
+
     };
 
     handlePointerMove = (x, y) => {
@@ -387,15 +390,16 @@ export default class extends PureComponent {
         this.mouseHasMoved = true;
     };
 
-    drawPoints = ({points, brushColor, brushRadius}) => {
+    drawPoints = ({points, brushColor, brushRadius, mode}) => {
         this.ctx.temp.lineJoin = "round";
         this.ctx.temp.lineCap = "round";
         this.ctx.temp.strokeStyle = brushColor;
+        this.ctx.globalCompositeOperation = mode;
 
         this
             .ctx
             .temp
-            .clearRect(0, 0, this.ctx.temp.canvas.width, this.ctx.temp.canvas.height);
+            .clearRect(0, 0, this.ctx.temp.canvas.width, this.ctx.temp.canvas.height,   );
         this.ctx.temp.lineWidth = brushRadius * 2;
 
         let p1 = points[0];
@@ -413,11 +417,15 @@ export default class extends PureComponent {
         for (var i = 1, len = points.length; i < len; i++) {
             // we pick the point between pi+1 & pi+2 as the end point and p1 as our control
             // point
+
             var midPoint = midPointBtw(p1, p2);
+            this.ctx.globalCompositeOperation = mode;
             this
                 .ctx
                 .temp
                 .quadraticCurveTo(p1.x, p1.y, midPoint.x, midPoint.y);
+                
+
             p1 = points[i];
             p2 = points[i + 1];
         }
@@ -427,6 +435,7 @@ export default class extends PureComponent {
             .ctx
             .temp
             .lineTo(p1.x, p1.y);
+  
         this
             .ctx
             .temp
@@ -450,7 +459,7 @@ export default class extends PureComponent {
             .push({
                 points: [...this.points]
             });
-      
+
         this.points.length = 0;
 
         const width = this.canvas.temp.width;

@@ -29,6 +29,7 @@
     align-content: center;
     margin: 15px;
     padding: 15px;
+    width:auto ;
     overflow-x: auto;
     border-radius: 5px;
 }

@@ -1,10 +1,10 @@
 import React, {Component} from "react";
-import {CirclePicker} from 'react-color';
 import CanvasDraw from "./index";
 import './Label.css';
 import firebase from '../firebase';
+import Loading from './Loading';
 import {
-    Button, Tag, Image,Notification
+    Button, Tag, Image, Notification, Input
     // Control
 } from 'reactbulma';
 class Label extends Component {
@@ -13,13 +13,15 @@ class Label extends Component {
         width: 640,
         height: 640,
         brushRadius: 5,
-        messag_success:null,
-        messag_error:null,
+        messag_success: null,
+        messag_error: null,
         lazyRadius: 2,
+        mode: 'add',
         label_images: "https://firebasestorage.googleapis.com/v0/b/deeplearning-7f788.appspot.com/o/Use" +
                 "rData%2FijMSNUwudhaibN9iPK8HfDLBqhv1%2FCBCT.png?alt=media&token=5d622c5e-cd7b-4d" +
                 "0d-baf4-242a199e79ec"
     };
+
     componentDidMount() {
 
         this.getImage();
@@ -28,6 +30,12 @@ class Label extends Component {
     handleChangeComplete = (color) => {
         this.setState({color: color.hex});
     };
+    onChange1(event) {
+        this.setState({brushRadius: event.target.value});
+    }
+    onChange2(event) {
+        this.setState({lazyRadius: event.target.value});
+    }
     getImage() {
         const user = firebase
             .auth()
@@ -60,6 +68,14 @@ class Label extends Component {
             });
     };
     render() {
+        var settings = {
+            dots: true,
+            infinite: true,
+            speed: 500,
+            slidesToShow: 1,
+            slidesToScroll: 1
+        };
+
         const {
             loading,
             Labeled,
@@ -69,11 +85,13 @@ class Label extends Component {
             messag_success,
             filesMetadata
         } = this.state;
-
+        if (loading) {
+            return <Loading/>;
+        }
         return (
-            
+
             <div className="columm">
-                 <div className="messag">{messag_success
+                <div className="messag">{messag_success
                         ? <Notification success>
                                 {messag_success}
                             </Notification>
@@ -85,19 +103,19 @@ class Label extends Component {
                         : null}</div>
                 <h1 className="label">
                     Label draw segmentation</h1>
-                <div className="color_picker ">
+                {/* <div className="color_picker ">
                     <h1 className="label">Select Color</h1>
                     <CirclePicker
                         color={this.state.background}
                         onChangeComplete={this.handleChangeComplete}/>
 
-                </div>
+                </div> */}
                 <div className="tools">
                     <Button
                         white
                         onClick={() => {
                         localStorage.setItem("savedDrawing", this.saveableCanvas.getSaveData());
-                        this.setState({messag_success: `Saved to `});
+                        this.setState({messag_success: `Saved to database success! `});
                         setTimeout(() => this.setState({messag_success: null}), 2000);
                     }}>
                         <Image is="16x16" src="https://image.flaticon.com/icons/svg/148/148730.svg"/>
@@ -127,43 +145,37 @@ class Label extends Component {
                         white
                         onClick={() => this.setState({
                         label_images: "https://firebasestorage.googleapis.com/v0/b/deeplearning-7f788.appspot.com/o/Use" +
-                                "rData%2FijMSNUwudhaibN9iPK8HfDLBqhv1%2F00000001_000.png?alt=media&token=baa181e0" +
-                                "-d9a1-4247-80b6-1e94c79e4fb6"
+                                "rData%2FijMSNUwudhaibN9iPK8HfDLBqhv1%2F00000001_001.png?alt=media&token=4e390f73" +
+                                "-cd0b-4f0a-94c9-9202cc8de0bd"
                     })}>
                         <Image is="16x16" src="https://image.flaticon.com/icons/svg/1665/1665736.svg"/>Load</Button>
 
                 </div>
                 <div className="tools-brush">
 
-                    <label>Brush-Radius:<Tag white>{this.state.brushRadius}</Tag>
+                    <label>Brush-Radius:<Tag danger>{this.state.brushRadius}</Tag>
                     </label>
-                    <Button
-                        info
+                    <Input
+                        type="number"
+                        placeholder="BrushRadius | Size 1-25 px"
+                        min="1"
+                        max="25"
                         value={this.state.brushRadius}
-                        onClick={() => this.setState({
-                        brushRadius: this.state.brushRadius + 1
-                    })}>+</Button>
-                    <Button
-                        danger
-                        value={this.state.brushRadius}
-                        onClick={() => this.setState({
-                        brushRadius: this.state.brushRadius - 1
-                    })}>-</Button>
+                        onChange={this
+                        .onChange1
+                        .bind(this)}></Input>
 
-                    <label>Lazy-Radius:<Tag white>{this.state.lazyRadius}</Tag>
+                    <label>Lazy-Radius:<Tag danger>{this.state.lazyRadius}</Tag>
                     </label>
-                    <Button
-                        info
+                    <Input
+                        type="number"
+                        placeholder="LazyRadius | Size 1-25 px"
+                        min="1"
+                        max="25"
                         value={this.state.lazyRadius}
-                        onClick={() => this.setState({
-                        lazyRadius: this.state.lazyRadius + 1
-                    })}>+</Button>
-                    <Button
-                        danger
-                        value={this.state.lazyRadius}
-                        onClick={() => this.setState({
-                        lazyRadius: this.state.lazyRadius - 1
-                    })}>-</Button>
+                        onChange={this
+                        .onChange2
+                        .bind(this)}></Input>
 
                 </div>
                 <div className="canvas">
@@ -178,6 +190,7 @@ class Label extends Component {
                         imgSrc={this.state.label_images}/>
 
                 </div>
+
             </div>
         );
     }
