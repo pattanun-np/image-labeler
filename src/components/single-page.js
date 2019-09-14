@@ -8,7 +8,6 @@ import Navbar from './Navbar'
 import 'filepond/dist/filepond.min.css';
 import FilePondImagePreview from 'filepond-plugin-image-preview';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
-
 import {
     Card,
     Level,
@@ -45,8 +44,7 @@ class Page extends Component {
             files: [], //ใช้เก็บข้อมูล File ที่ Upload
             uploadValue: 0, //ใช้เพื่อดู Process การ Upload
             filesMetadata: [], //ใช้เพื่อรับข้อมูล Metadata จาก Firebase
-            Download_urls: [],
-            urls: [],
+            images: [],
             rows: [],
             picture: ''
         };
@@ -57,8 +55,22 @@ class Page extends Component {
             .signOut();
     };
     componentDidMount() {
-
+        let img = []
         this.getUserData();
+        const user = firebase
+            .auth()
+            .currentUser
+            .uid;
+        const databaseRef = firebase
+            .database()
+            .ref('/UserData/files'+user+'DownloadURL')
+            // .child('link_url/')
+
+        databaseRef.on('value', (snapshot) => {
+            img = snapshot.val()
+            this.setState({images: img});
+            console.log(this.state.images)
+        });
 
     }
     componentWillMount() {
@@ -83,23 +95,7 @@ class Page extends Component {
             }, () => this.addMetadataToList());
         });
     }
-    getDownloadFromDatabase() {
 
-        const user = firebase
-            .auth()
-            .currentUser
-            .uid;
-        const databaseRef = firebase
-            .database()
-            .ref('/UserData')
-            .child('Files_Url/' + user);
-
-        databaseRef.on('value', (snapshot) => {
-            this.setState({
-                Download_urls: snapshot.val()
-            }, () => this.addDowloadUrlToList());
-        });
-    }
     getUserData = () => {
         const user = firebase
             .auth()
@@ -144,14 +140,7 @@ class Page extends Component {
             storageRef
                 .getDownloadURL()
                 .then((url) => {
-                    let DownloadURL = {
-                        link_url: url
-                    }
-                    const databaseRef = firebase
-                        .database()
-                        .ref('/UserData')
-                        .child('Files_Url/' + user);
-                    databaseRef.push({DownloadURL});
+
                     this.setState({picture: url})
                 })
                 .catch((error) => {
@@ -177,22 +166,25 @@ class Page extends Component {
             //Get metadata
             storageRef
                 .getMetadata()
-                .then((metadata, url) => {
-                    // Metadata now contains the metadata for 'filepond/${file.name}'
+                .then((metadata) => {
+                    const databaseRef = firebase
+                        .database()
+                        .ref('/UserData')
+                        .child('files/' + user)
+                    const url = this.state.picture
+
                     let metadataFile = {
                         name: metadata.name,
                         size: metadata.size,
                         contentType: metadata.contentType,
                         fullPath: metadata.fullPath,
-                        // DownloadURL: url
+                        // customMetadata: {     'DownloadLink': url,   }
+
                     }
 
                     //Process save metadata
-                    const databaseRef = firebase
-                        .database()
-                        .ref('/UserData')
-                        .child('files/' + user)
-                    databaseRef.push({metadataFile});
+
+                    databaseRef.push({metadataFile, link_url: url});
 
                 })
                 .catch((error) => {
@@ -278,6 +270,7 @@ class Page extends Component {
             .catch((error) => {});
 
     }
+
     render() {
 
         const {
@@ -287,7 +280,8 @@ class Page extends Component {
             rows,
             messag_error,
             messag_success,
-            filesMetadata
+            filesMetadata,
+            images
         } = this.state;
 
         if (loading) {
@@ -324,7 +318,7 @@ class Page extends Component {
                                         <Title>{this.state.Data}</Title>Images
                                     </div>
                                 </Level.Item>
-                        
+
                                 <Level.Item hasTextCentered>
                                     <div>
                                         <Heading className="label">Sum of Labled Data</Heading>
@@ -407,6 +401,7 @@ class Page extends Component {
                                     .map(file => (<File key={file} source={file}/>))}
 
                             </FilePond>
+
                         </div>
                     </div>
 }

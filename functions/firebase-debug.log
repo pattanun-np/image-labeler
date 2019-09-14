@@ -1,0 +1,29 @@
+[debug] [2019-08-30T05:02:47.743Z] ----------------------------------------------------------------------
+[debug] [2019-08-30T05:02:47.747Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\pattanun\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js functions:shell
+[debug] [2019-08-30T05:02:47.748Z] CLI Version:   7.2.2
+[debug] [2019-08-30T05:02:47.748Z] Platform:      win32
+[debug] [2019-08-30T05:02:47.748Z] Node Version:  v11.4.0
+[debug] [2019-08-30T05:02:47.749Z] Time:          Fri Aug 30 2019 12:02:47 GMT+0700 (Indochina Time)
+[debug] [2019-08-30T05:02:47.749Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-08-30T05:02:47.795Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-08-30T05:02:47.796Z] > authorizing via signed-in user
+[debug] [2019-08-30T05:02:47.796Z] [iam] checking project deeplearning-7f788 for permissions ["firebase.projects.get"]
+[debug] [2019-08-30T05:02:47.800Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-08-30T05:02:47.801Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2019-08-30T05:02:48.115Z] <<< HTTP RESPONSE 200
+[debug] [2019-08-30T05:02:48.286Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/deeplearning-7f788:testIamPermissions  
+
+[debug] [2019-08-30T05:02:49.792Z] <<< HTTP RESPONSE 200
+[warn] !  Your requested "node" version "8" doesn't match your global version "11"
+[debug] [2019-08-30T05:02:49.964Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/deeplearning-7f788/adminSdkConfig  
+ 
+[debug] [2019-08-30T05:02:50.393Z] <<< HTTP RESPONSE 200
+[info] +  functions: Emulator started at http://localhost:5000
+[debug] [2019-08-30T05:02:50.827Z] [functions] Watching "E:\code\upload\functions" for Cloud Functions...
+[debug] [2019-08-30T05:02:52.261Z] DEBUG: [runtime-status] Functions runtime initialized. {"cwd":"E:\\code\\upload\\functions","node_version":"11.4.0"}
+[debug] [2019-08-30T05:02:52.261Z] DEBUG: [runtime-status] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"admin_stubs":true} {}
+[debug] [2019-08-30T05:02:52.339Z] DEBUG: [runtime-status] Resolved module firebase-admin {"declared":true,"installed":true,"version":"7.0.0","resolution":"E:\\code\\upload\\functions\\node_modules\\firebase-admin\\lib\\index.js"}
+[warn] !  The Cloud Functions emulator requires the module "firebase-admin" to be version >8.0.0 so your version is too old. You can probably fix this by running "npm install firebase-admin@latest" in your functions directory.
+[debug] [2019-08-30T05:02:52.343Z] [functions] Your functions could not be parsed due to an issue with your node_modules (see above)
