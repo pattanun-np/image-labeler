@@ -5,4 +5,4 @@
 4. run `npm install` 
 5. run `npm start` if done it should automatically open your default browser with http://localhost:3000
 
-#*This repository is MIT License but you need to contact me before use*#
+#*This repository is MIT License, but you need to contact to me before use it.*#
