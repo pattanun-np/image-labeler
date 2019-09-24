@@ -7,7 +7,7 @@ class Home extends Component {
     render() {
         return (
             <div id="contrainer">
-                <Hero primary className="hero-head">
+                <Hero info className="hero-head">
                     <Hero.Body>
                         <Container>
                             <Title>
