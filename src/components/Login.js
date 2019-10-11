@@ -106,6 +106,29 @@ class Login extends Component {
             })
 
     }
+    handleSignUp(){
+   (async () => {
+
+       const {
+           value: accept
+       } = await Swal.fire({
+           title: 'Terms and conditions',
+           input: 'checkbox',
+           inputValue: 0,
+           inputPlaceholder: 'I agree with the terms and conditions',
+           confirmButtonText: 'Continue <i class="fa fa-arrow-right"></i>',
+           inputValidator: (result) => {
+               return !result && 'You need to agree with T&C'
+           }
+       })
+
+       if (accept) {
+           Swal.fire('You agreed with terms and conditions :)')
+           this.signup()
+       }
+
+   })()
+    }
     handleEntailmentRequest(e) {
         e.preventDefault();
         console.log(e.target.value)
@@ -253,7 +276,8 @@ class Login extends Component {
                             <h1 className="label">Selected : {this.state.position}</h1>
                             <div className="field is-grouped">
                                 <div className="control">
-                                    <Button primary className="button is-link" onClick={this.signup}>Submit</Button>
+                                    <Button primary className="button is-link" onClick={this.handleSignUp}>Submit</Button>
+                                 
                                 </div>
 
                             </div>
