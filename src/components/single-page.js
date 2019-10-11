@@ -363,7 +363,6 @@ class Page extends Component {
                                     .bind(this)
                             }}>
 
-                                {/* Set current files using the <File/> component */}
                                 {this
                                     .state
                                     .files

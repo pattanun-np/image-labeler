@@ -1,18 +1,20 @@
 language: node_js
 node_js:
   - "8"
- branches:
+branches:
   only:
   - master
+
+install:
+  - npm install -g firebase-tools
+  - yarn
+ 
 script: 
   - yarn lint
   - yarn build
   - echo "Deploy!!"
 
 
-install:
-  - npm install -g firebase-tools
-  - yarn
- 
+
 after_success:
   - firebase deploy --project projectId --token "1/lJKKZPRSiEaxUC5M_-YFkUx_8B5SXpSQOmnGag1giPU"
