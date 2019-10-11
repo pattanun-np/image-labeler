@@ -3,7 +3,6 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
-        "animate.css": "^3.7.0",
         "catenary-curve": "^1.0.1",
         "filepond": "^4.4.6",
         "filepond-plugin-image-preview": "^4.1.1",

@@ -10,10 +10,10 @@ install:
   - npm install firebase-admin
  
 script: 
-  - npm run-script build
+  
+  - npm install # install node module
+  - npm run build # build project
   - echo "Deploy!!"
-
-
 
 after_success:
   - firebase deploy --project projectId --token "1/lJKKZPRSiEaxUC5M_-YFkUx_8B5SXpSQOmnGag1giPU"
