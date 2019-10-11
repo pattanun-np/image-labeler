@@ -2,12 +2,7 @@ import React, {Component} from 'react';
 import Swal from 'sweetalert2';
 import {
     Button,
-    Title,
-    Container,
-    Nav,
-    Image,
     Level,
-    Heading,
     Tag
 } from 'reactbulma';
 import './Navbar.css'
@@ -82,7 +77,7 @@ this.handleClick = this.handleClick.bind(this);
         })
     }
     render() {
-        const {name, position} = this.state;
+        const {name} = this.state;
         return (
             <div>
                 < Level style = {

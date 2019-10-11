@@ -1,6 +1,6 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, {Component} from 'react';
 import './Login.css';
-import Modal from "./Modal";
 import Swal from 'sweetalert2'
 import {withRouter} from "react-router";
 import {
@@ -9,12 +9,10 @@ import {
     Input,
     Notification,
     Tabs,
-    Delete,
+
     Image,
     Field,
-    Control,
-    Checkbox,
-    Link
+    Control
 } from 'reactbulma'
 import firebase from '../firebase';
 const DB = firebase.database();
@@ -54,11 +52,7 @@ class Login extends Component {
             .auth()
             .signInWithEmailAndPassword(this.state.email, this.state.password)
             .then(user => {
-                 Swal.fire(
-                     'Good job! Login',
-                     'success',
-                     'success'
-                 )
+                Swal.fire('Good job! Login', 'success', 'success')
                 setTimeout(() => this.props.history.push("/dashboard"), 100);
 
             })
@@ -81,16 +75,11 @@ class Login extends Component {
                     .currentUser
                     .uid;
                 console.log("Create User Success")
-                Swal.fire(
-                    'Good job!',
-                    'Create User Success',
-                    'success'
-                )
+                Swal.fire('Good job!', 'Create User Success', 'success')
                 this
                     .props
                     .history
                     .push("/");
-                this.setState({register: 'Tabs2'})
 
                 DB
                     .ref('/data')
@@ -105,29 +94,6 @@ class Login extends Component {
 
             })
 
-    }
-    handleSignUp(){
-   (async () => {
-
-       const {
-           value: accept
-       } = await Swal.fire({
-           title: 'Terms and conditions',
-           input: 'checkbox',
-           inputValue: 0,
-           inputPlaceholder: 'I agree with the terms and conditions',
-           confirmButtonText: 'Continue <i class="fa fa-arrow-right"></i>',
-           inputValidator: (result) => {
-               return !result && 'You need to agree with T&C'
-           }
-       })
-
-       if (accept) {
-           Swal.fire('You agreed with terms and conditions :)')
-           this.signup()
-       }
-
-   })()
     }
     handleEntailmentRequest(e) {
         e.preventDefault();
@@ -162,7 +128,7 @@ class Login extends Component {
                                 this.setState({register: 'Tabs1'})
                             }}>
 
-                                <a className="Tabs"><Image is="16x16" src="https://image.flaticon.com/icons/svg/40/40358.svg"/>
+                                < a className="Tabs"><Image is="16x16 " src=" https://image.flaticon.com/icons/svg/40/40358.svg"/>
                                     <span >
                                         SignUp
                                     </span>
@@ -172,7 +138,9 @@ class Login extends Component {
                                 className={this.state.register === 'Tabs2' && 'is-active'}
                                 onClick=
                                 {() => { this.setState({register: 'Tabs2'}) } }>
-                                <a className="Tabs"><Image is="16x16" src="https://image.flaticon.com/icons/svg/149/149071.svg"/>
+                                < a 
+                                className = "Tabs" > < Image is = "16x16"
+                                src = "https://image.flaticon.com/icons/svg/149/149071.svg" / >
                                     <span>Login</span>
                                 </a>
                             </li>
@@ -192,7 +160,7 @@ class Login extends Component {
                                         className="input"
                                         type="text"
                                         placeholder="Name"
-                                        value={this.state.name}
+                                        ref={this.state.name}
                                         name="name"
                                         id="InputName"
                                         onChange={this.handleChange}/>
@@ -266,8 +234,6 @@ class Login extends Component {
                                         className="button is-link"
                                         value="Reseacher"
                                         onClick=
-                                        { (e) => { this.handleEntailmentRequest(e) } }
-                                        onClick=
                                         { (e) => { this.handleEntailmentRequest(e) } }>
                                         Researcher</Button>
                                 </Control>
@@ -276,8 +242,8 @@ class Login extends Component {
                             <h1 className="label">Selected : {this.state.position}</h1>
                             <div className="field is-grouped">
                                 <div className="control">
-                                    <Button primary className="button is-link" onClick={this.handleSignUp}>Submit</Button>
-                                 
+                                    <Button primary className="button is-link" onClick={this.signup}>Submit</Button>
+
                                 </div>
 
                             </div>

@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import Swal from 'sweetalert2'
-import {render} from 'react-dom';
 import './single-page.css'
-import Gallery from 'react-grid-gallery';
+
 import Loading from './Loading';
 import {FilePond, File, registerPlugin} from 'react-filepond';
 import Label from './Label';
@@ -65,7 +64,7 @@ class Page extends Component {
         const databaseRef = firebase
             .database()
             .ref('/UserData/files' + user + 'DownloadURL')
-        // .child('link_url/')
+
 
         databaseRef.on('value', (snapshot) => {
             img = snapshot.val()
@@ -118,7 +117,7 @@ class Page extends Component {
             this.setState({messag_error: `Upload error : ${error.message}`})
             setTimeout(() => this.setState({messag_error: null}), 2000);
         }, () => {
-            //Success this.setState({messag_success: `Upload Success`})
+        
             Swal
                 .fire('Upload Done', 'success', 'success')
                 .then((result) => {
@@ -135,26 +134,7 @@ class Page extends Component {
 
                     this.setState({picture: url})
                 })
-                .catch((error) => {
-                    switch (error.code) {
-                        case 'storage/object-not-found':
-                            // File doesn't exist
-                            break;
-
-                        case 'storage/unauthorized':
-                            // User doesn't have permission to access the object
-                            break;
-
-                        case 'storage/canceled':
-                            // User canceled the upload
-                            break;
-
-                        case 'storage/unknown':
-                            // Unknown error occurred, inspect the server response
-                            break;
-
-                    }
-                });
+        
             //Get metadata
             storageRef
                 .getMetadata()
@@ -163,7 +143,7 @@ class Page extends Component {
                         .database()
                         .ref('/UserData')
                         .child('files/' + user)
-                    const url = this.state.picture
+                    
 
                     let metadataFile = {
                         name: metadata.name,
@@ -171,7 +151,7 @@ class Page extends Component {
                         contentType: metadata.contentType,
                         fullPath: metadata.fullPath,
                         downloadURL: this.state.picture
-                        // customMetadata: {     'DownloadLink': url,   }
+                 
 
                     }
 
@@ -210,59 +190,17 @@ class Page extends Component {
             loading,
             Labeled,
             Data,
-            rows,
             messag_error,
             messag_success,
-            filesMetadata,
-            images
+    
+        
         } = this.state;
         let percentage = Labeled / Data * 100
         percentage = percentage.toFixed(2);
         if (loading) {
             return <Loading/>;
         }
-        let image = [
-            {
-                src: "https://firebasestorage.googleapis.com/v0/b/deeplearning-7f788.appspot.com/o/Use" +
-                        "rData%2FijMSNUwudhaibN9iPK8HfDLBqhv1%2FC1_thinF_IMG_20150604_104722_cell_79.png?" +
-                        "alt=media&token=b612ff7b-1e1a-4a68-9683-4bcf63bd669d",
-                thumbnail: "https://firebasestorage.googleapis.com/v0/b/deeplearning-7f788.appspot.com/o/Use" +
-                        "rData%2FijMSNUwudhaibN9iPK8HfDLBqhv1%2FC1_thinF_IMG_20150604_104722_cell_79.png?" +
-                        "alt=media&token=b612ff7b-1e1a-4a68-9683-4bcf63bd669d",
-                thumbnailWidth: 320,
-                thumbnailHeight: 174,
-                isSelected: true,
-                caption: "After Rain (Jeshu John - designerspics.com)"
-            }, {
-                src: "https://firebasestorage.googleapis.com/v0/b/deeplearning-7f788.appspot.com/o/Use" +
-                        "rData%2FijMSNUwudhaibN9iPK8HfDLBqhv1%2FC1_thinF_IMG_20150604_104722_cell_79.png?" +
-                        "alt=media&token=ed8d359a-1b45-48c2-ab49-47840be68a9e",
-                thumbnail: "https://firebasestorage.googleapis.com/v0/b/deeplearning-7f788.appspot.com/o/Use" +
-                        "rData%2FijMSNUwudhaibN9iPK8HfDLBqhv1%2FC1_thinF_IMG_20150604_104722_cell_79.png?" +
-                        "alt=media&token=ed8d359a-1b45-48c2-ab49-47840be68a9e",
-                thumbnailWidth: 320,
-                thumbnailHeight: 212,
-                tags: [
-                    {
-                        value: "Ocean",
-                        title: "Ocean"
-                    }, {
-                        value: "People",
-                        title: "People"
-                    }
-                ],
-                caption: "Boats (Jeshu John - designerspics.com)"
-            }, {
-                src: "https://firebasestorage.googleapis.com/v0/b/deeplearning-7f788.appspot.com/o/Use" +
-                        "rData%2FijMSNUwudhaibN9iPK8HfDLBqhv1%2FC1_thinF_IMG_20150604_104722_cell_79.png?" +
-                        "alt=media&token=ed8d359a-1b45-48c2-ab49-47840be68a9e",
-                thumbnail: "https://firebasestorage.googleapis.com/v0/b/deeplearning-7f788.appspot.com/o/Use" +
-                        "rData%2FijMSNUwudhaibN9iPK8HfDLBqhv1%2FC1_thinF_IMG_20150604_104722_cell_79.png?" +
-                        "alt=media&token=ed8d359a-1b45-48c2-ab49-47840be68a9e",
-                thumbnailWidth: 320,
-                thumbnailHeight: 212
-            }
-        ]
+   
         return (
             <div className="contrainer">
                 <div className="messag">{messag_success
@@ -281,10 +219,13 @@ class Page extends Component {
 
                         <Container>
                             <Title>
-                                Datasets Collector & Labeler Tool.
+                                Datasets Collector & Labeler Tool Version 
                             </Title>
+                                  < SubTitle >
+                                      Version: (0.7.9 BETA) 
+                                      </SubTitle>
                             <SubTitle>
-                                For collect & label data for root canal detect with deep nerual networks.
+                                For collect & label data
                             </SubTitle>
 
                             <Level>
@@ -319,7 +260,7 @@ class Page extends Component {
                                 onClick={() => {
                                 this.setState({activeTab: 'Tab1'})
                             }}>
-                                <a className="Tabs">
+                                < a  className="Tabs">
                                     <Image is="16x16" src="https://image.flaticon.com/icons/svg/685/685686.svg"/>
                                     <span>Upload Image</span>
                                 </a>
@@ -330,7 +271,7 @@ class Page extends Component {
                                 onClick={() => {
                                 this.setState({activeTab: 'Tab3'})
                             }}>
-                                <a className="Tabs">
+                                < a  className="Tabs">
                                     <Image is="16x16" src="https://image.flaticon.com/icons/svg/1158/1158164.svg"/>
                                     <span>Labeling Tool</span>
                                 </a>
@@ -340,7 +281,7 @@ class Page extends Component {
                                 onClick={() => {
                                 this.setState({activeTab: 'Tab4'})
                             }}>
-                                <a className="Tabs">
+                                < a className="Tabs">
                                     <Image is="16x16" src="https://image.flaticon.com/icons/svg/1728/1728561.svg"/>
                                     <span>Analysis</span>
                                 </a>
@@ -377,7 +318,7 @@ class Page extends Component {
 
                         <Label/>
 
-                        < Gallery images={image}/>,
+                        {/* < Gallery images={image}/>, */},
                     </div>}
                     {this.state.activeTab === 'Tab4' && <div>
                         <h1>

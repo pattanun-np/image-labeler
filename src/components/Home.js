@@ -11,8 +11,12 @@ class Home extends Component {
                     <Hero.Body>
                         <Container>
                             <Title>
-                                Welcome to Datasets Collector & Labeler Tool. Version(0.7.9 BETA)
+                                Welcome to Datasets Collector & Labeler Tool.
+                           
                             </Title>
+                            < SubTitle >
+                                  Version: (0.7.9 BETA)
+                                   </SubTitle>
                             <SubTitle>
                                 For collect & label data for root canal detect with deep nerual networks.
                             </SubTitle>
