@@ -10,7 +10,7 @@ install:
   - npm install firebase-admin
  
 script: 
-  - yarn lint
+  - yarn init
   - yarn build
   - echo "Deploy!!"
 
