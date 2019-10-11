@@ -5,6 +5,7 @@ import Page from './components/single-page';
 import Loading from './components/Loading';
 import PrivateRoute from './components/PrivateRoute';
 import {BrowserRouter as Router, Route} from "react-router-dom";
+require('dotenv').config()
 class App extends Component {
     constructor(props) {
         super(props);

@@ -4,6 +4,7 @@
     "private": true,
     "dependencies": {
         "catenary-curve": "^1.0.1",
+        "dotenv": "^8.1.0",
         "filepond": "^4.4.6",
         "filepond-plugin-image-preview": "^4.1.1",
         "firebase": "^5.9.4",
@@ -27,7 +28,7 @@
     },
     "scripts": {
         "start": "react-scripts start",
-        "build": "set \"CI=false\" && react-scripts build",
+        "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject"
     },
