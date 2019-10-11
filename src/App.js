@@ -41,13 +41,13 @@ class App extends Component {
 
             <Router>
                 <div>
-                    <PrivateRoute exact path="/" component={Page} authenticated={authenticated}/>
-                    
+                    <PrivateRoute
+                        exact
+                        path="/dashboard"
+                        component={Page}
+                        authenticated={authenticated}/>
 
-                    <Route exact path="/home" component={Home}/>
-                    <Route exact path="/signup" component={Home}/>
-
-                    <Route exact path="/login" component={Home}/>
+                    <Route exact path="/" component={Home}/>
 
                 </div>
             </Router>

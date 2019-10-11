@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
+import Swal from 'sweetalert2'
+import {render} from 'react-dom';
 import './single-page.css'
-import StorageDataTable from './StorageDataTable';
+import Gallery from 'react-grid-gallery';
 import Loading from './Loading';
 import {FilePond, File, registerPlugin} from 'react-filepond';
 import Label from './Label';
@@ -18,7 +20,8 @@ import {
     SubTitle,
     Tabs,
     Image,
-    Notification
+    Notification,
+    Progress
 } from 'reactbulma';
 import firebase from '../firebase';
 var DB = firebase.database();
@@ -44,9 +47,7 @@ class Page extends Component {
             files: [], //ใช้เก็บข้อมูล File ที่ Upload
             uploadValue: 0, //ใช้เพื่อดู Process การ Upload
             filesMetadata: [], //ใช้เพื่อรับข้อมูล Metadata จาก Firebase
-            images: [],
-            rows: [],
-            picture: ''
+            images: []
         };
     }
     logout() {
@@ -63,37 +64,20 @@ class Page extends Component {
             .uid;
         const databaseRef = firebase
             .database()
-            .ref('/UserData/files'+user+'DownloadURL')
-            // .child('link_url/')
+            .ref('/UserData/files' + user + 'DownloadURL')
+        // .child('link_url/')
 
         databaseRef.on('value', (snapshot) => {
             img = snapshot.val()
             this.setState({images: img});
-            console.log(this.state.images)
         });
 
     }
     componentWillMount() {
-        this.getMetaDataFromDatabase();
-        //this.getDownloadFromDatabase();
 
-    }
-    getMetaDataFromDatabase() {
+        this.getData_Counts();
+        this.getLabel_Counts();
 
-        const user = firebase
-            .auth()
-            .currentUser
-            .uid;
-        const databaseRef = firebase
-            .database()
-            .ref('/UserData')
-            .child('files/' + user);
-
-        databaseRef.on('value', (snapshot) => {
-            this.setState({
-                filesMetadata: snapshot.val()
-            }, () => this.addMetadataToList());
-        });
     }
 
     getUserData = () => {
@@ -125,17 +109,25 @@ class Page extends Component {
         const task = storageRef.put(fileUpload)
         task.on(`state_changed`, (snapshort) => {
 
-            let percentage = (snapshort.bytesTransferred / snapshort.totalBytes) * 100;
+            let percentage = (snapshort.bytesTransferred % snapshort.totalBytes) * 100;
             percentage = percentage.toFixed(2);
             //Process
-            this.setState({uploadValue: percentage, messag_success: `Uploading:${this.state.uploadValue}%`})
+            this.setState({uploadValue: percentage})
         }, (error) => {
             //Error
             this.setState({messag_error: `Upload error : ${error.message}`})
             setTimeout(() => this.setState({messag_error: null}), 2000);
         }, () => {
-            //Success
-            this.setState({messag_success: `Upload Success`});
+            //Success this.setState({messag_success: `Upload Success`})
+            Swal
+                .fire('Upload Done', 'success', 'success')
+                .then((result) => {
+                    if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.timer) {
+                        console.log('I was closed by the timer')
+                    }
+                })
             setTimeout(() => this.setState({messag_success: null}), 2000);
             storageRef
                 .getDownloadURL()
@@ -166,7 +158,7 @@ class Page extends Component {
             //Get metadata
             storageRef
                 .getMetadata()
-                .then((metadata) => {
+                .then((metadata,) => {
                     const databaseRef = firebase
                         .database()
                         .ref('/UserData')
@@ -178,13 +170,14 @@ class Page extends Component {
                         size: metadata.size,
                         contentType: metadata.contentType,
                         fullPath: metadata.fullPath,
+                        downloadURL: this.state.picture
                         // customMetadata: {     'DownloadLink': url,   }
 
                     }
 
                     //Process save metadata
 
-                    databaseRef.push({metadataFile, link_url: url});
+                    databaseRef.push({metadataFile});
 
                 })
                 .catch((error) => {
@@ -194,81 +187,21 @@ class Page extends Component {
         })
     }
 
-    handleInit() {
-        // handle init file upload here
+    getData_Counts = () => {
+        const data_ref = DB.ref('UserData/files/Data_Counts')
+        data_ref.on('value', (snapshot) => {
+            var counts_data = snapshot.val();
+            this.setState({Data: counts_data});
 
+        });
     }
-    addMetadataToList() {
-        let i = 1;
-        let rows = [];
+    getLabel_Counts = () => {
+        const labled_ref = DB.ref('Labeled_Images/Label_Counts')
+        labled_ref.on('value', (snapshot) => {
+            var counts_labeled = snapshot.val();
+            this.setState({Labeled: counts_labeled});
 
-        for (let key in this.state.filesMetadata) {
-            let fileData = this.state.filesMetadata[key];
-
-            let objRows = {
-                no: i++,
-                key: key,
-                name: fileData.metadataFile.name,
-                fullPath: fileData.metadataFile.fullPath,
-                size: fileData.metadataFile.size,
-                contentType: fileData.metadataFile.contentType
-            }
-
-            rows.push(objRows)
-
-        }
-
-        this.setState({
-            rows: rows
-        }, () => {});
-    }
-
-    deleteMetaDataFromDatabase(e, rowData) {
-
-        const user = firebase
-            .auth()
-            .currentUser
-            .uid;
-        const filedataRef = DB
-            .ref('/UserData')
-            .child('files/' + user);
-        const storageRef = firebase
-            .storage()
-            .ref(`UserData/${user}/${rowData.name}`);
-
-        storageRef
-            .delete()
-            .then(() => {
-
-                // Delete the file on realtime database
-                filedataRef
-                    .child(rowData.key)
-                    .remove()
-                    .then(() => {
-
-                        this.getMetaDataFromDatabase();
-
-                    })
-
-            })
-            .catch((error) => {});
-
-    }
-
-    deleteUrlsFromDatabase(e, urlData) {
-
-        const user = firebase
-            .auth()
-            .currentUser
-            .uid;
-        const urldataRef = DB.ref(`UserData/Files/${user}/${urlData.name}`)
-
-        urldataRef
-            .child(urlData.key_urls)
-            .remove()
-            .then(() => {})
-            .catch((error) => {});
-
+        });
     }
 
     render() {
@@ -283,10 +216,53 @@ class Page extends Component {
             filesMetadata,
             images
         } = this.state;
-
+        let percentage = Labeled / Data * 100
+        percentage = percentage.toFixed(2);
         if (loading) {
             return <Loading/>;
         }
+        let image = [
+            {
+                src: "https://firebasestorage.googleapis.com/v0/b/deeplearning-7f788.appspot.com/o/Use" +
+                        "rData%2FijMSNUwudhaibN9iPK8HfDLBqhv1%2FC1_thinF_IMG_20150604_104722_cell_79.png?" +
+                        "alt=media&token=b612ff7b-1e1a-4a68-9683-4bcf63bd669d",
+                thumbnail: "https://firebasestorage.googleapis.com/v0/b/deeplearning-7f788.appspot.com/o/Use" +
+                        "rData%2FijMSNUwudhaibN9iPK8HfDLBqhv1%2FC1_thinF_IMG_20150604_104722_cell_79.png?" +
+                        "alt=media&token=b612ff7b-1e1a-4a68-9683-4bcf63bd669d",
+                thumbnailWidth: 320,
+                thumbnailHeight: 174,
+                isSelected: true,
+                caption: "After Rain (Jeshu John - designerspics.com)"
+            }, {
+                src: "https://firebasestorage.googleapis.com/v0/b/deeplearning-7f788.appspot.com/o/Use" +
+                        "rData%2FijMSNUwudhaibN9iPK8HfDLBqhv1%2FC1_thinF_IMG_20150604_104722_cell_79.png?" +
+                        "alt=media&token=ed8d359a-1b45-48c2-ab49-47840be68a9e",
+                thumbnail: "https://firebasestorage.googleapis.com/v0/b/deeplearning-7f788.appspot.com/o/Use" +
+                        "rData%2FijMSNUwudhaibN9iPK8HfDLBqhv1%2FC1_thinF_IMG_20150604_104722_cell_79.png?" +
+                        "alt=media&token=ed8d359a-1b45-48c2-ab49-47840be68a9e",
+                thumbnailWidth: 320,
+                thumbnailHeight: 212,
+                tags: [
+                    {
+                        value: "Ocean",
+                        title: "Ocean"
+                    }, {
+                        value: "People",
+                        title: "People"
+                    }
+                ],
+                caption: "Boats (Jeshu John - designerspics.com)"
+            }, {
+                src: "https://firebasestorage.googleapis.com/v0/b/deeplearning-7f788.appspot.com/o/Use" +
+                        "rData%2FijMSNUwudhaibN9iPK8HfDLBqhv1%2FC1_thinF_IMG_20150604_104722_cell_79.png?" +
+                        "alt=media&token=ed8d359a-1b45-48c2-ab49-47840be68a9e",
+                thumbnail: "https://firebasestorage.googleapis.com/v0/b/deeplearning-7f788.appspot.com/o/Use" +
+                        "rData%2FijMSNUwudhaibN9iPK8HfDLBqhv1%2FC1_thinF_IMG_20150604_104722_cell_79.png?" +
+                        "alt=media&token=ed8d359a-1b45-48c2-ab49-47840be68a9e",
+                thumbnailWidth: 320,
+                thumbnailHeight: 212
+            }
+        ]
         return (
             <div className="contrainer">
                 <div className="messag">{messag_success
@@ -326,8 +302,12 @@ class Page extends Component {
                                         Images
                                     </div>
                                 </Level.Item>
-                            </Level>
 
+                            </Level>
+                            <h1 className="label">
+                                Completed: {percentage}%
+                            </h1>
+                            <Progress success value={this.state.Labeled} max={this.state.Data}></Progress>
                         </Container>
                     </Hero.Body>
                 </Hero >
@@ -345,16 +325,6 @@ class Page extends Component {
                                 </a>
                             </li>
 
-                            <li
-                                className={this.state.activeTab === 'Tab2' && 'is-active'}
-                                onClick={() => {
-                                this.setState({activeTab: 'Tab2'})
-                            }}>
-                                <a className="Tabs">
-                                    <Image is="16x16" src="https://image.flaticon.com/icons/svg/138/138747.svg"/>
-                                    <span>List of Image</span>
-                                </a>
-                            </li>
                             <li
                                 className={this.state.activeTab === 'Tab3' && 'is-active'}
                                 onClick={() => {
@@ -391,8 +361,7 @@ class Page extends Component {
                                 process: this
                                     .handleProcessing
                                     .bind(this)
-                            }}
-                                oninit={() => this.handleInit()}>
+                            }}>
 
                                 {/* Set current files using the <File/> component */}
                                 {this
@@ -405,17 +374,11 @@ class Page extends Component {
                         </div>
                     </div>
 }
-                    {this.state.activeTab === 'Tab2' && <div>
-                        <h1>Edit & Label</h1>
-
-                        <StorageDataTable
-                            rows={rows}
-                            filesMetadata={filesMetadata}
-                            deleteData={this.deleteMetaDataFromDatabase}/>
-                    </div>
-}
                     {this.state.activeTab === 'Tab3' && <div>
+
                         <Label/>
+
+                        < Gallery images={image}/>,
                     </div>}
                     {this.state.activeTab === 'Tab4' && <div>
                         <h1>

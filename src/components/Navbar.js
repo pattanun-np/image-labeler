@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Swal from 'sweetalert2';
 import {
     Button,
     Title,
@@ -17,7 +18,8 @@ class Navbar extends Component {
         super(props);
         this.logout = this
             .logout
-            .bind(this);
+            .bind(this); 
+        this.handleLongout = this.handleLongout.bind(this);
 this.handleClick = this.handleClick.bind(this);
         this.state = {
             name: "No login",
@@ -54,10 +56,30 @@ this.handleClick = this.handleClick.bind(this);
 
         });
     }
+
     handleClick() {
         this.setState(state => ({
             notify: !state.notify
         }));
+    }
+    handleLongout(){
+        Swal.fire({
+            title: 'Are you sure to logout?',
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: ' Yes, Logout'
+        }).then((result) => {
+            if (result.value) {
+                this.logout()
+                Swal.fire(
+                    'Logout!',
+                    'success',
+                    'success'
+                )
+            }
+        })
     }
     render() {
         const {name, position} = this.state;
@@ -142,10 +164,9 @@ this.handleClick = this.handleClick.bind(this);
                             </Button>
                             <Button
                                 danger
-                                onClick={this.logout}
-                                style={{
-                                marginLeft: '10px'
-                            }}>
+                                onClick={this.handleLongout}
+                                className="logout_btn"
+                            >
                                 Logout
                             </Button>
                         </div>

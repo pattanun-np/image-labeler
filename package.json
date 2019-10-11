@@ -17,13 +17,15 @@
         "react-cropper-image-editor": "^1.0.9",
         "react-dom": "^16.8.6",
         "react-filepond": "^7.0.1",
+        "react-grid-gallery": "^0.5.5",
         "react-input-slider": "^5.0.14",
         "react-keyed-file-browser": "^1.5.0",
         "react-loading-screen": "0.0.17",
         "react-router-dom": "^5.0.0",
         "react-scripts": "2.1.8",
         "react-slick": "^0.24.0",
-        "reactbulma": "^3.0.4"
+        "reactbulma": "^3.0.4",
+        "sweetalert2": "^8.18.3"
     },
     "scripts": {
         "start": "react-scripts start",
