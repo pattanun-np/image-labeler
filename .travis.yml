@@ -18,13 +18,10 @@ install:
   - npm install firebase-admin
  
 script: 
-  
-  - npm install
-  - cd functions
-  - npm install # install node module
-  - cd ..
   - CI=false npm run build # build project
   - echo "Deploy!!"
 
 after_success:
-  - firebase deploy --project $PROJECT_ID" --non-interactive --token $FIREBASE_TOKEN
+  - firebase use --token ${FIREBASE_TOKEN} # set firebase token
+  - firebase use --add ${PROJECT_ID} # set current project
+  - firebase deploy --non-interactive --token "${FIREBASE_TOKEN}
