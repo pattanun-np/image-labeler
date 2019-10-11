@@ -8,7 +8,7 @@
         "filepond-plugin-image-preview": "^4.1.1",
         "firebase": "^5.9.4",
         "lazy-brush": "^1.0.1",
-        "modclean": "'~'3.0.0-beta.1",
+        "modclean": "^3.0.0-beta.1",
         "react": "^16.8.6",
         "react-canvas-draw": "^1.0.1",
         "react-color": "^2.17.3",
