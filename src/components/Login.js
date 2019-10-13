@@ -5,11 +5,10 @@ import Swal from 'sweetalert2'
 import {withRouter} from "react-router";
 import {
     Button,
-    Card,
+    Level,
     Input,
     Notification,
     Tabs,
-
     Image,
     Field,
     Control
@@ -97,7 +96,7 @@ class Login extends Component {
     }
     handleEntailmentRequest(e) {
         e.preventDefault();
-        console.log(e.target.value)
+      //  console.log(e.target.value)
         this.setState({position: e.target.value})
         //  console.log(this.state.position,"selected")
 
@@ -113,13 +112,12 @@ class Login extends Component {
     render() {
         const {message} = this.state
         return (
-            <div>
+            <div className="Card_Login">
                 {message
                     ? <Notification danger>
                             {message}
                         </Notification>
                     : null}
-                <Card className="signIn">
                     <Tabs centered boxed>
                         <ul>
                             <li
@@ -199,7 +197,7 @@ class Login extends Component {
                                 </div>
                             </div>
                             <h1 className="label">
-                                What is your position please select your position in this project ?</h1>
+                                What is your role in this project ? "Please select your role" </h1>
                             <Field grouped>
                                 <Control>
                                     <Button
@@ -208,7 +206,7 @@ class Login extends Component {
                                         value='Dentist(Advicer)'
                                         onClick=
                                         { (e) => { this.handleEntailmentRequest(e) } }>
-                                        Dentist(Advicer)</Button>
+                                        Dentist(Dr.Knoot)</Button>
                                 </Control>
                                 <Control>
                                     <Button
@@ -226,7 +224,7 @@ class Login extends Component {
                                         value="Engineer(Co-Advicer)"
                                         onClick=
                                         { (e) => { this.handleEntailmentRequest(e) } }>
-                                        Engineer(Co-Advicer)</Button>
+                                        Engineer(Dr.Artid)</Button>
                                 </Control>
                                 <Control>
                                     <Button
@@ -235,14 +233,23 @@ class Login extends Component {
                                         value="Reseacher"
                                         onClick=
                                         { (e) => { this.handleEntailmentRequest(e) } }>
-                                        Researcher</Button>
+                                        ResearcherTeam</Button>
                                 </Control>
                             </Field>
 
                             <h1 className="label">Selected : {this.state.position}</h1>
                             <div className="field is-grouped">
                                 <div className="control">
-                                    <Button primary className="button is-link" onClick={this.signup}>Submit</Button>
+                                    < Button success className = "button is-link"
+                                      style = {
+                                        {
+                                            margin: 2,
+                                            borderRadius: 20,
+                                            width: 600,
+
+                                        }
+                                    }
+                                    onClick={this.signup}>Submit</Button>
 
                                 </div>
 
@@ -285,17 +292,30 @@ class Login extends Component {
                                         onChange={this.handleChange}/>
                                 </div>
                             </div>
-
+                            <Level>
                             <div className="field is-grouped">
                                 <div className="control">
-                                    <Button primary className="button is-link" type="submit" onClick={this.login}>Login</Button>
+                                    <Button success className = "button is-link"
+                                    style = {
+                                        {
+                                            margin: 2,
+                                            borderRadius: 20,
+                                            width: 600,
+                                            
+
+                                        }
+                                    }
+                                    type = "submit"
+                                    onClick = {
+                                        this.login
+                                    } > Login </Button>
                                 </div>
                             </div>
+                            </Level>
                         </form>
                     </div>
 }
 
-                </Card>
             </div>
         );
     }

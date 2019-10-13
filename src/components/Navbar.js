@@ -7,6 +7,7 @@ import {
 } from 'reactbulma';
 import './Navbar.css'
 import firebase from '../firebase';
+import Label from './Label';
 var DB = firebase.database();
 class Navbar extends Component {
     constructor(props) {
@@ -76,6 +77,7 @@ this.handleClick = this.handleClick.bind(this);
             }
         })
     }
+  
     render() {
         const {name} = this.state;
         return (

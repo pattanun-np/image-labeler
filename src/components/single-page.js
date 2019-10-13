@@ -20,7 +20,8 @@ import {
     Tabs,
     Image,
     Notification,
-    Progress
+    Progress,
+    Button
 } from 'reactbulma';
 import firebase from '../firebase';
 var DB = firebase.database();
@@ -64,7 +65,6 @@ class Page extends Component {
         const databaseRef = firebase
             .database()
             .ref('/UserData/files' + user + 'DownloadURL')
-
 
         databaseRef.on('value', (snapshot) => {
             img = snapshot.val()
@@ -117,7 +117,7 @@ class Page extends Component {
             this.setState({messag_error: `Upload error : ${error.message}`})
             setTimeout(() => this.setState({messag_error: null}), 2000);
         }, () => {
-        
+
             Swal
                 .fire('Upload Done', 'success', 'success')
                 .then((result) => {
@@ -134,7 +134,7 @@ class Page extends Component {
 
                     this.setState({picture: url})
                 })
-        
+
             //Get metadata
             storageRef
                 .getMetadata()
@@ -143,7 +143,6 @@ class Page extends Component {
                         .database()
                         .ref('/UserData')
                         .child('files/' + user)
-                    
 
                     let metadataFile = {
                         name: metadata.name,
@@ -151,7 +150,6 @@ class Page extends Component {
                         contentType: metadata.contentType,
                         fullPath: metadata.fullPath,
                         downloadURL: this.state.picture
-                 
 
                     }
 
@@ -183,24 +181,15 @@ class Page extends Component {
 
         });
     }
-
     render() {
 
-        const {
-            loading,
-            Labeled,
-            Data,
-            messag_error,
-            messag_success,
-    
-        
-        } = this.state;
+        const {loading, Labeled, Data, messag_error, messag_success} = this.state;
         let percentage = Labeled / Data * 100
         percentage = percentage.toFixed(2);
         if (loading) {
             return <Loading/>;
         }
-   
+
         return (
             <div className="contrainer">
                 <div className="messag">{messag_success
@@ -219,11 +208,11 @@ class Page extends Component {
 
                         <Container>
                             <Title>
-                                Datasets Collector & Labeler Tool Version 
+                                Datasets Collector & Labeler Tool Version
                             </Title>
-                                  < SubTitle >
-                                      Version: (0.7.9 BETA) 
-                                      </SubTitle>
+                            < SubTitle >
+                                Version: (0.7.9 BETA)
+                            </SubTitle>
                             <SubTitle>
                                 For collect & label data
                             </SubTitle>
@@ -260,7 +249,7 @@ class Page extends Component {
                                 onClick={() => {
                                 this.setState({activeTab: 'Tab1'})
                             }}>
-                                < a  className="Tabs">
+                                < a className="Tabs">
                                     <Image is="16x16" src="https://image.flaticon.com/icons/svg/685/685686.svg"/>
                                     <span>Upload Image</span>
                                 </a>
@@ -271,7 +260,7 @@ class Page extends Component {
                                 onClick={() => {
                                 this.setState({activeTab: 'Tab3'})
                             }}>
-                                < a  className="Tabs">
+                                <a className="Tabs">
                                     <Image is="16x16" src="https://image.flaticon.com/icons/svg/1158/1158164.svg"/>
                                     <span>Labeling Tool</span>
                                 </a>
@@ -281,7 +270,7 @@ class Page extends Component {
                                 onClick={() => {
                                 this.setState({activeTab: 'Tab4'})
                             }}>
-                                < a className="Tabs">
+                                <a className="Tabs">s
                                     <Image is="16x16" src="https://image.flaticon.com/icons/svg/1728/1728561.svg"/>
                                     <span>Analysis</span>
                                 </a>
@@ -316,9 +305,8 @@ class Page extends Component {
 }
                     {this.state.activeTab === 'Tab3' && <div>
 
-                        <Label/>
+                      <Label />
 
-                        {/* < Gallery images={image}/>, */},
                     </div>}
                     {this.state.activeTab === 'Tab4' && <div>
                         <h1>
