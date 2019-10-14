@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Swal from 'sweetalert2'
 import './single-page.css'
-
+import FileBrowser, {Icons} from 'react-keyed-file-browser'
 import Loading from './Loading';
 import {FilePond, File, registerPlugin} from 'react-filepond';
 import Label from './Label';
@@ -9,6 +9,8 @@ import Navbar from './Navbar'
 import 'filepond/dist/filepond.min.css';
 import FilePondImagePreview from 'filepond-plugin-image-preview';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
+import axios from 'axios'
+
 import {
     Card,
     Level,
@@ -24,6 +26,7 @@ import {
     Button
 } from 'reactbulma';
 import firebase from '../firebase';
+import LevelItem from 'reactbulma/lib/components/Level/LevelItem';
 var DB = firebase.database();
 registerPlugin(FilePondImagePreview);
 class Page extends Component {
@@ -181,6 +184,17 @@ class Page extends Component {
 
         });
     }
+    request_Data = () => {
+        const user = firebase
+            .auth()
+            .currentUser
+            .uid;
+        const xhr = new XMLHttpRequest();
+        const url = 'https://bar.other/resources/public-data/';
+
+        xhr.open('GET', url);
+        xhr.send(); 
+    }
     render() {
 
         const {loading, Labeled, Data, messag_error, messag_success} = this.state;
@@ -203,130 +217,108 @@ class Page extends Component {
                             </Notification>
                         : null}</div>
                 <Navbar/>
-                <Hero info className="hero-head">
-                    <Hero.Body>
 
-                        <Container>
-                            <Title>
-                                Datasets Collector & Labeler Tool Version
-                            </Title>
-                            < SubTitle >
-                                Version: (0.7.9 BETA)
-                            </SubTitle>
-                            <SubTitle>
-                                For collect & label data
-                            </SubTitle>
+                <Card>
+                    <Level>
+                        <Level.Item hasTextCentered>
+                            <div>
+                                <Card className="Card-Data">
+                                    <Heading className="Label">DATA:</Heading>
+                                    <Title>{this.state.Data}</Title>
+                                    <Heading className="Label">Images</Heading>
+                                </Card>
+                            </div>
+                        </Level.Item>
+                        <Level.Item hasTextCentered>
+                            <div>
+                                <Card className="Card-Label">
+                                    <Heading className="Label">LABELED:</Heading>
+                                    <Title>{this.state.Labeled}</Title>
+                                    <Heading className="Label">Images</Heading>
+                                </Card>
+                            </div>
+                        </Level.Item>
+                        <Level.Item hasTextCentered>
+                            <div>
+                                <Card className="Card-Work">
+                                    <Heading className="Label">WORK:</Heading>
+                                    <Title>{this.state.Data}/50</Title>
+                                    <Heading className="Label">Images</Heading>
+                                    <Progress
+                                        success
+                                        className="progress-work"
+                                        value={this.state.Labeled}
+                                        max={this.state.Data}></Progress>
+                                </Card>
+                            </div>
+                        </Level.Item>
+
+                    </Level>
+                    <Card
+                        style={{
+                        margin: '30px',
+                        marginBottom: '100px'
+                    }}>
+                        <FilePond
+                            allowMultiple={true}
+                            files={this.state.files}
+                            maxFiles={1000000000}
+                            ref=
+                            {ref => this.pond = ref}
+                            server={{
+                            process: this
+                                .handleProcessing
+                                .bind(this)
+                        }}>
+
+                            {this
+                                .state
+                                .files
+                                .map(file => (<File key={file} source={file}/>))}
+
+                        </FilePond>
+                        <Card className="gallery">
 
                             <Level>
-                                <Level.Item hasTextCentered>
-                                    <div>
-                                        <Heading className="label">Sum of Data</Heading>
-                                        <Title>{this.state.Data}</Title>Images
-                                    </div>
-                                </Level.Item>
 
                                 <Level.Item hasTextCentered>
-                                    <div>
-                                        <Heading className="label">Sum of Labled Data</Heading>
-                                        <Title>{this.state.Labeled}</Title>
-                                        Images
+                                    <Button success onClick={this.request_Data}>LOAD DATA</Button>
+                                </Level.Item>
+
+                            </Level>
+                            <Level>
+
+                                <Level.Item hasTextCentered>
+                                    <div className="img">
+                                        <Image is='128x128' src='http://bulma.io/images/placeholders/256x256.png'/>
                                     </div>
                                 </Level.Item>
 
                             </Level>
-                            <h1 className="label">
-                                Completed: {percentage}%
-                            </h1>
-                            <Progress success value={this.state.Labeled} max={this.state.Data}></Progress>
-                        </Container>
-                    </Hero.Body>
-                </Hero >
-                < Card className="Upload-Image">
-                    <Tabs centered boxed>
-                        <ul>
-                            <li
-                                className={this.state.activeTab === 'Tab1' && 'is-active'}
-                                onClick={() => {
-                                this.setState({activeTab: 'Tab1'})
-                            }}>
-                                < a className="Tabs">
-                                    <Image is="16x16" src="https://image.flaticon.com/icons/svg/685/685686.svg"/>
-                                    <span>Upload Image</span>
-                                </a>
-                            </li>
 
-                            <li
-                                className={this.state.activeTab === 'Tab3' && 'is-active'}
-                                onClick={() => {
-                                this.setState({activeTab: 'Tab3'})
-                            }}>
-                                <a className="Tabs">
-                                    <Image is="16x16" src="https://image.flaticon.com/icons/svg/1158/1158164.svg"/>
-                                    <span>Labeling Tool</span>
-                                </a>
-                            </li>
-                            <li
-                                className={this.state.activeTab === 'Tab4' && 'is-active'}
-                                onClick={() => {
-                                this.setState({activeTab: 'Tab4'})
-                            }}>
-                                <a className="Tabs">s
-                                    <Image is="16x16" src="https://image.flaticon.com/icons/svg/1728/1728561.svg"/>
-                                    <span>Analysis</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </Tabs>
-                    {this.state.activeTab === 'Tab1' && <div>
-                        <h1>Upload image</h1>
-                        <div className="Margin-25">
-
-                            <FilePond
-                                allowMultiple={true}
-                                files={this.state.files}
-                                maxFiles={1000000000}
-                                ref=
-                                {ref => this.pond = ref}
-                                server={{
-                                process: this
-                                    .handleProcessing
-                                    .bind(this)
-                            }}>
-
-                                {this
-                                    .state
-                                    .files
-                                    .map(file => (<File key={file} source={file}/>))}
-
-                            </FilePond>
-
-                        </div>
-                    </div>
-}
-                    {this.state.activeTab === 'Tab3' && <div>
-
-                      <Label />
-
-                    </div>}
-                    {this.state.activeTab === 'Tab4' && <div>
-                        <h1>
-                            Model</h1>
-                    </div>
-}
+                        </Card>
+                    </Card>
                 </Card>
-                <p>
-                    Copyright © 2019
-                    <div>Icons made by
-                        <a href="https://www.freepik.com/" title="Freepik">Freepik</a>
-                        from
-                        <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
-                        is licensed by
-                        <a
-                            href="http://creativecommons.org/licenses/by/3.0/"
-                            title="Creative Commons BY 3.0"
-                            target="_blank">CC 3.0 BY</a>
-                    </div>
-                </p>
+               
+               
+                <Level>
+                    <Level.Item>
+                        <p>
+                            Copyright © 2019
+                            <div>Icons made by
+                                <a href="https://www.freepik.com/" title="Freepik">Freepik</a>
+                                from
+                                <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+                                is licensed by
+                                <a
+                                    href="http://creativecommons.org/licenses/by/3.0/"
+                                    title="Creative Commons BY 3.0"
+                                    target="_blank">CC 3.0 BY</a>
+                            </div>
+                        </p>
+                    </Level.Item>
+                </Level>
+
             </div>
         );
     }

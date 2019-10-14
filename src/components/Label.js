@@ -84,16 +84,10 @@ class Label extends Component {
                         : null}</div>
                 <h1 className="label">
                     Label draw segmentation</h1>
-                {/* <div className="color_picker ">
-                    <h1 className="label">Select Color</h1>
-                    <CirclePicker
-                        color={this.state.background}
-                        onChangeComplete={this.handleChangeComplete}/>
-
-                </div> */}
+          
 
                 <div className="canvas">
-                    <Button success onClick={this.onOpenModal}>Open modal</Button>
+                   
                
 
                         <div className="tools-brush">

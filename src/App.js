@@ -5,6 +5,7 @@ import Page from './components/single-page';
 import Loading from './components/Loading';
 import PrivateRoute from './components/PrivateRoute';
 import {BrowserRouter as Router, Route} from "react-router-dom";
+import axios from 'axios'
 require('dotenv').config()
 class App extends Component {
     constructor(props) {
@@ -32,7 +33,7 @@ class App extends Component {
                 }
             });
     }
-    render() {
+     render() {
         const {authenticated, loading} = this.state;
 
         if (loading) {
