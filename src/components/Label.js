@@ -3,14 +3,14 @@ import CanvasDraw from "./index";
 import './Label.css';
 import firebase from '../firebase';
 import Loading from './Loading';
-import Swal from 'sweetalert2'
+// import Swal from 'sweetalert2'
 import {
-    Button,
+    // Button,
     Tag,
-    Image,
+    // Image,
     Notification,
     Input,
-    Box
+    // Box
     // Control
 } from 'reactbulma';
 class Label extends Component {
@@ -65,7 +65,7 @@ class Label extends Component {
         // var settings = {     dots: true,     infinite: true,     speed: 500,
         // slidesToShow: 1,     slidesToScroll: 1 };
 
-        const {loading, messag_error, messag_success, open} = this.state;
+        const {loading, messag_error, messag_success} = this.state;
         if (loading) {
             return <Loading/>;
         }

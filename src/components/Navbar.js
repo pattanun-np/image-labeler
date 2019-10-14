@@ -3,8 +3,6 @@ import Swal from 'sweetalert2';
 import {Button, Level, Tag, Card} from 'reactbulma';
 import './Navbar.css'
 import firebase from '../firebase';
-import Label from './Label';
-import LevelItem from 'reactbulma/lib/components/Level/LevelItem';
 var DB = firebase.database();
 class Navbar extends Component {
     constructor(props) {

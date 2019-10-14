@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import Swal from 'sweetalert2'
 import './single-page.css'
-import FileBrowser, {Icons} from 'react-keyed-file-browser'
 import Loading from './Loading';
 import {FilePond, File, registerPlugin} from 'react-filepond';
-import Label from './Label';
+// import Label from './Label';
 import Navbar from './Navbar'
 import 'filepond/dist/filepond.min.css';
 import FilePondImagePreview from 'filepond-plugin-image-preview';
@@ -12,21 +11,14 @@ import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 import axios from 'axios'
 
 import {
-    Card,
-    Level,
-    Heading,
-    Title,
-    Container,
-    Hero,
-    SubTitle,
-    Tabs,
+    Card, Level, Heading, Title,
+    // Container, Hero, SubTitle, Tabs,
     Image,
     Notification,
     Progress,
     Button
 } from 'reactbulma';
 import firebase from '../firebase';
-import LevelItem from 'reactbulma/lib/components/Level/LevelItem';
 var DB = firebase.database();
 registerPlugin(FilePondImagePreview);
 class Page extends Component {
@@ -50,9 +42,10 @@ class Page extends Component {
             files: [], //ใช้เก็บข้อมูล File ที่ Upload
             uploadValue: 0, //ใช้เพื่อดู Process การ Upload
             filesMetadata: [], //ใช้เพื่อรับข้อมูล Metadata จาก Firebase
-            images: []
-        };
-    }
+            images: [],
+            Dataset:[],
+        
+    }}
     logout() {
         firebase
             .auth()
@@ -185,21 +178,21 @@ class Page extends Component {
         });
     }
     request_Data = () => {
+        
         const user = firebase
             .auth()
             .currentUser
             .uid;
-        const xhr = new XMLHttpRequest();
-        const url = 'https://bar.other/resources/public-data/';
-
-        xhr.open('GET', url);
-        xhr.send(); 
+        axios
+            .get(`https://random-img.herokuapp.com/random-data/${user}`)
+            .then((res)=>{
+                console.log(res.data)
+                this.setState({Dataset:res.data,disabled:'disabled'})
+            })
     }
     render() {
 
-        const {loading, Labeled, Data, messag_error, messag_success} = this.state;
-        let percentage = Labeled / Data * 100
-        percentage = percentage.toFixed(2);
+        const {loading, messag_error, messag_success} = this.state;
         if (loading) {
             return <Loading/>;
         }
@@ -244,6 +237,7 @@ class Page extends Component {
                                     <Heading className="Label">WORK:</Heading>
                                     <Title>{this.state.Data}/50</Title>
                                     <Heading className="Label">Images</Heading>
+
                                     <Progress
                                         success
                                         className="progress-work"
@@ -282,25 +276,31 @@ class Page extends Component {
                             <Level>
 
                                 <Level.Item hasTextCentered>
-                                    <Button success onClick={this.request_Data}>LOAD DATA</Button>
+                                    <Button primary onClick={this.request_Data}>LOAD DATA</Button>
                                 </Level.Item>
 
                             </Level>
                             <Level>
 
                                 <Level.Item hasTextCentered>
-                                    <div className="img">
-                                        <Image is='128x128' src='http://bulma.io/images/placeholders/256x256.png'/>
-                                    </div>
+                                
+          
+                                    {this.state.Dataset.map((Img,Id)=>(
+                                        <div className="img">
+                                          
+                                            <Image  is='128x128' key={Id} src={Img} alt="loading" 
+                                            />
+                                             
+                                        </div>
+                                    ))}
+                                    
                                 </Level.Item>
-
                             </Level>
 
                         </Card>
                     </Card>
                 </Card>
-               
-               
+
                 <Level>
                     <Level.Item>
                         <p>
@@ -312,8 +312,7 @@ class Page extends Component {
                                 is licensed by
                                 <a
                                     href="http://creativecommons.org/licenses/by/3.0/"
-                                    title="Creative Commons BY 3.0"
-                                    target="_blank">CC 3.0 BY</a>
+                                    title="Creative Commons BY 3.0">CC 3.0 BY</a>
                             </div>
                         </p>
                     </Level.Item>
