@@ -32,7 +32,7 @@ class App extends Component {
                 }
             });
     }
-    render() {
+     render() {
         const {authenticated, loading} = this.state;
 
         if (loading) {

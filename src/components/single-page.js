@@ -1,26 +1,22 @@
 import React, {Component} from 'react';
 import Swal from 'sweetalert2'
 import './single-page.css'
-
 import Loading from './Loading';
 import {FilePond, File, registerPlugin} from 'react-filepond';
-import Label from './Label';
+// import Label from './Label';
 import Navbar from './Navbar'
 import 'filepond/dist/filepond.min.css';
 import FilePondImagePreview from 'filepond-plugin-image-preview';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
+import axios from 'axios'
+
 import {
-    Card,
-    Level,
-    Heading,
-    Title,
-    Container,
-    Hero,
-    SubTitle,
-    Tabs,
+    Card, Level, Heading, Title,
+    // Container, Hero, SubTitle, Tabs,
     Image,
     Notification,
-    Progress
+    Progress,
+    Button
 } from 'reactbulma';
 import firebase from '../firebase';
 var DB = firebase.database();
@@ -46,9 +42,10 @@ class Page extends Component {
             files: [], //ใช้เก็บข้อมูล File ที่ Upload
             uploadValue: 0, //ใช้เพื่อดู Process การ Upload
             filesMetadata: [], //ใช้เพื่อรับข้อมูล Metadata จาก Firebase
-            images: []
-        };
-    }
+            images: [],
+            Dataset:[],
+        
+    }}
     logout() {
         firebase
             .auth()
@@ -64,7 +61,6 @@ class Page extends Component {
         const databaseRef = firebase
             .database()
             .ref('/UserData/files' + user + 'DownloadURL')
-
 
         databaseRef.on('value', (snapshot) => {
             img = snapshot.val()
@@ -117,7 +113,7 @@ class Page extends Component {
             this.setState({messag_error: `Upload error : ${error.message}`})
             setTimeout(() => this.setState({messag_error: null}), 2000);
         }, () => {
-        
+
             Swal
                 .fire('Upload Done', 'success', 'success')
                 .then((result) => {
@@ -134,7 +130,7 @@ class Page extends Component {
 
                     this.setState({picture: url})
                 })
-        
+
             //Get metadata
             storageRef
                 .getMetadata()
@@ -143,7 +139,6 @@ class Page extends Component {
                         .database()
                         .ref('/UserData')
                         .child('files/' + user)
-                    
 
                     let metadataFile = {
                         name: metadata.name,
@@ -151,7 +146,6 @@ class Page extends Component {
                         contentType: metadata.contentType,
                         fullPath: metadata.fullPath,
                         downloadURL: this.state.picture
-                 
 
                     }
 
@@ -183,24 +177,26 @@ class Page extends Component {
 
         });
     }
-
+    request_Data = () => {
+        
+        const user = firebase
+            .auth()
+            .currentUser
+            .uid;
+        axios
+            .get(`https://random-img.herokuapp.com/random-data/${user}`)
+            .then((res)=>{
+                console.log(res.data)
+                this.setState({Dataset:res.data,disabled:'disabled'})
+            })
+    }
     render() {
 
-        const {
-            loading,
-            Labeled,
-            Data,
-            messag_error,
-            messag_success,
-    
-        
-        } = this.state;
-        let percentage = Labeled / Data * 100
-        percentage = percentage.toFixed(2);
+        const {loading, messag_error, messag_success} = this.state;
         if (loading) {
             return <Loading/>;
         }
-   
+
         return (
             <div className="contrainer">
                 <div className="messag">{messag_success
@@ -214,131 +210,114 @@ class Page extends Component {
                             </Notification>
                         : null}</div>
                 <Navbar/>
-                <Hero info className="hero-head">
-                    <Hero.Body>
 
-                        <Container>
-                            <Title>
-                                Datasets Collector & Labeler Tool Version 
-                            </Title>
-                                  < SubTitle >
-                                      Version: (0.7.9 BETA) 
-                                      </SubTitle>
-                            <SubTitle>
-                                For collect & label data
-                            </SubTitle>
+                <Card>
+                    <Level>
+                        <Level.Item hasTextCentered>
+                            <div>
+                                <Card className="Card-Data">
+                                    <Heading className="Label">DATA:</Heading>
+                                    <Title>{this.state.Data}</Title>
+                                    <Heading className="Label">Images</Heading>
+                                </Card>
+                            </div>
+                        </Level.Item>
+                        <Level.Item hasTextCentered>
+                            <div>
+                                <Card className="Card-Label">
+                                    <Heading className="Label">LABELED:</Heading>
+                                    <Title>{this.state.Labeled}</Title>
+                                    <Heading className="Label">Images</Heading>
+                                </Card>
+                            </div>
+                        </Level.Item>
+                        <Level.Item hasTextCentered>
+                            <div>
+                                <Card className="Card-Work">
+                                    <Heading className="Label">WORK:</Heading>
+                                    <Title>{this.state.Data}/50</Title>
+                                    <Heading className="Label">Images</Heading>
+
+                                    <Progress
+                                        success
+                                        className="progress-work"
+                                        value={this.state.Labeled}
+                                        max={this.state.Data}></Progress>
+                                </Card>
+                            </div>
+                        </Level.Item>
+
+                    </Level>
+                    <Card
+                        style={{
+                        margin: '30px',
+                        marginBottom: '100px'
+                    }}>
+                        <FilePond
+                            allowMultiple={true}
+                            files={this.state.files}
+                            maxFiles={1000000000}
+                            ref=
+                            {ref => this.pond = ref}
+                            server={{
+                            process: this
+                                .handleProcessing
+                                .bind(this)
+                        }}>
+
+                            {this
+                                .state
+                                .files
+                                .map(file => (<File key={file} source={file}/>))}
+
+                        </FilePond>
+                        <Card className="gallery">
 
                             <Level>
-                                <Level.Item hasTextCentered>
-                                    <div>
-                                        <Heading className="label">Sum of Data</Heading>
-                                        <Title>{this.state.Data}</Title>Images
-                                    </div>
-                                </Level.Item>
 
                                 <Level.Item hasTextCentered>
-                                    <div>
-                                        <Heading className="label">Sum of Labled Data</Heading>
-                                        <Title>{this.state.Labeled}</Title>
-                                        Images
-                                    </div>
+                                    <Button primary onClick={this.request_Data}>LOAD DATA</Button>
                                 </Level.Item>
 
                             </Level>
-                            <h1 className="label">
-                                Completed: {percentage}%
-                            </h1>
-                            <Progress success value={this.state.Labeled} max={this.state.Data}></Progress>
-                        </Container>
-                    </Hero.Body>
-                </Hero >
-                < Card className="Upload-Image">
-                    <Tabs centered boxed>
-                        <ul>
-                            <li
-                                className={this.state.activeTab === 'Tab1' && 'is-active'}
-                                onClick={() => {
-                                this.setState({activeTab: 'Tab1'})
-                            }}>
-                                < a  className="Tabs">
-                                    <Image is="16x16" src="https://image.flaticon.com/icons/svg/685/685686.svg"/>
-                                    <span>Upload Image</span>
-                                </a>
-                            </li>
+                            <Level>
 
-                            <li
-                                className={this.state.activeTab === 'Tab3' && 'is-active'}
-                                onClick={() => {
-                                this.setState({activeTab: 'Tab3'})
-                            }}>
-                                < a  className="Tabs">
-                                    <Image is="16x16" src="https://image.flaticon.com/icons/svg/1158/1158164.svg"/>
-                                    <span>Labeling Tool</span>
-                                </a>
-                            </li>
-                            <li
-                                className={this.state.activeTab === 'Tab4' && 'is-active'}
-                                onClick={() => {
-                                this.setState({activeTab: 'Tab4'})
-                            }}>
-                                < a className="Tabs">
-                                    <Image is="16x16" src="https://image.flaticon.com/icons/svg/1728/1728561.svg"/>
-                                    <span>Analysis</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </Tabs>
-                    {this.state.activeTab === 'Tab1' && <div>
-                        <h1>Upload image</h1>
-                        <div className="Margin-25">
+                                <Level.Item hasTextCentered>
+                                
+          
+                                    {this.state.Dataset.map((Img,Id)=>(
+                                        <div className="img">
+                                          
+                                            <Image  is='128x128' key={Id} src={Img} alt="loading" 
+                                            />
+                                             
+                                        </div>
+                                    ))}
+                                    
+                                </Level.Item>
+                            </Level>
 
-                            <FilePond
-                                allowMultiple={true}
-                                files={this.state.files}
-                                maxFiles={1000000000}
-                                ref=
-                                {ref => this.pond = ref}
-                                server={{
-                                process: this
-                                    .handleProcessing
-                                    .bind(this)
-                            }}>
-
-                                {this
-                                    .state
-                                    .files
-                                    .map(file => (<File key={file} source={file}/>))}
-
-                            </FilePond>
-
-                        </div>
-                    </div>
-}
-                    {this.state.activeTab === 'Tab3' && <div>
-
-                        <Label/>
-
-                        {/* < Gallery images={image}/>, */},
-                    </div>}
-                    {this.state.activeTab === 'Tab4' && <div>
-                        <h1>
-                            Model</h1>
-                    </div>
-}
+                        </Card>
+                    </Card>
                 </Card>
-                <p>
-                    Copyright © 2019
-                    <div>Icons made by
-                        <a href="https://www.freepik.com/" title="Freepik">Freepik</a>
-                        from
-                        <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
-                        is licensed by
-                        <a
-                            href="http://creativecommons.org/licenses/by/3.0/"
-                            title="Creative Commons BY 3.0"
-                            target="_blank">CC 3.0 BY</a>
-                    </div>
-                </p>
+
+                <Level>
+                    <Level.Item>
+                        <p>
+                            Copyright © 2019
+                            <div>Icons made by
+                                <a href="https://www.freepik.com/" title="Freepik">Freepik</a>
+                                from
+                                <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+                                is licensed by
+                                <a
+                                    href="http://creativecommons.org/licenses/by/3.0/"
+                                    title="Creative Commons BY 3.0">CC 3.0 BY</a>
+                            </div>
+                        </p>
+                    </Level.Item>
+                </Level>
+
             </div>
         );
     }

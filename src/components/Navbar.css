@@ -1,5 +1,7 @@
-.nav {
+.navbar {
     height: 55px;
+    margin-left: 400px;
+    width: 800px;
 }
 
 .navicon {
@@ -11,5 +13,9 @@
     margin-left: 1200px;
 }
 .logout_btn {
-    marginLeft: '10px'
+    margin-Left: 10px;
+}
+.Nav_login{
+    margin-left:5;
+ padding: 10px;
 }

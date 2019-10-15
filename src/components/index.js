@@ -291,7 +291,7 @@ export default class extends PureComponent {
                 x: brush.x,
                 y: brush.y
             }, {both: true});
-        this.mouseHasMoved = true;
+        this.mouseHasMoved = false;
     };
 
     handleMouseDown = e => {
