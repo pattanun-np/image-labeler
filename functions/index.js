@@ -93,7 +93,7 @@ exports.recountData = functions
 
 exports.counts_work= functions
     .database
-    .ref('/randomed_list/{userId}/result/0')
+    .ref('/randomed_list/{userId}/result/0/{pushId}')
     .onWrite(async (change) => {
         const collectionRef = change.after.ref.parent;
         const countRef = collectionRef
@@ -121,7 +121,7 @@ exports.counts_work= functions
 // If the number of likes gets deleted, recount the number of likes
 exports.recounts_work = functions
     .database
-    .ref('/randomed_list/{userId}/result/0/Random_Counts}')
+    .ref('/randomed_list/{userId}/result/0/{pushId}/Random_Counts')
     .onDelete(async (snap) => {
         const counterRef = snap.ref;
         const collectionRef = counterRef
