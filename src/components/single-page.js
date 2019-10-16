@@ -3,13 +3,13 @@ import Swal from 'sweetalert2'
 import './single-page.css'
 import Loading from './Loading';
 import {FilePond, File, registerPlugin} from 'react-filepond';
-// import Label from './Label';
+import Label from './Label';
 import Navbar from './Navbar'
 import 'filepond/dist/filepond.min.css';
 import FilePondImagePreview from 'filepond-plugin-image-preview';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 import axios from 'axios'
-
+import Modal from 'react-responsive-modal';
 import {
     Card,
     Level,
@@ -17,7 +17,7 @@ import {
     Title,
     Notification,
     Progress,
-    Button
+    Image
 } from 'reactbulma';
 import firebase from '../firebase';
 var DB = firebase.database();
@@ -45,7 +45,9 @@ class Page extends Component {
             filesMetadata: [], //ใช้เพื่อรับข้อมูล Metadata จาก Firebase
             images: [],
             Dataset: [],
-            requested: ''
+            work: 0, 
+            open: false,
+       
         }
     }
     logout() {
@@ -68,7 +70,7 @@ class Page extends Component {
             img = snapshot.val()
             this.setState({images: img});
         });
-
+        this.request_Data()
     }
     componentWillMount() {
 
@@ -77,6 +79,13 @@ class Page extends Component {
 
     }
 
+    onOpenModal = () => {
+        this.setState({ open: true });
+    };
+
+    onCloseModal = () => {
+        this.setState({ open: false });
+    };
     getUserData = () => {
         const user = firebase
             .auth()
@@ -187,23 +196,20 @@ class Page extends Component {
 
         axios
             .get(`https://random-img.herokuapp.com/random-data/${user}`)
-            .then((res) => {
-                // console.log(res.data)
-                this.setState({requested: res.data})
-
-            })
-        // console.log(this.state.requested)
-
-        const Img_data = DB.ref('randomed_list/' + user + '/result')
+        const Img_data = DB.ref('randomed_list/' + user + '/result/0')
         Img_data.on('value', (snapshot) => {
             var Img_data_load = snapshot.val();
-            console.log(Img_data_load)
+            this.setState({
+                work: Img_data_load.length,
+                Dataset: Img_data_load
+            })
+
 
         });
     }
     render() {
 
-        const {loading, messag_error, messag_success} = this.state;
+        const {loading, messag_error, messag_success,open} = this.state;
         if (loading) {
             return <Loading/>;
         }
@@ -227,13 +233,13 @@ class Page extends Component {
                         <Level.Item hasTextCentered>
                             <div>
                                 <Card className="Card-Data">
-                                    <Heading className="Label">DATA:</Heading>
+                                    <Heading className="Label">DATASET:</Heading>
                                     <Title>{this.state.Data}</Title>
                                     <Heading className="Label">Images</Heading>
                                 </Card>
                             </div>
                         </Level.Item>
-                        <Level.Item hasTextCentered>
+                        {/* <Level.Item hasTextCentered>
                             <div>
                                 <Card className="Card-Label">
                                     <Heading className="Label">LABELED:</Heading>
@@ -241,19 +247,19 @@ class Page extends Component {
                                     <Heading className="Label">Images</Heading>
                                 </Card>
                             </div>
-                        </Level.Item>
+                        </Level.Item> */}
                         <Level.Item hasTextCentered>
                             <div>
                                 <Card className="Card-Work">
                                     <Heading className="Label">WORK:</Heading>
-                                    <Title>{this.state.Data}/50</Title>
+                                    <Title>{this.state.Labeled}/{this.state.work}</Title>
                                     <Heading className="Label">Images</Heading>
 
                                     <Progress
                                         success
                                         className="progress-work"
                                         value={this.state.Labeled}
-                                        max={this.state.Data}></Progress>
+                                        max={this.state.work}></Progress>
                                 </Card>
                             </div>
                         </Level.Item>
@@ -285,17 +291,15 @@ class Page extends Component {
                         </FilePond>
                         <Card className="gallery">
 
+                       
                             <Level>
 
                                 <Level.Item hasTextCentered>
-                                    <Button primary onClick={this.request_Data}>LOAD DATA</Button>
-                                </Level.Item>
-
-                            </Level>
-                            <Level>
-
-                                <Level.Item hasTextCentered>
-                                    <h1>{this.state.Dataset}</h1>
+                                   {this.state.Dataset.map((arr,i)=>(
+                                   
+                                       <Image is='128x128' src={arr.metadataFile.downloadURL} onClick={this.onOpenModal}
+                                       />
+                                   ))}
                                 </Level.Item>
                             </Level>
 
@@ -320,6 +324,9 @@ class Page extends Component {
                     </Level.Item>
                 </Level>
 
+                <Modal classNames="modal" open={open} onClose={this.onCloseModal}>
+                  <Label />
+                </Modal>
             </div>
         );
     }

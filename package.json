@@ -26,6 +26,7 @@
         "react-keyed-file-browser": "^1.5.2",
         "react-loading-screen": "0.0.17",
         "react-player": "^1.13.0",
+        "react-responsive-modal": "^4.0.1",
         "react-router-dom": "^5.0.0",
         "react-scripts": "^3.2.0",
         "react-slick": "^0.24.0",

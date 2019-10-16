@@ -91,46 +91,6 @@ exports.recountData = functions
      });
 
 
-exports.counts_work= functions
-    .database
-    .ref('/randomed_list/{userId}/result/0/{pushId}')
-    .onWrite(async (change) => {
-        const collectionRef = change.after.ref.parent;
-        const countRef = collectionRef
-            .parent
-            .child('Random_Counts');
 
-        let increment;
-        if (change.after.exists() && !change.before.exists()) {
-            increment = 1;
-        } else if (!change.after.exists() && change.before.exists()) {
-            increment = 0;
-        } else {
-            return null;
-        }
-
-        // Return the promise from countRef.transaction() so our function waits for this
-        // async event to complete before it exits.
-        await countRef.transaction((current) => {
-            return (current || 0) + increment;
-        });
-        console.log('Counter updated.');
-        return null;
-    });
-
-// If the number of likes gets deleted, recount the number of likes
-exports.recounts_work = functions
-    .database
-    .ref('/randomed_list/{userId}/result/0/{pushId}/Random_Counts')
-    .onDelete(async (snap) => {
-        const counterRef = snap.ref;
-        const collectionRef = counterRef
-            .parent
-            .child('Random_Counts');
-
-        // Return the promise from counterRef.set() so our function waits for this async
-        // event to complete before it exits.
-        const messagesData = await collectionRef.once('value');
-        return await counterRef.set(messagesData.numChildren());
-    });
+     
 

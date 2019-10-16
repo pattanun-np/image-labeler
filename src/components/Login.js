@@ -73,7 +73,7 @@ class Login extends Component {
                     .auth()
                     .currentUser
                     .uid;
-                console.log("Create User Success")
+             
                 Swal.fire('Good job!', 'Create User Success', 'success')
                 this
                     .props
