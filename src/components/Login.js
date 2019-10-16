@@ -206,7 +206,7 @@ class Login extends Component {
                                         value='Dentist(Advicer)'
                                         onClick=
                                         { (e) => { this.handleEntailmentRequest(e) } }>
-                                        Dentist(Dr.Knoot)</Button>
+                                        Advicer(Dr.Knoot)</Button>
                                 </Control>
                                 <Control>
                                     <Button
@@ -215,27 +215,32 @@ class Login extends Component {
                                         value="Dentist(Student)"
                                         onClick=
                                         { (e) => { this.handleEntailmentRequest(e) } }>
-                                        Dentist(Student)</Button>
+                                        Dentist Student</Button>
                                 </Control>
-                                <Control>
-                                    <Button
-                                        warning
-                                        className="button is-link"
-                                        value="Engineer(Co-Advicer)"
-                                        onClick=
-                                        { (e) => { this.handleEntailmentRequest(e) } }>
-                                        Engineer(Dr.Artid)</Button>
-                                </Control>
-                                <Control>
-                                    <Button
-                                        info
-                                        className="button is-link"
-                                        value="Reseacher"
-                                        onClick=
-                                        { (e) => { this.handleEntailmentRequest(e) } }>
-                                        ResearcherTeam</Button>
-                                </Control>
+                              
                             </Field>
+                        <Field grouped>
+                            <Control>
+                                <Button
+                                    warning
+                                    className="button is-link"
+                                    value="Engineer(Co-Advicer)"
+                                    onClick=
+                                    {(e) => { this.handleEntailmentRequest(e) }}>
+                                    Co-Advicer(Dr.Arthit)</Button>
+                            </Control>
+                            <Control>
+                                <Button
+                                    info
+                                    className="button is-link"
+                                    value="Reseacher"
+                                    onClick=
+                                    {(e) => { this.handleEntailmentRequest(e) }}>
+                                    Researcher</Button>
+                            </Control>
+
+                        </Field>
+
 
                             <h1 className="label">Selected : {this.state.position}</h1>
                             <div className="field is-grouped">
@@ -245,7 +250,7 @@ class Login extends Component {
                                         {
                                             margin: 2,
                                             borderRadius: 20,
-                                            width: 600,
+                                            width: 300,
 
                                         }
                                     }
@@ -300,7 +305,7 @@ class Login extends Component {
                                         {
                                             margin: 2,
                                             borderRadius: 20,
-                                            width: 600,
+                                            width: 300,
                                             
 
                                         }

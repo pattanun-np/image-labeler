@@ -11,9 +11,10 @@ import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 import axios from 'axios'
 
 import {
-    Card, Level, Heading, Title,
-    // Container, Hero, SubTitle, Tabs,
-    Image,
+    Card,
+    Level,
+    Heading,
+    Title,
     Notification,
     Progress,
     Button
@@ -43,9 +44,10 @@ class Page extends Component {
             uploadValue: 0, //ใช้เพื่อดู Process การ Upload
             filesMetadata: [], //ใช้เพื่อรับข้อมูล Metadata จาก Firebase
             images: [],
-            Dataset:[],
-        
-    }}
+            Dataset: [],
+            requested: ''
+        }
+    }
     logout() {
         firebase
             .auth()
@@ -174,21 +176,30 @@ class Page extends Component {
         labled_ref.on('value', (snapshot) => {
             var counts_labeled = snapshot.val();
             this.setState({Labeled: counts_labeled});
-
         });
     }
     request_Data = () => {
-        
+
         const user = firebase
             .auth()
             .currentUser
             .uid;
+
         axios
             .get(`https://random-img.herokuapp.com/random-data/${user}`)
-            .then((res)=>{
-                console.log(res.data)
-                this.setState({Dataset:res.data,disabled:'disabled'})
+            .then((res) => {
+                // console.log(res.data)
+                this.setState({requested: res.data})
+
             })
+        // console.log(this.state.requested)
+
+        const Img_data = DB.ref('randomed_list/' + user + '/result')
+        Img_data.on('value', (snapshot) => {
+            var Img_data_load = snapshot.val();
+            console.log(Img_data_load)
+
+        });
     }
     render() {
 
@@ -254,6 +265,7 @@ class Page extends Component {
                         marginBottom: '100px'
                     }}>
                         <FilePond
+                            className="Upload"
                             allowMultiple={true}
                             files={this.state.files}
                             maxFiles={1000000000}
@@ -283,17 +295,7 @@ class Page extends Component {
                             <Level>
 
                                 <Level.Item hasTextCentered>
-                                
-          
-                                    {this.state.Dataset.map((Img,Id)=>(
-                                        <div className="img">
-                                          
-                                            <Image  is='128x128' key={Id} src={Img} alt="loading" 
-                                            />
-                                             
-                                        </div>
-                                    ))}
-                                    
+                                    <h1>{this.state.Dataset}</h1>
                                 </Level.Item>
                             </Level>
 

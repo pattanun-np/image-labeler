@@ -30,7 +30,10 @@ class Home extends Component {
                         </Container>
                     </Hero.Body>
                 </Hero>
-                <SubTitle>This web application designed for 7 inch or lange screen, we reccommened to use on Ipad or tablet.</SubTitle>
+                <SubTitle style={{
+                    color:'red'
+                   
+                }}>**This web application designed for 7 inch or lange screen, we reccommened to use on Ipad or tablet.**</SubTitle>
                 <Level>
                     <LevelItem>
                         <Card>
@@ -47,7 +50,7 @@ class Home extends Component {
                 <Level>
 
                     <LevelItem>
-                        <Card
+                        <Card className="login"
                             style={{
                             margin: 10,
                             padding: 20,
