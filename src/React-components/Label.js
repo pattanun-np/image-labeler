@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import CanvasDraw from "./index";
-import './Label.css';
-import firebase from '../firebase';
+import '../Style/Label.css'
+import firebase from '../Firebase';
 import Loading from './Loading';
 import Swal from 'sweetalert2'
 import {
@@ -14,8 +14,11 @@ import {
     // Box Control
 } from 'reactbulma';
 import Level from "reactbulma/lib/components/Level/Level";
+
 class Label extends Component {
-    state = {
+    constructor(props) {
+        super(props);
+    this.state = {
         color: "#f44336",
         width: 480,
         height: 480,
@@ -26,14 +29,16 @@ class Label extends Component {
         mode: 'add',
         open: false,
         hideGrid: 'hideGrid',
-        label_images: "https://firebasestorage.googleapis.com/v0/b/deeplearning-7f788.appspot.com/o/Use" +
-                "rData%2FijMSNUwudhaibN9iPK8HfDLBqhv1%2FCBCT.png?alt=media&token=5d622c5e-cd7b-4d" +
-                "0d-baf4-242a199e79ec"
+        label_images:''
     };
-
+}
     componentDidMount() {
 
         this.getImage();
+        this.setState({
+            label_images: this.props.img_src
+        })
+    
 
     }
     handleChangeComplete = (color) => {
@@ -71,6 +76,9 @@ class Label extends Component {
         if (loading) {
             return <Loading/>;
         }
+        
+            console.log(this.props.tittle)
+       
         return (
 
             <div className="columm">
@@ -86,6 +94,7 @@ class Label extends Component {
                         : null}</div>
                 <h1 className="label">
                     Label draw segmentation</h1>
+                   
                 <Level>
                     <Level.Item>
 
@@ -178,6 +187,7 @@ class Label extends Component {
                         }}>SaveLabled</Button>
                     </Level.Item>
                 </Level>
+              
             </div>
         );
     }

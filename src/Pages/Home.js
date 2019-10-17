@@ -7,8 +7,8 @@ import {
     Card,
     Level
 } from 'reactbulma'
-import Login from './Login';
-import './Home.css'
+import Login from '../React-components/Login';
+import '../Style/Home.css'
 import ReactPlayer from 'react-player'
 import LevelItem from 'reactbulma/lib/components/Level/LevelItem';
 class Home extends Component {
@@ -31,26 +31,28 @@ class Home extends Component {
                     </Hero.Body>
                 </Hero>
                 <SubTitle style={{
-                    color:'red'
-                   
-                }}>**This web application designed for 7 inch or lange screen, we reccommened to use on Ipad or tablet.**</SubTitle>
+                    color: 'red'
+                }}>**This
+                    web application designed for 7 inch or lange screen, we reccommened to use on
+                    Ipad or tablet.**</SubTitle>
                 <Level>
                     <LevelItem>
                         <Card>
                             <h1 className="label">Tutorial Video:</h1>
-                            <ReactPlayer url='https://youtu.be/8CxlSJVwBZk'
+                            <ReactPlayer
+                                url='https://youtu.be/8CxlSJVwBZk'
                                 width='100%'
                                 height='100%'
                                 controlsplaying
-                                controls
-                            playing/>
+                                controls/>
                         </Card>
                     </LevelItem>
                 </Level>
                 <Level>
 
                     <LevelItem>
-                        <Card className="login"
+                        <Card
+                            className="login"
                             style={{
                             margin: 10,
                             padding: 20,

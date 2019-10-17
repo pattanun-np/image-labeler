@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
-import firebase from './firebase'
-import Home from './components/Home';
-import Page from './components/single-page';
-import Loading from './components/Loading';
-import PrivateRoute from './components/PrivateRoute';
+import firebase from './Firebase'
+import Home from './Pages/Home';
+import Page from './Pages/single-page';
+import Loading from './React-components/Loading';
+import PrivateRoute from './React-components/PrivateRoute';
 import {BrowserRouter as Router, Route} from "react-router-dom";
+import CreateProject from './React-components/CreateProject';
+
+
 require('dotenv').config()
 class App extends Component {
     constructor(props) {
@@ -49,7 +52,8 @@ class App extends Component {
                         authenticated={authenticated}/>
 
                     <Route exact path="/" component={Home}/>
-
+                    <Route exact path="/create" component={CreateProject} />
+                  
                 </div>
             </Router>
 

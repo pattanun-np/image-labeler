@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, {Component} from 'react';
-import './Login.css';
+import '../Style/Login.css';
 import Swal from 'sweetalert2'
 import {withRouter} from "react-router";
 import {
@@ -13,100 +13,69 @@ import {
     Field,
     Control
 } from 'reactbulma'
-import firebase from '../firebase';
+import firebase from '../Firebase';
+import {connect} from 'react-redux'
+import {signIn} from '../Redux-store/Redux-actions/authActions'
 const DB = firebase.database();
 
-class Login extends Component {
-    constructor(props) {
 
-        super(props);
-
-        this.login = this
-            .login
-            .bind(this);
-        this.handleChange = this
-            .handleChange
-            .bind(this);
-        this.signup = this
-            .signup
-            .bind(this);
-
-        this.handleEntailmentRequest = this
-            .handleEntailmentRequest
-            .bind(this);
-        this.state = {
-            name: '',
-            email: '',
-            password: '',
-            currentUser: '',
-            message: '',
-            register: 'Tabs2',
-            position: ''
-        }
+class SignIn extends Component {
+    state = {
+        name: '',
+        email: '',
+        password: '',
+        currentUser: '',
+        message: '',
+        register: 'Tabs2',
+        position: 'Select your role'
     }
+    // signup(e) {
+    //     e.preventDefault();
 
-    login(e) {
-        e.preventDefault();
-        firebase
-            .auth()
-            .signInWithEmailAndPassword(this.state.email, this.state.password)
-            .then(user => {
-                Swal.fire('Good job! Login', 'success', 'success')
-                setTimeout(() => this.props.history.push("/dashboard"), 100);
-
-            })
-            .catch((error) => {
-                console.log(error);
-                this.setState({message: error.message})
-                setTimeout(() => this.setState({message: null}), 2000);
-            });
-
-    }
-    signup(e) {
-        e.preventDefault();
-
-        firebase
-            .auth()
-            .createUserWithEmailAndPassword(this.state.email, this.state.password)
-            .then(user => {
-                var userId = firebase
-                    .auth()
-                    .currentUser
-                    .uid;
+    //     firebase
+    //         .auth()
+    //         .createUserWithEmailAndPassword(this.state.email, this.state.password)
+    //         .then(user => {
+    //             var userId = firebase
+    //                 .auth()
+    //                 .currentUser
+    //                 .uid;
              
-                Swal.fire('Good job!', 'Create User Success', 'success')
-                this
-                    .props
-                    .history
-                    .push("/");
+    //             Swal.fire('Good job!', 'Create User Success', 'success')
+    //             this
+    //                 .props
+    //                 .history
+    //                 .push("/");
 
-                DB
-                    .ref('/data')
-                    .child('users/' + userId)
-                    .set({name: this.state.name, email: this.state.email, position: this.state.position, uid: userId})
+    //             DB
+    //                 .ref('/data')
+    //                 .child('users/' + userId)
+    //                 .set({name: this.state.name, email: this.state.email, position: this.state.position, uid: userId})
 
-            })
-            .catch((error) => {
-                console.log(error);
-                this.setState({message: error.message});
-                setTimeout(() => this.setState({message: null}), 2000);
+    //         })
+    //         .catch((error) => {
+    //             console.log(error);
+    //             this.setState({message: error.message});
+    //             setTimeout(() => this.setState({message: null}), 2000);
 
-            })
+    //         })
 
-    }
-    handleEntailmentRequest(e) {
+    // }
+    handleSubmit = (e) => {
         e.preventDefault();
-      //  console.log(e.target.value)
-        this.setState({position: e.target.value})
-        //  console.log(this.state.position,"selected")
-
+        this.props.signIn(this.state)
+       
+    
     }
+    
 
-    handleChange(e) {
-        e.preventDefault();
+    handleChange =(e)=> {
+    
         this.setState({
             [e.target.name]: e.target.value
+           
         });
+      
     }
 
     render() {
@@ -136,7 +105,7 @@ class Login extends Component {
                                 className={this.state.register === 'Tabs2' && 'is-active'}
                                 onClick=
                                 {() => { this.setState({register: 'Tabs2'}) } }>
-                                < a 
+                                <a 
                                 className = "Tabs" > < Image is = "16x16"
                                 src = "https://image.flaticon.com/icons/svg/149/149071.svg" / >
                                     <span>Login</span>
@@ -148,7 +117,7 @@ class Login extends Component {
                     {this.state.register === 'Tabs1' && <div>
                         <h1 className="label">
                             Please Sign Up Before the record data</h1>
-                        <form>
+                        <form onSubmit={this.handleSubmit}>
                             <div className="field">
                                 <label className="label">Name :
                                 </label>
@@ -199,50 +168,24 @@ class Login extends Component {
                             <h1 className="label">
                                 What is your role in this project ? "Please select your role" </h1>
                             <Field grouped>
-                                <Control>
-                                    <Button
-                                        success
-                                        className="button is-link"
-                                        value='Dentist(Advicer)'
-                                        onClick=
-                                        { (e) => { this.handleEntailmentRequest(e) } }>
-                                        Advicer(Dr.Knoot)</Button>
-                                </Control>
-                                <Control>
-                                    <Button
-                                        danger
-                                        className="button is-link"
-                                        value="Dentist(Student)"
-                                        onClick=
-                                        { (e) => { this.handleEntailmentRequest(e) } }>
-                                        Dentist Student</Button>
+                                <Control >
+                                <div className="select is-rounded" >
+                                    <select name="position" onChange={this.handleChange.bind(this)} >
+                                        <option>Select your role</option>
+                                        <option>Advicer(Dr. Knoot)</option>
+                                        <option>Dentist(student)</option>
+                                        <option>Co-Advicer(Dr. Artith)</option>
+                                        <option>Research</option>
+                                    </select>
+                                </div>
                                 </Control>
                               
                             </Field>
-                        <Field grouped>
-                            <Control>
-                                <Button
-                                    warning
-                                    className="button is-link"
-                                    value="Engineer(Co-Advicer)"
-                                    onClick=
-                                    {(e) => { this.handleEntailmentRequest(e) }}>
-                                    Co-Advicer(Dr.Arthit)</Button>
-                            </Control>
-                            <Control>
-                                <Button
-                                    info
-                                    className="button is-link"
-                                    value="Reseacher"
-                                    onClick=
-                                    {(e) => { this.handleEntailmentRequest(e) }}>
-                                    Researcher</Button>
-                            </Control>
+              
 
-                        </Field>
-
-
-                            <h1 className="label">Selected : {this.state.position}</h1>
+                        <h1 className={this.state.position === 'Select your role' && 'Error'}>Selected : {this.state.position}
+                            
+                            </h1>
                             <div className="field is-grouped">
                                 <div className="control">
                                     < Button success className = "button is-link"
@@ -254,7 +197,7 @@ class Login extends Component {
 
                                         }
                                     }
-                                    onClick={this.signup}>Submit</Button>
+                                >Submit</Button>
 
                                 </div>
 
@@ -265,7 +208,9 @@ class Login extends Component {
 }
                     {this.state.register === 'Tabs2' && <div>
                         <h1 className="label">Please Login Before the record data</h1>
-                        <form>
+                        <form onSubmit={
+                            this.handleSubmit
+                        }>
                             <div className="field">
                                 <label className="label">Email :
                                 </label>
@@ -325,4 +270,11 @@ class Login extends Component {
         );
     }
 }
-export default withRouter(Login);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        signIn: (creds)  => dispatch(signIn(creds))
+        
+        
+    }
+}
+export default connect(null ,mapDispatchToProps)(SignIn);

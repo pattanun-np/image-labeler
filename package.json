@@ -26,12 +26,21 @@
         "react-keyed-file-browser": "^1.5.2",
         "react-loading-screen": "0.0.17",
         "react-player": "^1.13.0",
+        "react-redux": "^7.1.1",
+        "react-redux-firebase": "^3.0.2",
+        "react-redux-firestore": "0.0.1",
         "react-responsive-modal": "^4.0.1",
         "react-router-dom": "^5.0.0",
         "react-scripts": "^3.2.0",
         "react-slick": "^0.24.0",
         "reactbulma": "^3.0.4",
-        "sweetalert2": "^8.18.3"
+        "redux": "^4.0.4",
+        "redux-firestore": "^0.9.0",
+        "redux-logger": "^3.0.6",
+        "redux-thunk": "^2.3.0",
+        "sweetalert2": "^8.18.3",
+        "webpack": "^4.41.2",
+        "webpack-cli": "^3.3.9"
     },
     "scripts": {
         "start": "react-scripts start",
@@ -47,5 +56,8 @@
         "not dead",
         "not ie <= 11",
         "not op_mini all"
-    ]
+    ],
+    "devDependencies": {
+        "react-hot-loader": "^4.12.15"
+    }
 }

@@ -1,15 +1,17 @@
 import React, {Component} from 'react';
 import Swal from 'sweetalert2'
-import './single-page.css'
-import Loading from './Loading';
+import '../Style/single-page.css'
+import Loading from '../React-components/Loading';
 import {FilePond, File, registerPlugin} from 'react-filepond';
-import Label from './Label';
-import Navbar from './Navbar'
+import Label from '../React-components/Label';
+import Navbar from '../React-components/Navbar'
 import 'filepond/dist/filepond.min.css';
 import FilePondImagePreview from 'filepond-plugin-image-preview';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 import axios from 'axios'
 import Modal from 'react-responsive-modal';
+import { connect } from 'react-redux'
+import ProjectList from '../React-components/ProjectList'
 import {
     Card,
     Level,
@@ -19,9 +21,12 @@ import {
     Progress,
     Image
 } from 'reactbulma';
-import firebase from '../firebase';
+import firebase from '../Firebase';
 var DB = firebase.database();
 registerPlugin(FilePondImagePreview);
+
+
+
 class Page extends Component {
     constructor(props) {
         super(props);
@@ -45,9 +50,9 @@ class Page extends Component {
             filesMetadata: [], //ใช้เพื่อรับข้อมูล Metadata จาก Firebase
             images: [],
             Dataset: [],
-            work: 0, 
+            work: 0,
             open: false,
-       
+            url:''
         }
     }
     logout() {
@@ -80,11 +85,11 @@ class Page extends Component {
     }
 
     onOpenModal = () => {
-        this.setState({ open: true });
+        this.setState({open: true});
     };
 
     onCloseModal = () => {
-        this.setState({ open: false });
+        this.setState({open: false});
     };
     getUserData = () => {
         const user = firebase
@@ -194,26 +199,25 @@ class Page extends Component {
             .currentUser
             .uid;
 
-        axios
-            .get(`https://random-img.herokuapp.com/random-data/${user}`)
+        axios.get(`https://random-img.herokuapp.com/random-data/${user}`)
         const Img_data = DB.ref('randomed_list/' + user + '/result/0')
         Img_data.on('value', (snapshot) => {
             var Img_data_load = snapshot.val();
-            this.setState({
-                work: Img_data_load.length,
-                Dataset: Img_data_load
-            })
-
+            this.setState({work: Img_data_load.length, Dataset: Img_data_load})
 
         });
     }
-    render() {
-
-        const {loading, messag_error, messag_success,open} = this.state;
+    addDefaultSrc(ev) {
+        ev.target.src = 'https://firebasestorage.googleapis.com/v0/b/deeplearning-7f788.appspot.com/o/ErrorIMG(1).png?alt=media&token=ba0dab40-7125-474a-892e-a5d3da70157e'
+    }
+       render() {
+   
+        const {loading, messag_error, messag_success, open} = this.state;
         if (loading) {
             return <Loading/>;
         }
-
+           //console.log(this.props)
+           const {projects} = this.props;
         return (
             <div className="contrainer">
                 <div className="messag">{messag_success
@@ -239,15 +243,20 @@ class Page extends Component {
                                 </Card>
                             </div>
                         </Level.Item>
-                        {/* <Level.Item hasTextCentered>
+                        <Level.Item hasTextCentered>
                             <div>
                                 <Card className="Card-Label">
                                     <Heading className="Label">LABELED:</Heading>
-                                    <Title>{this.state.Labeled}</Title>
+                                    <Title>{this.state.Labeled}/{this.state.Data}</Title>
                                     <Heading className="Label">Images</Heading>
+                                    <Progress
+                                        success
+                                        className="progress-work"
+                                        value={this.state.Labeled}
+                                        max={this.state.Data}></Progress>
                                 </Card>
                             </div>
-                        </Level.Item> */}
+                        </Level.Item>
                         <Level.Item hasTextCentered>
                             <div>
                                 <Card className="Card-Work">
@@ -265,46 +274,69 @@ class Page extends Component {
                         </Level.Item>
 
                     </Level>
-                    <Card
-                        style={{
-                        margin: '30px',
-                        marginBottom: '100px'
-                    }}>
-                        <FilePond
-                            className="Upload"
-                            allowMultiple={true}
-                            files={this.state.files}
-                            maxFiles={1000000000}
-                            ref=
-                            {ref => this.pond = ref}
-                            server={{
-                            process: this
-                                .handleProcessing
-                                .bind(this)
-                        }}>
+                    <Level>
+                        <Level.Item>
+                            <Card
+                                className="container"
+                                style={{
+                                margin: '30px',
+                                marginBottom: '100px'
+                            }}>
+                                <FilePond
+                                    className="Upload"
+                                    allowMultiple={true}
+                                    files={this.state.files}
+                                    maxFiles={1000000000}
+                                    ref=
+                                    {ref => this.pond = ref}
+                                    server={{
+                                    process: this
+                                        .handleProcessing
+                                        .bind(this)
+                                }}>
 
-                            {this
-                                .state
-                                .files
-                                .map(file => (<File key={file} source={file}/>))}
+                                    {this
+                                        .state
+                                        .files
+                                        .map(file => (<File key={file} source={file}/>))}
 
-                        </FilePond>
-                        <Card className="gallery">
+                                </FilePond>
+                                <Card className="gallery">
 
-                       
-                            <Level>
+                                    <Level>
 
-                                <Level.Item hasTextCentered>
-                                   {this.state.Dataset.map((arr,i)=>(
-                                   
-                                       <Image is='128x128' src={arr.metadataFile.downloadURL} onClick={this.onOpenModal}
-                                       />
-                                   ))}
-                                </Level.Item>
-                            </Level>
+                                        <Level.Item hasTextCentered>
+                                            {this
+                                                .state
+                                                .Dataset
+                                                .map((arr, i) => (
+                                                    
+                                                    <div className="image-item">
+                                                        <Image
+                                                            className="img"
+                                                            is='128x128'
+                                                            src={arr.metadataFile.downloadURL}
+                                                            
+                                                            onClick={this.onOpenModal}
+                                                           
+                                                            onError={this.addDefaultSrc}/>
+                                                        
+                                                    </div>
+                                                    
+                                                ))}
 
-                        </Card>
-                    </Card>
+                                        </Level.Item>
+                                    </Level>
+
+                                </Card>
+                            </Card>
+                        </Level.Item>
+                    </Level>
+            <Level>
+                <Level.Item>   
+                    <ProjectList projects={projects}/>
+                   </Level.Item>
+            </Level>
                 </Card>
 
                 <Level>
@@ -325,10 +357,16 @@ class Page extends Component {
                 </Level>
 
                 <Modal classNames="modal" open={open} onClose={this.onCloseModal}>
-                  <Label />
+                    
+                    <Label/>
                 </Modal>
             </div>
         );
     }
 }
-export default Page;
+const mapStateToProps = (state) =>{
+    return{
+        projects:state.project.projects
+    }
+}
+export default connect(mapStateToProps ) (Page);

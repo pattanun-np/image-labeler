@@ -4,7 +4,7 @@ import {LazyBrush} from "lazy-brush";
 import {Catenary} from "catenary-curve";
 import ResizeObserver from "resize-observer-polyfill";
 import drawImage from "./drawImage";
-import firebase from '../firebase';
+import firebase from '../Firebase';
 var DB = firebase.database();
 function midPointBtw(p1, p2) {
     return {
