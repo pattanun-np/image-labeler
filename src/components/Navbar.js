@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import Swal from 'sweetalert2';
 import {Button, Level, Tag, Card} from 'reactbulma';
-import './Navbar.css'
-import firebase from '../firebase';
+import '../Style/Navbar.css'
+import firebase from '../Firebase';
 var DB = firebase.database();
 class Navbar extends Component {
     constructor(props) {

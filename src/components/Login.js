@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, {Component} from 'react';
-import './Login.css';
+import '../Style/Login.css';
 import Swal from 'sweetalert2'
 import {withRouter} from "react-router";
 import {
@@ -13,7 +13,7 @@ import {
     Field,
     Control
 } from 'reactbulma'
-import firebase from '../firebase';
+import firebase from '../Firebase';
 const DB = firebase.database();
 
 class Login extends Component {
@@ -24,16 +24,14 @@ class Login extends Component {
         this.login = this
             .login
             .bind(this);
+            this.signup = this
+                .signup
+                .bind(this);
         this.handleChange = this
             .handleChange
             .bind(this);
-        this.signup = this
-            .signup
-            .bind(this);
+       
 
-        this.handleEntailmentRequest = this
-            .handleEntailmentRequest
-            .bind(this);
         this.state = {
             name: '',
             email: '',
@@ -41,7 +39,7 @@ class Login extends Component {
             currentUser: '',
             message: '',
             register: 'Tabs2',
-            position: ''
+            position: 'Select your role'
         }
     }
 
@@ -94,19 +92,15 @@ class Login extends Component {
             })
 
     }
-    handleEntailmentRequest(e) {
-        e.preventDefault();
-      //  console.log(e.target.value)
-        this.setState({position: e.target.value})
-        //  console.log(this.state.position,"selected")
+ 
 
-    }
+    handleChange = (e) => {
 
-    handleChange(e) {
-        e.preventDefault();
         this.setState({
             [e.target.name]: e.target.value
+
         });
+
     }
 
     render() {
@@ -138,23 +132,23 @@ class Login extends Component {
                                 {() => { this.setState({register: 'Tabs2'}) } }>
                                 < a 
                                 className = "Tabs" > < Image is = "16x16"
-                                src = "https://image.flaticon.com/icons/svg/149/149071.svg" / >
+                                src = "https://image.flaticon.com/icons/svg/149/149071.svg" />
                                     <span>Login</span>
                                 </a>
                             </li>
 
                         </ul >
                     </Tabs>
-                    {this.state.register === 'Tabs1' && <div>
+                {this.state.register === 'Tabs1' && <div>
                         <h1 className="label">
                             Please Sign Up Before the record data</h1>
-                        <form>
+                        <form onSubmit={this.signup}>
                             <div className="field">
                                 <label className="label">Name :
                                 </label>
                                 <div className="Input-Box">
                                     <Input
-                                        primary
+                                        info
                                         className="input"
                                         type="text"
                                         placeholder="Name"
@@ -170,7 +164,7 @@ class Login extends Component {
                                 </label>
                                 <div className="Input-Box">
                                     <Input
-                                        primary
+                                        info
                                         className="input"
                                         placeholder="Email"
                                         type="email"
@@ -186,7 +180,7 @@ class Login extends Component {
                                 </label>
                                 <div className="Input-Box">
                                     <Input
-                                        primary
+                                        info
                                         className="input"
                                         placeholder="Password"
                                         type="password"
@@ -199,50 +193,24 @@ class Login extends Component {
                             <h1 className="label">
                                 What is your role in this project ? "Please select your role" </h1>
                             <Field grouped>
-                                <Control>
-                                    <Button
-                                        success
-                                        className="button is-link"
-                                        value='Dentist(Advicer)'
-                                        onClick=
-                                        { (e) => { this.handleEntailmentRequest(e) } }>
-                                        Advicer(Dr.Knoot)</Button>
-                                </Control>
-                                <Control>
-                                    <Button
-                                        danger
-                                        className="button is-link"
-                                        value="Dentist(Student)"
-                                        onClick=
-                                        { (e) => { this.handleEntailmentRequest(e) } }>
-                                        Dentist Student</Button>
+                                <Control >
+                                <div className="select is-rounded" >
+                                    <select name="position" onChange={this.handleChange.bind(this)} >
+                                        <option>Select your role</option>
+                                        <option>Advicer(Dr. Knoot)</option>
+                                        <option>Dentist(student)</option>
+                                        <option>Co-Advicer(Dr. Artith)</option>
+                                        <option>Research</option>
+                                    </select>
+                                </div>
                                 </Control>
                               
                             </Field>
-                        <Field grouped>
-                            <Control>
-                                <Button
-                                    warning
-                                    className="button is-link"
-                                    value="Engineer(Co-Advicer)"
-                                    onClick=
-                                    {(e) => { this.handleEntailmentRequest(e) }}>
-                                    Co-Advicer(Dr.Arthit)</Button>
-                            </Control>
-                            <Control>
-                                <Button
-                                    info
-                                    className="button is-link"
-                                    value="Reseacher"
-                                    onClick=
-                                    {(e) => { this.handleEntailmentRequest(e) }}>
-                                    Researcher</Button>
-                            </Control>
+              
 
-                        </Field>
-
-
-                            <h1 className="label">Selected : {this.state.position}</h1>
+                        <h1 className={this.state.position === 'Select your role' && 'Error'}>Selected : {this.state.position}
+                            
+                            </h1>
                             <div className="field is-grouped">
                                 <div className="control">
                                     < Button success className = "button is-link"
@@ -254,7 +222,7 @@ class Login extends Component {
 
                                         }
                                     }
-                                    onClick={this.signup}>Submit</Button>
+                                >Submit</Button>
 
                                 </div>
 
@@ -262,16 +230,16 @@ class Login extends Component {
                         </form>
 
                     </div>
-}
+}         
                     {this.state.register === 'Tabs2' && <div>
                         <h1 className="label">Please Login Before the record data</h1>
-                        <form>
+                        <form onSubmit={this.login}>
                             <div className="field">
                                 <label className="label">Email :
                                 </label>
                                 <div className="Input-Box">
                                     <Input
-                                        primary
+                                        info
                                         className="input"
                                         type="email"
                                         placeholder="Email"
@@ -287,7 +255,7 @@ class Login extends Component {
                                 </label>
                                 <div className="control">
                                     <Input
-                                        primary
+                                        info
                                         className="input"
                                         type="password"
                                         placeholder="Password"
@@ -311,9 +279,7 @@ class Login extends Component {
                                         }
                                     }
                                     type = "submit"
-                                    onClick = {
-                                        this.login
-                                    } > Login </Button>
+                                    > Login </Button>
                                 </div>
                             </div>
                             </Level>

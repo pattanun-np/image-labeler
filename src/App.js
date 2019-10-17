@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
-import firebase from './firebase'
-import Home from './components/Home';
-import Page from './components/single-page';
+import firebase from './Firebase'
+import Home from './Screen/Home';
+import Page from './Screen/single-page';
 import Loading from './components/Loading';
 import PrivateRoute from './components/PrivateRoute';
 import {BrowserRouter as Router, Route} from "react-router-dom";
-require('dotenv').config()
 class App extends Component {
     constructor(props) {
         super(props);

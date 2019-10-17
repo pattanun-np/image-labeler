@@ -1,20 +1,29 @@
 import React, {Component} from "react";
 import CanvasDraw from "./index";
-import './Label.css';
-import firebase from '../firebase';
+import '../Style/Label.css';
+import firebase from '../Firebase';
 import Loading from './Loading';
-// import Swal from 'sweetalert2'
+import Swal from 'sweetalert2'
 import {
-    // Button,
+    Button,
     Tag,
-    // Image,
+    Image,
     Notification,
-    Input,
-    // Box
-    // Control
+    Level,
+
 } from 'reactbulma';
+import 'rc-slider/assets/index.css';
+import 'rc-tooltip/assets/bootstrap.css';
+import Slider from 'rc-slider';
+import { link } from "fs";
+
+
+
+
 class Label extends Component {
-    state = {
+        constructor(props) {
+            super(props);
+   this.state = {
         color: "#f44336",
         width: 480,
         height: 480,
@@ -25,11 +34,10 @@ class Label extends Component {
         mode: 'add',
         open: false,
         hideGrid: 'hideGrid',
-        label_images: "https://firebasestorage.googleapis.com/v0/b/deeplearning-7f788.appspot.com/o/Use" +
-                "rData%2FijMSNUwudhaibN9iPK8HfDLBqhv1%2FCBCT.png?alt=media&token=5d622c5e-cd7b-4d" +
-                "0d-baf4-242a199e79ec"
+        
+     
     };
-
+        }
     componentDidMount() {
 
         this.getImage();
@@ -38,12 +46,22 @@ class Label extends Component {
     handleChangeComplete = (color) => {
         this.setState({color: color.hex});
     };
-    onChange1(event) {
-        this.setState({brushRadius: event.target.value});
-    }
-    onChange2(event) {
-        this.setState({lazyRadius: event.target.value});
-    }
+onSliderChange = brushRadius => {
+    this.setState({
+           brushRadius
+        }        
+    );
+};
+onSliderChange1 = lazyRadius => {
+    this.setState({
+          lazyRadius
+        }
+       
+    );
+};
+ save_data() {
+     Swal.fire('Good job!', 'Saved label data Success', 'success')
+ }
     getImage() {
         const user = firebase
             .auth()
@@ -62,16 +80,16 @@ class Label extends Component {
     };
 
     render() {
-        // var settings = {     dots: true,     infinite: true,     speed: 500,
-        // slidesToShow: 1,     slidesToScroll: 1 };
+      
 
         const {loading, messag_error, messag_success} = this.state;
         if (loading) {
             return <Loading/>;
         }
         return (
-
+            <div>
             <div className="columm">
+              
                 <div className="messag">{messag_success
                         ? <Notification success>
                                 {messag_success}
@@ -84,57 +102,118 @@ class Label extends Component {
                         : null}</div>
                 <h1 className="label">
                     Label draw segmentation</h1>
-          
 
-                <div className="canvas">
+                  
                    
-               
+          
+ <Level>
+                    <Level.Item>
 
-                        <div className="tools-brush">
-                            <label>Brush-Radius:<Tag danger>{this.state.brushRadius}</Tag>
-                            </label>
-                            <Input
-                                type="number"
-                                placeholder="BrushRadius | Size 1-25 px"
-                                min="1"
-                                max="25"
-                                value={this.state.brushRadius}
-                                onChange={this
-                                .onChange1
-                                .bind(this)}></Input>
+                        <Button
+                            white
+                            onClick={() => {
+                            this
+                                .saveableCanvas
+                                .clear();
+                        }}>
+                            <Image is="16x16" src="https://image.flaticon.com/icons/svg/1632/1632714.svg"/>
+                            <span></span>Clear
+                        </Button>
+                        <Button
+                            white
+                            onClick={() => {
+                            this
+                                .saveableCanvas
+                                .undo();
+                        }}>
+                            <Image is="16x16" src="https://image.flaticon.com/icons/svg/1828/1828144.svg"/>
+                            Undo
+                        </Button>
+                        
+                    </Level.Item>
+                </Level>
+                <Level>
 
-                            <label>Lazy-Radius:<Tag danger>{this.state.lazyRadius}</Tag>
-                            </label>
-                            <Input
-                                type="number"
-                                placeholder="LazyRadius | Size 1-25 px"
-                                min="1"
-                                max="25"
-                                value={this.state.lazyRadius}
-                                onChange={this
-                                .onChange2
-                                .bind(this)}></Input>
+                    <Level.Item>
+
+                        <label>Brush-Radius:<Tag danger>{this.state.brushRadius}</Tag>
+                        </label>
+                       
+           <Slider
+          min={5}
+          max={60}
+          value={this.state.brushRadius}
+          onChange={this.onSliderChange}
+          railStyle={{
+            height: 2
+          }}
+          handleStyle={{
+            height: 28,
+            width: 28,
+            marginLeft: -14,
+            marginTop: -14,
+            backgroundColor: "hsl(348, 100%, 61%)",
+            border: 0
+          }}
+          trackStyle={{
+            background: "none"
+          }}
+        />
+
+                    </Level.Item>
+
+                </Level>
+                <Level>
+                    <Level.Item>
+                        
+                        <label>Lazy-Radius:<Tag danger>{this.state.lazyRadius}</Tag>
+                        </label>
+                        < Slider
+                        min = { 0}
+                        max = {20}
+                        value = {this.state.lazyRadius}
+                        onChange = { this.onSliderChange1}
+                        railStyle = {{height: 2}}
+                        handleStyle = {{ height: 28,
+                        width: 28,
+                        marginLeft: -14,
+                        marginTop: -14,
+                        backgroundColor: "hsl(348, 100%, 61%)",
+                        border: 0}}
+                        trackStyle = {{background: "none"}}/>
+                                             
+                    </Level.Item>
+                </Level>
+                <Level>
+                    <Level.Item>
+                        <div className="canvas">
+                            <CanvasDraw
+                                ref={canvasDraw => (this.saveableCanvas = canvasDraw)}
+                                brushColor={this.state.color}
+                                brushRadius={this.state.brushRadius}
+                                lazyRadius={this.state.lazyRadius}
+                                canvasWidth={this.state.width}
+                                canvasHeight={this.state.height}
+                                hideGrid
+                                ={this.state.hideGrid}
+                                imgSrc={this.props.img}/>
 
                         </div>
-                                <div className="canvas">
-                        <CanvasDraw
-                            ref={canvasDraw => (this.saveableCanvas = canvasDraw)}
-                            brushColor={this.state.color}
-                            brushRadius={this.state.brushRadius}
-                            saveData={localStorage.getItem("savedDrawing")}
-                            lazyRadius={this.state.lazyRadius}
-                            canvasWidth={this.state.width}
-                            canvasHeight={this.state.height}
-                            hideGrid
-                            ={this.state.hideGrid}
-                            imgSrc={this.state.label_images}/>
 
-                    </div>
-                    
-                  
-
-                </div>
-
+                    </Level.Item>
+               
+                </Level>
+                <Level>
+                    <Level.Item>
+                        <Button
+                            success
+                            onClick={() => {
+                            localStorage.setItem("savedDrawing", this.saveableCanvas.getSaveData());
+                            setTimeout(this.save_data, 500);
+                        }}>SaveLabled</Button>
+                    </Level.Item>
+                </Level>
+            </div>
             </div>
         );
     }

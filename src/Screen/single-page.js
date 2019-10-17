@@ -1,15 +1,17 @@
 import React, {Component} from 'react';
 import Swal from 'sweetalert2'
-import './single-page.css'
-import Loading from './Loading';
+import '../Style/single-page.css'
+import Loading from '../components/Loading';
 import {FilePond, File, registerPlugin} from 'react-filepond';
-// import Label from './Label';
-import Navbar from './Navbar'
+import Label from '../components/Label';
+import Navbar from '../components/Navbar'
 import 'filepond/dist/filepond.min.css';
 import FilePondImagePreview from 'filepond-plugin-image-preview';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 import axios from 'axios'
-
+import Modal from 'react-responsive-modal';
+import FilePondPluginImageEdit from 'filepond-plugin-image-edit';
+import 'filepond-plugin-image-edit/dist/filepond-plugin-image-edit.css';
 import {
     Card,
     Level,
@@ -17,11 +19,12 @@ import {
     Title,
     Notification,
     Progress,
-    Button
+    Image
 } from 'reactbulma';
-import firebase from '../firebase';
+import firebase from '../Firebase';
 var DB = firebase.database();
 registerPlugin(FilePondImagePreview);
+registerPlugin(FilePondPluginImageEdit);
 class Page extends Component {
     constructor(props) {
         super(props);
@@ -37,7 +40,6 @@ class Page extends Component {
             messag_success: '',
             messag_error: '',
             Data: 0,
-            Types: 2,
             Labeled: 0,
             activeTab: 'Tab3',
             files: [], //ใช้เก็บข้อมูล File ที่ Upload
@@ -45,7 +47,9 @@ class Page extends Component {
             filesMetadata: [], //ใช้เพื่อรับข้อมูล Metadata จาก Firebase
             images: [],
             Dataset: [],
-            requested: ''
+            work: 0,
+            open: false,
+            img:''
         }
     }
     logout() {
@@ -68,6 +72,7 @@ class Page extends Component {
             img = snapshot.val()
             this.setState({images: img});
         });
+        this.request_Data();
 
     }
     componentWillMount() {
@@ -162,7 +167,18 @@ class Page extends Component {
                 });
         })
     }
+ onOpenModal = () => {
+     this.setState({
+         open: true,
 
+     });
+ };
+
+ onCloseModal = () => {
+     this.setState({
+         open: false
+     });
+ };
     getData_Counts = () => {
         const data_ref = DB.ref('UserData/files/Data_Counts')
         data_ref.on('value', (snapshot) => {
@@ -178,32 +194,44 @@ class Page extends Component {
             this.setState({Labeled: counts_labeled});
         });
     }
-    request_Data = () => {
+     request_Data = () => {
 
-        const user = firebase
-            .auth()
-            .currentUser
-            .uid;
+         const user = firebase
+             .auth()
+             .currentUser
+             .uid;
 
-        axios
-            .get(`https://random-img.herokuapp.com/random-data/${user}`)
-            .then((res) => {
-                // console.log(res.data)
-                this.setState({requested: res.data})
+         axios
+             .get(`https://random-img.herokuapp.com/random-data/${user}`)
+         const Img_data = DB.ref('randomed_list/' + user + '/result/0')
+         Img_data.on('value', (snapshot) => {
+             const Img_data_load = snapshot.val();
+            if (Img_data_load !== null){
+                this.setState({
+                work: Img_data_load.length,
+                Dataset: Img_data_load
+                     });
+            }
+           
 
-            })
-        // console.log(this.state.requested)
 
-        const Img_data = DB.ref('randomed_list/' + user + '/result')
-        Img_data.on('value', (snapshot) => {
-            var Img_data_load = snapshot.val();
-            console.log(Img_data_load)
-
-        });
+         });
+     }
+    addDefaultSrc(ev) {
+        ev.target.src = 'https://firebasestorage.googleapis.com/v0/b/deeplearning-7f788.appspot.com/o/ErrorIMG(1).png?alt=media&token=ba0dab40-7125-474a-892e-a5d3da70157e'
     }
+      
+     
     render() {
 
-        const {loading, messag_error, messag_success} = this.state;
+        const {
+            loading,
+            messag_error,
+            messag_success,
+            open,
+            rows,
+            filesMetadata
+        } = this.state;
         if (loading) {
             return <Loading/>;
         }
@@ -246,7 +274,10 @@ class Page extends Component {
                             <div>
                                 <Card className="Card-Work">
                                     <Heading className="Label">WORK:</Heading>
-                                    <Title>{this.state.Data}/50</Title>
+                                    < Title > {
+                                        this.state.Data
+                                    }
+                                    /{this.state.work}</Title >
                                     <Heading className="Label">Images</Heading>
 
                                     <Progress
@@ -288,16 +319,34 @@ class Page extends Component {
                             <Level>
 
                                 <Level.Item hasTextCentered>
-                                    <Button primary onClick={this.request_Data}>LOAD DATA</Button>
+                                    
+                                    {this
+                                                .state
+                                                .Dataset
+                                                .map((arr, i) => (
+                                                    
+                                                    <div className = "gallery1">
+                                                        <Image className = "img"
+                                                            is='128x128'
+                                                            src={arr.metadataFile.downloadURL}
+                                                            
+                                                            onClick={this.onOpenModal}
+                                                           
+                                                            onError={this.addDefaultSrc}/>
+                                                         <Modal classNames="modal" open={open} onClose={this.onCloseModal}>
+                                    <Label img = {
+                                        arr.metadataFile.downloadURL
+                                    }
+                                   
+                                    />
+                                                         </Modal>
+                                                    </div>
+                                                    
+                                                ))}
                                 </Level.Item>
 
                             </Level>
-                            <Level>
-
-                                <Level.Item hasTextCentered>
-                                    <h1>{this.state.Dataset}</h1>
-                                </Level.Item>
-                            </Level>
+                          
 
                         </Card>
                     </Card>
