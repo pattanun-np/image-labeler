@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 {
     "name": "my_portfolio",
     "version": "0.1.0",
@@ -52,68 +52,3 @@
         "not op_mini all"
     ]
 }
-=======
-{
-    "name": "my_portfolio",
-    "version": "0.1.0",
-    "private": true,
-    "dependencies": {
-        "axios": "^0.19.0",
-        "bulma": "^0.7.5",
-        "catenary-curve": "^1.0.1",
-        "cors": "^2.8.5",
-        "dotenv": "^8.1.0",
-        "express": "^4.17.1",
-        "filepond": "^4.4.6",
-        "filepond-plugin-image-preview": "^4.1.1",
-        "firebase": "^5.9.4",
-        "http-proxy-middleware": "^0.20.0",
-        "lazy-brush": "^1.0.1",
-        "modclean": "^3.0.0-beta.1",
-        "moment": "^2.24.0",
-        "react": "^16.8.6",
-        "react-canvas-draw": "^1.0.1",
-        "react-color": "^2.17.3",
-        "react-cropper-image-editor": "^1.0.10",
-        "react-dom": "^16.8.6",
-        "react-filepond": "^7.0.1",
-        "react-grid-gallery": "^0.5.5",
-        "react-keyed-file-browser": "^1.5.2",
-        "react-loading-screen": "0.0.17",
-        "react-player": "^1.13.0",
-        "react-redux": "^7.1.1",
-        "react-redux-firebase": "^3.0.2",
-        "react-redux-firestore": "0.0.1",
-        "react-responsive-modal": "^4.0.1",
-        "react-router-dom": "^5.0.0",
-        "react-scripts": "^3.2.0",
-        "react-slick": "^0.24.0",
-        "reactbulma": "^3.0.4",
-        "redux": "^4.0.4",
-        "redux-firestore": "^0.9.0",
-        "redux-logger": "^3.0.6",
-        "redux-thunk": "^2.3.0",
-        "sweetalert2": "^8.18.3",
-        "webpack": "^4.41.2",
-        "webpack-cli": "^3.3.9"
-    },
-    "scripts": {
-        "start": "react-scripts start",
-        "build": "react-scripts build",
-        "test": "react-scripts test",
-        "eject": "react-scripts eject"
-    },
-    "eslintConfig": {
-        "extends": "react-app"
-    },
-    "browserslist": [
-        ">0.2%",
-        "not dead",
-        "not ie <= 11",
-        "not op_mini all"
-    ],
-    "devDependencies": {
-        "react-hot-loader": "^4.12.15"
-    }
-}
->>>>>>> bec1b36af0632a9d39c0b135cc89c94fce450447

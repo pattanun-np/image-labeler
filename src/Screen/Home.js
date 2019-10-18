@@ -37,7 +37,7 @@ class Home extends Component {
                     <Level.Item>
                         <Card>
                             <h1 className="label">Tutorial Video:</h1>
-                            <ReactPlayer url='https://youtu.be/8CxlSJVwBZk'
+                            <ReactPlayer url='https://youtu.be/MVHouwIGDmE'
                                 width='100%'
                                 height='100%'
                                 controlsplaying

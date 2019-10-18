@@ -49,7 +49,10 @@ class Page extends Component {
             Dataset: [],
             work: 0,
             open: false,
-            img:''
+            img:'',
+            num:0,
+            Id:-1
+
         }
     }
     logout() {
@@ -167,13 +170,14 @@ class Page extends Component {
                 });
         })
     }
- onOpenModal = () => {
-     this.setState({
+ onOpenModal = (e) => {
+     
+         this.setState({
          open: true,
-
+          
      });
- };
-
+    
+ }
  onCloseModal = () => {
      this.setState({
          open: false
@@ -217,25 +221,53 @@ class Page extends Component {
 
          });
      }
+
     addDefaultSrc(ev) {
         ev.target.src = 'https://firebasestorage.googleapis.com/v0/b/deeplearning-7f788.appspot.com/o/ErrorIMG(1).png?alt=media&token=ba0dab40-7125-474a-892e-a5d3da70157e'
     }
       
+     onClickFunction = (e, id) => {
+         e.preventDefault();
      
+        this.setState({
+            Id:id
+        })
+    this.onOpenModal(e)
+     }
     render() {
 
         const {
             loading,
             messag_error,
             messag_success,
-            open,
-            rows,
-            filesMetadata
+            open,work,Data,
+            Labeled,Dataset,Id
         } = this.state;
         if (loading) {
             return <Loading/>;
         }
-
+           const img_data = this
+                    .state
+                    .Dataset
+                    .map((arr,i) => (
+                        
+                        <div key={i}>
+                           
+                            <Image className = "img"
+                                is='128x128'
+                                src={arr.metadataFile.downloadURL}
+                                onClick = {
+                                        e => {
+                                            this.onClickFunction(e, i)
+                                            }
+                                            }
+                                onError={this.addDefaultSrc}
+                                />
+                        
+                        </div>
+                        
+                    ))   
+                
         return (
             <div className="contrainer">
                 <div className="messag">{messag_success
@@ -256,7 +288,7 @@ class Page extends Component {
                             <div>
                                 <Card className="Card-Data">
                                     <Heading className="Label">DATA:</Heading>
-                                    <Title>{this.state.Data}</Title>
+                                    <Title>{Data}</Title>
                                     <Heading className="Label">Images</Heading>
                                 </Card>
                             </div>
@@ -265,7 +297,7 @@ class Page extends Component {
                             <div>
                                 <Card className="Card-Label">
                                     <Heading className="Label">LABELED:</Heading>
-                                    <Title>{this.state.Labeled}</Title>
+                                    <Title>{Labeled}</Title>
                                     <Heading className="Label">Images</Heading>
                                 </Card>
                             </div>
@@ -275,16 +307,16 @@ class Page extends Component {
                                 <Card className="Card-Work">
                                     <Heading className="Label">WORK:</Heading>
                                     < Title > {
-                                        this.state.Data
+                                        Data
                                     }
-                                    /{this.state.work}</Title >
+                                    /{work}</Title >
                                     <Heading className="Label">Images</Heading>
 
                                     <Progress
                                         success
                                         className="progress-work"
-                                        value={this.state.Labeled}
-                                        max={this.state.Data}></Progress>
+                                        value={Labeled}
+                                        max={Data}></Progress>
                                 </Card>
                             </div>
                         </Level.Item>
@@ -319,35 +351,21 @@ class Page extends Component {
                             <Level>
 
                                 <Level.Item hasTextCentered>
-                                    
-                                    {this
-                                                .state
-                                                .Dataset
-                                                .map((arr, i) => (
-                                                    
-                                                    <div className = "gallery1">
-                                                        <Image className = "img"
-                                                            is='128x128'
-                                                            src={arr.metadataFile.downloadURL}
-                                                            
-                                                            onClick={this.onOpenModal}
-                                                           
-                                                            onError={this.addDefaultSrc}/>
-                                                         <Modal classNames="modal" open={open} onClose={this.onCloseModal}>
-                                    <Label img = {
-                                        arr.metadataFile.downloadURL
-                                    }
-                                   
-                                    />
-                                                         </Modal>
-                                                    </div>
-                                                    
-                                                ))}
+                                     
+                                
+                                {img_data}
+                        
+                                                 
+                                           
                                 </Level.Item>
 
                             </Level>
                           
-
+<Level>
+    <Level.Item>
+  
+    </Level.Item>
+</Level>
                         </Card>
                     </Card>
                 </Card>
@@ -368,7 +386,10 @@ class Page extends Component {
                         </p>
                     </Level.Item>
                 </Level>
-
+                       <Modal classNames="modal" open={open}  onClose={this.onCloseModal}>
+                         
+                     <Label img={Dataset} imgid ={Id}/>   
+                </Modal> 
             </div>
         );
     }

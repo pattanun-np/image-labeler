@@ -92,6 +92,7 @@
     box-shadow: 12px 12px 15px 0 rgba(247,97,94,1);
 }
 .gallery {
+<<<<<<< HEAD
     padding: 15px;
 <<<<<<< HEAD:src/Style/single-page.css
     overflow-y: auto;
@@ -113,10 +114,20 @@
  
     
 >>>>>>> bec1b36af0632a9d39c0b135cc89c94fce450447:src/Style/single-page.css
-
+=======
+    overflow-x: auto;
+ width: auto;
 }
+
 .img {
 
+  
+   margin-left: 5px;
+>>>>>>> new
+
+}
+
+<<<<<<< HEAD
     grid-gap: 10px;
 <<<<<<< HEAD:src/Style/single-page.css
     object-fit: cover;
@@ -151,6 +162,8 @@
   
 }
 >>>>>>> bec1b36af0632a9d39c0b135cc89c94fce450447:src/Style/single-page.css
+=======
+>>>>>>> new
 .progress-work {
     width: 290px;
     margin-left: 5px;
