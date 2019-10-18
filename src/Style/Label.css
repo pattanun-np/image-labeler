@@ -31,8 +31,7 @@
     margin-bottom: 15px;
 }
 .canvas {
-
-    padding: 5px;
+overflow-x:auto;
 }
 
 .tools-brush {

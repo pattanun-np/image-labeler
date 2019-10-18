@@ -15,7 +15,7 @@ import {
 import 'rc-slider/assets/index.css';
 import 'rc-tooltip/assets/bootstrap.css';
 import Slider from 'rc-slider';
-import { link } from "fs";
+
 
 
 
@@ -41,8 +41,12 @@ class Label extends Component {
     componentDidMount() {
 
         this.getImage();
+        
+      
 
     }
+  
+   
     handleChangeComplete = (color) => {
         this.setState({color: color.hex});
     };
@@ -78,7 +82,9 @@ onSliderChange1 = lazyRadius => {
             })
 
     };
-
+    addDefaultSrc(ev) {
+        ev.target.src = 'https://firebasestorage.googleapis.com/v0/b/deeplearning-7f788.appspot.com/o/ErrorIMG(1).png?alt=media&token=ba0dab40-7125-474a-892e-a5d3da70157e'
+    }
     render() {
       
 
@@ -86,6 +92,26 @@ onSliderChange1 = lazyRadius => {
         if (loading) {
             return <Loading/>;
         }
+                    //  console.log(this.props.img)    
+                    let  id = this.props.imgid  
+                    //  console.log(id)
+                   let Canvas = this.props.img.map((arr,i) => (
+                        
+                        <div key={i}>
+                           
+                           <CanvasDraw 
+                                ref={canvasDraw => (this.saveableCanvas = canvasDraw)}
+                                brushColor={this.state.color}
+                                brushRadius={this.state.brushRadius}
+                                lazyRadius={this.state.lazyRadius}
+                                canvasWidth={this.state.width}
+                                canvasHeight={this.state.height}
+                                hideGrid={this.state.hideGrid}
+                                imgSrc={arr.metadataFile.downloadURL}  />
+                        
+                        </div>
+                        
+                    ))   
         return (
             <div>
             <div className="columm">
@@ -100,11 +126,10 @@ onSliderChange1 = lazyRadius => {
                                 {messag_error}
                             </Notification>
                         : null}</div>
-                <h1 className="label">
-                    Label draw segmentation</h1>
+                <Tag success className="label">
+                    Label draw segmentation</Tag>
 
                   
-                   
           
  <Level>
                     <Level.Item>
@@ -186,17 +211,16 @@ onSliderChange1 = lazyRadius => {
                 </Level>
                 <Level>
                     <Level.Item>
-                        <div className="canvas">
-                            <CanvasDraw
-                                ref={canvasDraw => (this.saveableCanvas = canvasDraw)}
-                                brushColor={this.state.color}
-                                brushRadius={this.state.brushRadius}
-                                lazyRadius={this.state.lazyRadius}
-                                canvasWidth={this.state.width}
-                                canvasHeight={this.state.height}
-                                hideGrid
-                                ={this.state.hideGrid}
-                                imgSrc={this.props.img}/>
+                  
+                          
+                        <div>
+                       
+
+
+                               <div className="canvas" >
+                           
+                            {Canvas[id]}
+                        </div>   
 
                         </div>
 

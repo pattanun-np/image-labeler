@@ -100,7 +100,7 @@ class Navbar extends Component {
                                             {name}
                                         </h1>
                                     </Tag>
-                                    <Button
+                                    {/* <Button
                                         className={this.state.notify
                                         ? 'dropdown is-right '
                                         : 'dropdown is-right is-active'}
@@ -144,7 +144,7 @@ class Navbar extends Component {
                                             style={{
                                             marginLeft: '5px'
                                         }}Tag >{this.state.notift_num}</Tag>
-                                    </Button>
+                                    </Button> */}
                                     <Button danger onClick={this.handleLongout} className="logout_btn">
                                         Logout
                                     </Button>
