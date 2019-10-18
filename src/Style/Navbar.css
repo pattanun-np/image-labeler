@@ -18,4 +18,5 @@
 .Nav_login{
     margin-left:5;
  padding: 10px;
+ overflow-x:auto;
 }

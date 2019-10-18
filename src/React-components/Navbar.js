@@ -3,6 +3,10 @@ import Swal from 'sweetalert2';
 import {Button, Level, Tag, Card} from 'reactbulma';
 import '../Style/Navbar.css'
 import firebase from '../Firebase';
+<<<<<<< HEAD:src/components/Navbar.js
+=======
+import {connect} from 'react-redux'
+>>>>>>> bec1b36af0632a9d39c0b135cc89c94fce450447:src/React-components/Navbar.js
 var DB = firebase.database();
 class Navbar extends Component {
     constructor(props) {
@@ -157,5 +161,12 @@ class Navbar extends Component {
         );
     }
 }
+const  mapStateToProps = (state) => {
+    console.log(state);
+    return{
 
-export default Navbar;
+    }
+}
+
+
+export default connect(mapStateToProps)( Navbar);

@@ -14,11 +14,15 @@ import {
     Control
 } from 'reactbulma'
 import firebase from '../Firebase';
+<<<<<<< HEAD:src/components/Login.js
+=======
+import {connect} from 'react-redux'
+import {signIn} from '../Redux-store/Redux-actions/authActions'
+>>>>>>> bec1b36af0632a9d39c0b135cc89c94fce450447:src/React-components/Login.js
 const DB = firebase.database();
 
-class Login extends Component {
-    constructor(props) {
 
+<<<<<<< HEAD:src/components/Login.js
         super(props);
 
         this.login = this
@@ -41,43 +45,50 @@ class Login extends Component {
             register: 'Tabs2',
             position: 'Select your role'
         }
+=======
+class SignIn extends Component {
+    state = {
+        name: '',
+        email: '',
+        password: '',
+        currentUser: '',
+        message: '',
+        register: 'Tabs2',
+        position: 'Select your role'
+>>>>>>> bec1b36af0632a9d39c0b135cc89c94fce450447:src/React-components/Login.js
     }
+    // signup(e) {
+    //     e.preventDefault();
 
-    login(e) {
-        e.preventDefault();
-        firebase
-            .auth()
-            .signInWithEmailAndPassword(this.state.email, this.state.password)
-            .then(user => {
-                Swal.fire('Good job! Login', 'success', 'success')
-                setTimeout(() => this.props.history.push("/dashboard"), 100);
+    //     firebase
+    //         .auth()
+    //         .createUserWithEmailAndPassword(this.state.email, this.state.password)
+    //         .then(user => {
+    //             var userId = firebase
+    //                 .auth()
+    //                 .currentUser
+    //                 .uid;
+             
+    //             Swal.fire('Good job!', 'Create User Success', 'success')
+    //             this
+    //                 .props
+    //                 .history
+    //                 .push("/");
 
-            })
-            .catch((error) => {
-                console.log(error);
-                this.setState({message: error.message})
-                setTimeout(() => this.setState({message: null}), 2000);
-            });
+    //             DB
+    //                 .ref('/data')
+    //                 .child('users/' + userId)
+    //                 .set({name: this.state.name, email: this.state.email, position: this.state.position, uid: userId})
 
-    }
-    signup(e) {
-        e.preventDefault();
+    //         })
+    //         .catch((error) => {
+    //             console.log(error);
+    //             this.setState({message: error.message});
+    //             setTimeout(() => this.setState({message: null}), 2000);
 
-        firebase
-            .auth()
-            .createUserWithEmailAndPassword(this.state.email, this.state.password)
-            .then(user => {
-                var userId = firebase
-                    .auth()
-                    .currentUser
-                    .uid;
-                console.log("Create User Success")
-                Swal.fire('Good job!', 'Create User Success', 'success')
-                this
-                    .props
-                    .history
-                    .push("/");
+    //         })
 
+<<<<<<< HEAD:src/components/Login.js
                 DB
                     .ref('/data')
                     .child('users/' + userId)
@@ -101,6 +112,24 @@ class Login extends Component {
 
         });
 
+=======
+    // }
+    handleSubmit = (e) => {
+        e.preventDefault();
+        this.props.signIn(this.state)
+       
+    
+    }
+    
+
+    handleChange =(e)=> {
+    
+        this.setState({
+            [e.target.name]: e.target.value
+           
+        });
+      
+>>>>>>> bec1b36af0632a9d39c0b135cc89c94fce450447:src/React-components/Login.js
     }
 
     render() {
@@ -130,7 +159,7 @@ class Login extends Component {
                                 className={this.state.register === 'Tabs2' && 'is-active'}
                                 onClick=
                                 {() => { this.setState({register: 'Tabs2'}) } }>
-                                < a 
+                                <a 
                                 className = "Tabs" > < Image is = "16x16"
                                 src = "https://image.flaticon.com/icons/svg/149/149071.svg" />
                                     <span>Login</span>
@@ -142,7 +171,11 @@ class Login extends Component {
                 {this.state.register === 'Tabs1' && <div>
                         <h1 className="label">
                             Please Sign Up Before the record data</h1>
+<<<<<<< HEAD:src/components/Login.js
                         <form onSubmit={this.signup}>
+=======
+                        <form onSubmit={this.handleSubmit}>
+>>>>>>> bec1b36af0632a9d39c0b135cc89c94fce450447:src/React-components/Login.js
                             <div className="field">
                                 <label className="label">Name :
                                 </label>
@@ -233,7 +266,13 @@ class Login extends Component {
 }         
                     {this.state.register === 'Tabs2' && <div>
                         <h1 className="label">Please Login Before the record data</h1>
+<<<<<<< HEAD:src/components/Login.js
                         <form onSubmit={this.login}>
+=======
+                        <form onSubmit={
+                            this.handleSubmit
+                        }>
+>>>>>>> bec1b36af0632a9d39c0b135cc89c94fce450447:src/React-components/Login.js
                             <div className="field">
                                 <label className="label">Email :
                                 </label>
@@ -291,4 +330,11 @@ class Login extends Component {
         );
     }
 }
-export default withRouter(Login);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        signIn: (creds)  => dispatch(signIn(creds))
+        
+        
+    }
+}
+export default connect(null ,mapDispatchToProps)(SignIn);
