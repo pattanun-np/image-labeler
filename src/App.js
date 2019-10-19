@@ -17,7 +17,7 @@ class App extends Component {
             authenticated: false,
             user: null,
             register: 'Tabs1',
-            position: "Undefind"
+           
         }
     }
     componentWillMount() {

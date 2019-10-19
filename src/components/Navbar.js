@@ -76,7 +76,7 @@ class Navbar extends Component {
     }
 
     render() {
-        const {name} = this.state;
+        const {name,position} = this.state;
         return (
             <div>
                 <Card>
@@ -100,6 +100,9 @@ class Navbar extends Component {
                                             {name}
                                         </h1>
                                     </Tag>
+                                    < Tag success large > Login as {
+                                        position
+                                    } </Tag>
                                     {/* <Button
                                         className={this.state.notify
                                         ? 'dropdown is-right '
