@@ -1,7 +1,10 @@
 #contrainer {
     margin: 15px;
+     background-color: #031225;
 
 }
+
+
 
 .signIn {
     position: relative;
@@ -104,14 +107,58 @@
 }
 
 .gallery {
-    overflow-x: auto;
-    width: auto;
+    margin: 10px;
+    
+    align-self: center;
+    align-items: center;
+    overflow-x: scroll;
+     overflow-y: scroll;
+    transition: 0.5s;
+    height: 500px;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    background-image: radial-gradient(circle farthest-corner at 10% 20%, rgba(0, 160, 225, 1) 0%, rgba(22, 70, 212, 1) 90.1%);
+      border-radius:20px;
+
+   
 }
 
 .img {
+ 
+    height: 128px;
+    width: 128px;
+    padding: 10%;
+    margin-left:10px ;
+     grid-gap: 20px;
+    box-shadow: 2px 2px 2px 0 rgba(97, 97, 97, 0.226);
+      transition:  2s;
+      background-color: #ffffff;
+      border-radius:10px ;
+      
+
+}
+.img:hover {
+
+ height: 256px;
+ width: 256px;
+ border-color: 12px 12px 20px 0 rgba(151, 220, 252, 1);
 
 
-    margin-left: 5px;
+}
+.img::before {
+
+    height: 256px;
+    width: 256px;
+    border-color: 12px 12px 20px 0 rgba(151, 220, 252, 1);
+    transform: rotateY(360deg);
+
+}
+.img::after {
+
+    height: 256px;
+    width: 256px;
+    border-color: 12px 12px 20px 0 rgba(151, 220, 252, 1);
+    transform: rotateY(-360deg);
 
 }
 
@@ -128,7 +175,3 @@
 }
 
 
-.modal {
-    width: 500px;
-    height: 480px;
-}

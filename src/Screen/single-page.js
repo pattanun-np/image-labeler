@@ -80,6 +80,7 @@ class Page extends Component {
         this.getData_Counts();
         this.getLabel_Counts();
 
+
     }
 
     getUserData = () => {
@@ -260,7 +261,7 @@ class Page extends Component {
                                             }
                                 onError={this.addDefaultSrc}
                                 />
-                        
+         
                         </div>
                         
                     ))   
@@ -358,12 +359,7 @@ class Page extends Component {
 
                             </Level>
                           
-<Level>
-    <Level.Item>
-  
-    </Level.Item>
-</Level>
-                        </Card>
+                </Card>
                     </Card>
                 </Card>
 
@@ -383,7 +379,7 @@ class Page extends Component {
                         </p>
                     </Level.Item>
                 </Level>
-                       <Modal classNames="modal" open={open}  onClose={this.onCloseModal}>
+                       <Modal open={open}  onClose={this.onCloseModal}>
                          
                      <Label img={Dataset} imgid ={Id}/>   
                 </Modal> 
