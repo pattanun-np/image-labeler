@@ -19,7 +19,7 @@ install:
   - npm install firebase-admin
  
 script: 
-  - CI=false npm run build # build project
+  - CI=false SKIP_PREFLIGHT_CHECK=true  npm run build # build project
   - echo "Deploy!!"
 
 after_success:
