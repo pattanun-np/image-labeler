@@ -1,4 +1,3 @@
-
 {
     "name": "my_portfolio",
     "version": "0.1.0",
@@ -10,11 +9,9 @@
         "cors": "^2.8.5",
         "express": "^4.17.1",
         "filepond": "^4.4.6",
-        "filepond-plugin-image-crop": "^2.0.3",
-        "filepond-plugin-image-edit": "^1.5.0",
         "filepond-plugin-image-preview": "^4.1.1",
-        "firebase": "^5.9.4",
-        "http-proxy-middleware": "^0.20.0",
+        "firebase": "^5.11.1",
+        "grpc": "^1.24.0",
         "lazy-brush": "^1.0.1",
         "modclean": "^3.0.0-beta.1",
         "moment": "^2.24.0",
@@ -22,11 +19,8 @@
         "react": "^16.8.6",
         "react-canvas-draw": "^1.0.1",
         "react-color": "^2.17.3",
-        "react-cropper-image-editor": "^1.0.10",
         "react-dom": "^16.8.6",
         "react-filepond": "^7.0.1",
-        "react-grid-gallery": "^0.5.5",
-        "react-keyed-file-browser": "^1.5.2",
         "react-loading-screen": "0.0.17",
         "react-player": "^1.13.0",
         "react-responsive-modal": "^4.0.1",
@@ -34,7 +28,10 @@
         "react-scripts": "^3.2.0",
         "react-slick": "^0.24.0",
         "reactbulma": "^3.0.4",
-        "sweetalert2": "^8.18.3"
+        "sweetalert2": "^8.18.3",
+        "trim": "0.0.1",
+        "webpack": "^4.41.2",
+        "webpack-dev-server": "^3.8.2"
     },
     "scripts": {
         "start": "react-scripts start",

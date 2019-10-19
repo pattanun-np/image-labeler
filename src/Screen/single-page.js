@@ -10,8 +10,6 @@ import FilePondImagePreview from 'filepond-plugin-image-preview';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
 import axios from 'axios'
 import Modal from 'react-responsive-modal';
-import FilePondPluginImageEdit from 'filepond-plugin-image-edit';
-import 'filepond-plugin-image-edit/dist/filepond-plugin-image-edit.css';
 import {
     Card,
     Level,
@@ -24,7 +22,6 @@ import {
 import firebase from '../Firebase';
 var DB = firebase.database();
 registerPlugin(FilePondImagePreview);
-registerPlugin(FilePondPluginImageEdit);
 class Page extends Component {
     constructor(props) {
         super(props);
