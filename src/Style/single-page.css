@@ -125,8 +125,7 @@
 
 .img {
  
-    height: 128px;
-    width: 128px;
+
     padding: 10%;
     margin-left:10px ;
      grid-gap: 20px;
@@ -148,6 +147,7 @@
 
 
 }
+
 
 
 .progress-work {

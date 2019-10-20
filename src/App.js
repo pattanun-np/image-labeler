@@ -15,9 +15,7 @@ class App extends Component {
             message: '',
             loading: true,
             authenticated: false,
-            user: null,
-            register: 'Tabs1',
-           
+            user: null
         }
     }
     componentWillMount() {
@@ -31,7 +29,7 @@ class App extends Component {
                 }
             });
     }
-     render() {
+    render() {
         const {authenticated, loading} = this.state;
 
         if (loading) {

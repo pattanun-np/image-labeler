@@ -76,11 +76,11 @@ class Navbar extends Component {
     }
 
     render() {
-        const {name,position} = this.state;
+        const {name, position} = this.state;
         return (
             <div>
                 <Card>
-                    <Level className = "Nav_login">
+                    <Level className="Nav_login">
                         <Level.Item>
                             <Level.Right>
                                 <div>
@@ -93,16 +93,16 @@ class Navbar extends Component {
                                         <i
                                             className="fas fa-user"
                                             style={{
-                                            marginRight: '5px',
-                                         
+                                            marginRight: '5px'
                                         }}></i>
                                         <h1>
                                             {name}
                                         </h1>
                                     </Tag>
-                                    < Tag success large > Login as {
-                                        position
-                                    } </Tag>
+                                    < Tag success large>
+                                        Login as {position
+}
+                                    </Tag>
                                     {/* <Button
                                         className={this.state.notify
                                         ? 'dropdown is-right '

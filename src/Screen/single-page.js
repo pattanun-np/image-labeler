@@ -3,11 +3,16 @@ import Swal from 'sweetalert2'
 import '../Style/single-page.css'
 import Loading from '../components/Loading';
 import {FilePond, File, registerPlugin} from 'react-filepond';
+
 import Label from '../components/Label';
 import Navbar from '../components/Navbar'
 import 'filepond/dist/filepond.min.css';
-import FilePondImagePreview from 'filepond-plugin-image-preview';
 import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
+import FilePondImagePreview from 'filepond-plugin-image-preview';
+import FilePondPluginImageCrop from 'filepond-plugin-image-crop';
+import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
+import FilePondPluginImageEdit from 'filepond-plugin-image-edit';
+import 'filepond-plugin-image-edit/dist/filepond-plugin-image-edit.css';
 import axios from 'axios'
 import Modal from 'react-responsive-modal';
 import {
@@ -17,11 +22,16 @@ import {
     Title,
     Notification,
     Progress,
-    Image
+    Image,
+    Button,
 } from 'reactbulma';
 import firebase from '../Firebase';
 var DB = firebase.database();
+
 registerPlugin(FilePondImagePreview);
+registerPlugin(FilePondPluginImageCrop);
+registerPlugin(FilePondPluginFileValidateType);
+registerPlugin(FilePondPluginImageEdit);
 class Page extends Component {
     constructor(props) {
         super(props);
@@ -46,9 +56,8 @@ class Page extends Component {
             Dataset: [],
             work: 0,
             open: false,
-            img:'',
-            num:0,
-            Id:-1
+            img: '',
+            Id: ''
 
         }
     }
@@ -72,14 +81,12 @@ class Page extends Component {
             img = snapshot.val()
             this.setState({images: img});
         });
-        this.request_Data();
 
     }
     componentWillMount() {
 
         this.getData_Counts();
         this.getLabel_Counts();
-
 
     }
 
@@ -146,7 +153,7 @@ class Page extends Component {
                     const databaseRef = firebase
                         .database()
                         .ref('/UserData')
-                        .child('files/' + user)
+                        .child('files/' + user + '/images/')
 
                     let metadataFile = {
                         name: metadata.name,
@@ -168,104 +175,103 @@ class Page extends Component {
                 });
         })
     }
- onOpenModal = (e) => {
-     
-         this.setState({
-         open: true,
-          
-     });
-    
- }
- onCloseModal = () => {
-     this.setState({
-         open: false
-     });
- };
+    onOpenModal = (e) => {
+
+        this.setState({open: true});
+
+    }
+    onCloseModal = () => {
+        this.setState({open: false});
+    };
     getData_Counts = () => {
-        const data_ref = DB.ref('UserData/files/Data_Counts')
+           const user = firebase
+               .auth()
+               .currentUser
+               .uid;
+        const data_ref = DB.ref('UserData/files/'+user+'/images_count')
         data_ref.on('value', (snapshot) => {
             var counts_data = snapshot.val();
+           // console.log(counts_data)
             this.setState({Data: counts_data});
 
         });
     }
     getLabel_Counts = () => {
-        const labled_ref = DB.ref('Labeled_Images/Label_Counts')
+         const user = firebase
+             .auth()
+             .currentUser
+             .uid;
+        const labled_ref = DB.ref('Labeled_Images/'+user+'/labeled_count')
         labled_ref.on('value', (snapshot) => {
             var counts_labeled = snapshot.val();
             this.setState({Labeled: counts_labeled});
         });
     }
-     request_Data = () => {
+    request_Data = () => {
 
-         const user = firebase
-             .auth()
-             .currentUser
-             .uid;
-
-         axios
-             .get(`https://random-img.herokuapp.com/random-data/${user}`)
-         const Img_data = DB.ref('randomed_list/' + user + '/result/0')
-         Img_data.on('value', (snapshot) => {
-             const Img_data_load = snapshot.val();
-            if (Img_data_load !== null){
-                this.setState({
-                work: Img_data_load.length,
-                Dataset: Img_data_load
-                     });
+        const user = firebase
+            .auth()
+            .currentUser
+            .uid;
+       const num=18
+        axios.get(`https://random-img.herokuapp.com/random-data/${user}/${num}`)
+        const Img_data = DB.ref('randomed_list/' + user + '/result/0')
+        Img_data.on('value', (snapshot) => {
+            const Img_data_load = snapshot.val();
+            if (Img_data_load !== null) {
+                this.setState({work: Img_data_load.length, Dataset: Img_data_load});
             }
-           
 
-
-         });
-     }
+        });
+    }
 
     addDefaultSrc(ev) {
-        ev.target.src = 'https://firebasestorage.googleapis.com/v0/b/deeplearning-7f788.appspot.com/o/ErrorIMG(1).png?alt=media&token=ba0dab40-7125-474a-892e-a5d3da70157e'
+        ev.target.src = 'https://firebasestorage.googleapis.com/v0/b/deeplearning-7f788.appspot.com/o/Err' +
+                'orIMG(1).png?alt=media&token=ba0dab40-7125-474a-892e-a5d3da70157e'
     }
-      
-     onClickFunction = (e, id) => {
-         e.preventDefault();
-     
-        this.setState({
-            Id:id
-        })
-    this.onOpenModal(e)
-     }
+
+    onClickFunction = (e, id) => {
+        e.preventDefault();
+
+        this.setState({Id: id})
+        this.onOpenModal(e)
+    }
     render() {
 
         const {
             loading,
             messag_error,
             messag_success,
-            open,work,Data,
-            Labeled,Dataset,Id
+            open,
+            work,
+            Data,
+            Labeled,
+            Dataset,
+            Id,
+        
         } = this.state;
         if (loading) {
             return <Loading/>;
         }
-           const img_data = this
-                    .state
-                    .Dataset
-                    .map((arr,i) => (
-                        
-                        <div key={i}>
-                           
-                            <Image className = "img"
-                                is='128x128'
-                                src={arr.metadataFile.downloadURL}
-                                onClick = {
-                                        e => {
-                                            this.onClickFunction(e, i)
-                                            }
-                                            }
-                                onError={this.addDefaultSrc}
-                                />
-         
-                        </div>
-                        
-                    ))   
-                
+        const img_data = this
+            .state
+            .Dataset
+            .map((arr, i) => (
+
+                <div key={i}>
+
+                    <Image
+                        className="img"
+                        is='128x128'
+                        src={arr.metadataFile.downloadURL}
+                        onClick=
+                        { e => { this.onClickFunction(e, i) } }
+                        onError={this.addDefaultSrc}/>
+
+                </div>
+
+            ))
+
         return (
             <div className="contrainer">
                 <div className="messag">{messag_success
@@ -304,17 +310,12 @@ class Page extends Component {
                             <div>
                                 <Card className="Card-Work">
                                     <Heading className="Label">WORK:</Heading>
-                                    < Title > {
-                                        Data
-                                    }
-                                    /{work}</Title >
+                                    <Title>
+                                        {Labeled}
+                                        /{work}</Title >
                                     <Heading className="Label">Images</Heading>
 
-                                    <Progress
-                                        success
-                                        className="progress-work"
-                                        value={Labeled}
-                                        max={Data}></Progress>
+                                    <Progress success className="progress-work" value={Labeled} max={Data}></Progress>
                                 </Card>
                             </div>
                         </Level.Item>
@@ -329,9 +330,14 @@ class Page extends Component {
                             className="Upload"
                             allowMultiple={true}
                             files={this.state.files}
-                            maxFiles={1000000000}
+                            acceptedFileTypes={['images/jpg', 'image/png']}
+                            fileValidateTypeDetectType=
+                            { (source, type) => new Promise((resolve, reject) => { resolve(type); }) }
+                            allowImageCrop={true}
+                            maxFiles={100}
                             ref=
                             {ref => this.pond = ref}
+                            labelIdle={'Drag and Drop your images that you want to label <span><a>Browse</a></span>'}
                             server={{
                             process: this
                                 .handleProcessing
@@ -344,22 +350,31 @@ class Page extends Component {
                                 .map(file => (<File key={file} source={file}/>))}
 
                         </FilePond>
+                        <Level>
+                                
+                            <Level.Item hasTextCentered>
+                                
+                                <Button success large onClick={this.request_Data}>
+                                    LOAD
+                                </Button>
+
+                            </Level.Item>
+
+                        </Level>
                         <Card className="gallery">
 
                             <Level>
 
                                 <Level.Item hasTextCentered>
-                                     
-                                
-                                {img_data}
-                        
-                                                 
-                                           
+
+                                    {img_data}
+
                                 </Level.Item>
 
                             </Level>
-                          
-                </Card>
+
+                        </Card>
+
                     </Card>
                 </Card>
 
@@ -379,10 +394,10 @@ class Page extends Component {
                         </p>
                     </Level.Item>
                 </Level>
-                       <Modal open={open}  onClose={this.onCloseModal}>
-                         
-                     <Label img={Dataset} imgid ={Id}/>   
-                </Modal> 
+                <Modal open={open} onClose={this.onCloseModal}>
+
+                    <Label img={Dataset} imgid ={Id}/>
+                </Modal>
             </div>
         );
     }

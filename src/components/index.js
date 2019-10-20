@@ -187,8 +187,8 @@ export default class extends PureComponent {
             .currentUser
             .uid;
         const DBRef = DB
-            .ref('/Labeled_Images')
-            .child(user);
+            .ref('/Labeled_Images/')
+            .child(user+'/labeled/');
         DBRef.push(this.data_images);
 
         return JSON.stringify({lines: this.lines, width: this.props.canvasWidth, height: this.props.canvasHeight});
@@ -399,7 +399,7 @@ export default class extends PureComponent {
         this
             .ctx
             .temp
-            .clearRect(0, 0, this.ctx.temp.canvas.width, this.ctx.temp.canvas.height,   );
+            .clearRect(0, 0, this.ctx.temp.canvas.width, this.ctx.temp.canvas.height,);
         this.ctx.temp.lineWidth = brushRadius * 2;
 
         let p1 = points[0];
@@ -424,7 +424,6 @@ export default class extends PureComponent {
                 .ctx
                 .temp
                 .quadraticCurveTo(p1.x, p1.y, midPoint.x, midPoint.y);
-                
 
             p1 = points[i];
             p2 = points[i + 1];
@@ -435,7 +434,7 @@ export default class extends PureComponent {
             .ctx
             .temp
             .lineTo(p1.x, p1.y);
-  
+
         this
             .ctx
             .temp

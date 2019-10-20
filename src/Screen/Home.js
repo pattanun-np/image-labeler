@@ -30,26 +30,28 @@ class Home extends Component {
                     </Hero.Body>
                 </Hero>
                 <SubTitle style={{
-                    color:'red'
-                   
-                }}>**This web application designed for 7 inch or lange screen, we reccommened to use on Ipad or tablet.**</SubTitle>
+                    color: 'red'
+                }}>**This
+                    web application designed for 7 inch or lange screen, we reccommened to use on
+                    Ipad or tablet.**</SubTitle>
                 <Level>
                     <Level.Item>
                         <Card>
                             <h1 className="label">Tutorial Video:</h1>
-                            <ReactPlayer url='https://youtu.be/MVHouwIGDmE'
+                            <ReactPlayer
+                                url='https://youtu.be/MVHouwIGDmE'
                                 width='100%'
                                 height='100%'
                                 controlsplaying
-                                controls
-                        />
+                                controls/>
                         </Card>
                     </Level.Item>
                 </Level>
                 <Level>
 
                     <Level.Item>
-                        <Card className="login"
+                        <Card
+                            className="login"
                             style={{
                             margin: 10,
                             padding: 20,
