@@ -214,18 +214,20 @@ class Page extends Component {
             .auth()
             .currentUser
             .uid;
-       const num=2
+       const num=(this.state.Data-3)
         axios.get(`https://random-img.herokuapp.com/random-data/${user}/${num}`)
         const Img_data = DB.ref('randomed_list/' + user + '/result/0')
+        if(this.state.Data>0){
         Img_data.on('value', (snapshot) => {
             const Img_data_load = snapshot.val();
             if (Img_data_load !== null) {
                 this.setState({work: Img_data_load.length, Dataset: Img_data_load});
             }
+        
 
         });
     }
-
+    }
     addDefaultSrc(ev) {
         ev.target.src = 'https://firebasestorage.googleapis.com/v0/b/deeplearning-7f788.appspot.com/o/Err' +
                 'orIMG(1).png?alt=media&token=ba0dab40-7125-474a-892e-a5d3da70157e'
