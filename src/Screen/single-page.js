@@ -213,7 +213,7 @@ class Page extends Component {
             .auth()
             .currentUser
             .uid;
-       const num=18
+       const num=2
         axios.get(`https://random-img.herokuapp.com/random-data/${user}/${num}`)
         const Img_data = DB.ref('randomed_list/' + user + '/result/0')
         Img_data.on('value', (snapshot) => {
