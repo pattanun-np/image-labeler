@@ -202,7 +202,7 @@ class Page extends Component {
              .currentUser
              .uid;
         const labled_ref = DB.ref('Labeled_Images/'+user+'/labeled_count')
-        if(this.state.Labled<0){
+        if(this.state.Lable>0){
         labled_ref.on('value', (snapshot) => {
             var counts_labeled = snapshot.val();
             this.setState({Labeled: counts_labeled});
