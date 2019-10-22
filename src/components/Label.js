@@ -107,7 +107,7 @@ class Label extends Component {
                                 </Notification>
                             : null}</div>
                     <Tag success className="label">
-                        Label draw segmentation</Tag>
+                        Draw segmentation label</Tag>
 
                     <Level>
                         <Level.Item>
