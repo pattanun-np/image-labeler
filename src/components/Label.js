@@ -143,7 +143,7 @@ class Label extends Component {
                             </label>
 
                             <Slider
-                                min={5}
+                                min={0.3}
                                 max={60}
                                 value={this.state.brushRadius}
                                 onChange={this.onSliderChange}
