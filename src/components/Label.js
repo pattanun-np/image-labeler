@@ -16,7 +16,7 @@ class Label extends Component {
             color: "#f44336",
             width: 480,
             height: 480,
-            brushRadius: 5,
+            brushRadius: 0.5,
             messag_success: null,
             messag_error: null,
             lazyRadius: 2,
