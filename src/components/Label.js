@@ -16,7 +16,7 @@ class Label extends Component {
             color: "#f44336",
             width: 480,
             height: 480,
-            brushRadius: 0.5,
+            brushRadius: 1,
             messag_success: null,
             messag_error: null,
             lazyRadius: 2,
@@ -143,7 +143,7 @@ class Label extends Component {
                             </label>
 
                             <Slider
-                                min={0.3}
+                                min={1}
                                 max={60}
                                 value={this.state.brushRadius}
                                 onChange={this.onSliderChange}
