@@ -193,15 +193,24 @@ class Page extends Component {
         });
     }
     getLabel_Counts = () => {
+<<<<<<< HEAD
         const user = firebase
             .auth()
             .currentUser
             .uid;
         const labled_ref = DB.ref('Labeled_Images/' + user + '/labeled_count')
+=======
+         const user = firebase
+             .auth()
+             .currentUser
+             .uid;
+        const labled_ref = DB.ref('Labeled_Images/'+user+'/labeled_count')
+        if(this.state.Lable>0){
+>>>>>>> 8db1b6958dff75ee5c7a5bd07761c5270daefabd
         labled_ref.on('value', (snapshot) => {
             var counts_labeled = snapshot.val();
             this.setState({Labeled: counts_labeled});
-        });
+        });}
     }
     request_Data = () => {
 
@@ -209,6 +218,7 @@ class Page extends Component {
             .auth()
             .currentUser
             .uid;
+<<<<<<< HEAD
         const num = 31
         this.setState({
             Load_fetching:true
@@ -221,15 +231,29 @@ class Page extends Component {
                     // <p>{error.response.data}</p> 
                 }
             });
+=======
+       const num=(this.state.Data-3)
+        axios.get(`https://random-img.herokuapp.com/random-data/${user}/${num}`)
+>>>>>>> 8db1b6958dff75ee5c7a5bd07761c5270daefabd
         const Img_data = DB.ref('randomed_list/' + user + '/result/0')
+        if(this.state.Data>0){
         Img_data.on('value', (snapshot) => {
             const Img_data_load = snapshot.val();
             if (Img_data_load !== null) {
                 this.setState({work: Img_data_load.length, Dataset: Img_data_load, Load_fetching:false});
             }
+<<<<<<< HEAD
+=======
+        
+
+>>>>>>> 8db1b6958dff75ee5c7a5bd07761c5270daefabd
         });
      });
     }
+<<<<<<< HEAD
+=======
+    }
+>>>>>>> 8db1b6958dff75ee5c7a5bd07761c5270daefabd
     addDefaultSrc(ev) {
         ev.target.src = 'https://firebasestorage.googleapis.com/v0/b/deeplearning-7f788.appspot.com/o/Err' +
                 'orIMG(1).png?alt=media&token=ba0dab40-7125-474a-892e-a5d3da70157e'

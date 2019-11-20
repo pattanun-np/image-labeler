@@ -14,8 +14,13 @@ class Label extends Component {
         super(props);
         this.state = {
             color: "#f44336",
+<<<<<<< HEAD
             width: 640,
             height: 640,
+=======
+            width: 480,
+            height: 480,
+>>>>>>> 8db1b6958dff75ee5c7a5bd07761c5270daefabd
             brushRadius: 1,
             messag_success: null,
             messag_error: null,
@@ -126,7 +131,11 @@ class Label extends Component {
                                 </Notification>
                             : null}</div>
                     <Tag success className="label">
+<<<<<<< HEAD
                         Draw for Segmenting Root Canal</Tag>
+=======
+                        Draw segmentation label</Tag>
+>>>>>>> 8db1b6958dff75ee5c7a5bd07761c5270daefabd
 
                     <Level>
                         <Level.Item>
