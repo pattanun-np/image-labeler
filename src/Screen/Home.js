@@ -20,8 +20,8 @@ class Home extends Component {
                             <Title>
                                 Welcome to Datasets Collector & Labeler Tool.
                             </Title>
-                            < SubTitle >
-                                Version: (0.8.2 BETA)
+                            <SubTitle >
+                                Version: (1.0.0)
                             </SubTitle>
                             <SubTitle>
                                 For collect & label data for root canal detect with deep nerual networks.
@@ -32,7 +32,7 @@ class Home extends Component {
                 <SubTitle style={{
                     color: 'red'
                 }}>**This
-                    web application designed for 7 inch or lange screen, we reccommened to use on
+                    web application was designed for 7 inch. or larger screen, we reccommened to use on
                     Ipad or tablet.**</SubTitle>
                 <Level>
                     <Level.Item>

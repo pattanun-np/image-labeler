@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import firebase from './Firebase/'
 import Home from './Screen/Home';
 import Page from './Screen/single-page';
+import Admin from './Screen/single-page-admin';
 import Loading from './components/Loading';
 import PrivateRoute from './components/PrivateRoute';
 import {BrowserRouter as Router, Route} from "react-router-dom";
@@ -43,6 +44,11 @@ class App extends Component {
                         exact
                         path="/dashboard"
                         component={Page}
+                        authenticated={authenticated}/>
+                         <PrivateRoute
+                        exact
+                        path="/dashboard-admin"
+                        component={Admin}
                         authenticated={authenticated}/>
 
                     <Route exact path="/" component={Home}/>

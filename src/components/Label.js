@@ -14,9 +14,9 @@ class Label extends Component {
         super(props);
         this.state = {
             color: "#f44336",
-            width: 480,
-            height: 480,
-            brushRadius: 5,
+            width: 640,
+            height: 640,
+            brushRadius: 1,
             messag_success: null,
             messag_error: null,
             lazyRadius: 2,
@@ -42,6 +42,25 @@ class Label extends Component {
     };
     save_data() {
         Swal.fire('Good job!', 'Saved label data Success', 'success')
+    }
+    Delete_data() {
+       Swal.fire({
+           title: 'Are you sure?',
+           text: "You won't be able to revert this!",
+           icon: 'warning',
+           showCancelButton: true,
+           confirmButtonColor: '#3085d6',
+           cancelButtonColor: '#d33',
+           confirmButtonText: 'Yes, delete it!'
+       }).then((result) => {
+           if (result.value) {
+               Swal.fire(
+                   'Deleted!',
+                   'Your file has been deleted.',
+                   'success'
+               )
+           }
+       })
     }
     getImage() {
         const user = firebase
@@ -107,7 +126,7 @@ class Label extends Component {
                                 </Notification>
                             : null}</div>
                     <Tag success className="label">
-                        Label draw segmentation</Tag>
+                        Draw for Segmenting Root Canal</Tag>
 
                     <Level>
                         <Level.Item>
@@ -143,7 +162,7 @@ class Label extends Component {
                             </label>
 
                             <Slider
-                                min={5}
+                                min={1}
                                 max={60}
                                 value={this.state.brushRadius}
                                 onChange={this.onSliderChange}
@@ -170,7 +189,7 @@ class Label extends Component {
 
                             <label>Lazy-Radius:<Tag danger>{this.state.lazyRadius}</Tag>
                             </label>
-                            < Slider
+                            <Slider
                                 min={0}
                                 max={20}
                                 value={this.state.lazyRadius}
@@ -188,7 +207,7 @@ class Label extends Component {
                             }}
                                 trackStyle={{
                                 background: "none"
-                            }}/>
+                            }}Slider/>
 
                         </Level.Item>
                     </Level>
@@ -215,6 +234,9 @@ class Label extends Component {
                                 localStorage.setItem("savedDrawing", this.saveableCanvas.getSaveData());
                                 setTimeout(this.save_data, 500);
                             }}>SaveLabled</Button>
+                        </Level.Item>
+                        <Level.Item>
+                            <Button danger onClick={this.Delete_data}>Delete Image</Button>
                         </Level.Item>
                     </Level>
                 </div>

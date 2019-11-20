@@ -24,6 +24,12 @@ import {
     Progress,
     Image,
     Button,
+    SubTitle,
+    Hero,
+    Container,
+    Content,
+    Tag,
+    Media
 } from 'reactbulma';
 import firebase from '../Firebase';
 var DB = firebase.database();
@@ -38,7 +44,6 @@ class Page extends Component {
         this.logout = this
             .logout
             .bind(this);
-
         this.state = {
             name: "Loading ...",
             uid: '',
@@ -57,8 +62,8 @@ class Page extends Component {
             work: 0,
             open: false,
             img: '',
-            Id: ''
-
+            Id: '',
+            Load_fetching:false
         }
     }
     logout() {
@@ -81,6 +86,7 @@ class Page extends Component {
             img = snapshot.val()
             this.setState({images: img});
         });
+        this.request_Data();
 
     }
     componentWillMount() {
@@ -89,7 +95,6 @@ class Page extends Component {
         this.getLabel_Counts();
 
     }
-
     getUserData = () => {
         const user = firebase
             .auth()
@@ -102,7 +107,6 @@ class Page extends Component {
             var getuserdata = snapshot.val();
 
             this.setState({name: getuserdata.name, email: getuserdata.email, position: getuserdata.position, uid: getuserdata.uid});
-
         });
     }
     handleProcessing(fieldName, file, metadata, load, error, progress, abort) {
@@ -118,7 +122,6 @@ class Page extends Component {
             .ref(`UserData/${user}/${file.name}`);
         const task = storageRef.put(fileUpload)
         task.on(`state_changed`, (snapshort) => {
-
             let percentage = (snapshort.bytesTransferred % snapshort.totalBytes) * 100;
             percentage = percentage.toFixed(2);
             //Process
@@ -128,7 +131,6 @@ class Page extends Component {
             this.setState({messag_error: `Upload error : ${error.message}`})
             setTimeout(() => this.setState({messag_error: null}), 2000);
         }, () => {
-
             Swal
                 .fire('Upload Done', 'success', 'success')
                 .then((result) => {
@@ -142,10 +144,8 @@ class Page extends Component {
             storageRef
                 .getDownloadURL()
                 .then((url) => {
-
                     this.setState({picture: url})
                 })
-
             //Get metadata
             storageRef
                 .getMetadata()
@@ -154,20 +154,16 @@ class Page extends Component {
                         .database()
                         .ref('/UserData')
                         .child('files/' + user + '/images/')
-
                     let metadataFile = {
                         name: metadata.name,
                         size: metadata.size,
                         contentType: metadata.contentType,
                         fullPath: metadata.fullPath,
-                        downloadURL: this.state.picture
-
+                        downloadURL: this.state.picture,
+                        Status:'No Label'
                     }
-
                     //Process save metadata
-
                     databaseRef.push({metadataFile});
-
                 })
                 .catch((error) => {
                     this.setState({messag_error: `Upload error : ${error.message}`})
@@ -184,24 +180,24 @@ class Page extends Component {
         this.setState({open: false});
     };
     getData_Counts = () => {
-           const user = firebase
-               .auth()
-               .currentUser
-               .uid;
-        const data_ref = DB.ref('UserData/files/'+user+'/images_count')
+        const user = firebase
+            .auth()
+            .currentUser
+            .uid;
+        const data_ref = DB.ref('UserData/files/' + user + '/images_count')
         data_ref.on('value', (snapshot) => {
             var counts_data = snapshot.val();
-           // console.log(counts_data)
+            // console.log(counts_data)
             this.setState({Data: counts_data});
 
         });
     }
     getLabel_Counts = () => {
-         const user = firebase
-             .auth()
-             .currentUser
-             .uid;
-        const labled_ref = DB.ref('Labeled_Images/'+user+'/labeled_count')
+        const user = firebase
+            .auth()
+            .currentUser
+            .uid;
+        const labled_ref = DB.ref('Labeled_Images/' + user + '/labeled_count')
         labled_ref.on('value', (snapshot) => {
             var counts_labeled = snapshot.val();
             this.setState({Labeled: counts_labeled});
@@ -213,31 +209,37 @@ class Page extends Component {
             .auth()
             .currentUser
             .uid;
-       const num=18
-        axios.get(`https://random-img.herokuapp.com/random-data/${user}/${num}`)
+        const num = 31
+        this.setState({
+            Load_fetching:true
+        },()=>{
+        
+        axios
+            .get(`https://random-img.herokuapp.com/random-data/${user}/${num}`)
+            .catch(function (error) {
+                if (error.response) {
+                    // <p>{error.response.data}</p> 
+                }
+            });
         const Img_data = DB.ref('randomed_list/' + user + '/result/0')
         Img_data.on('value', (snapshot) => {
             const Img_data_load = snapshot.val();
             if (Img_data_load !== null) {
-                this.setState({work: Img_data_load.length, Dataset: Img_data_load});
+                this.setState({work: Img_data_load.length, Dataset: Img_data_load, Load_fetching:false});
             }
-
         });
+     });
     }
-
     addDefaultSrc(ev) {
         ev.target.src = 'https://firebasestorage.googleapis.com/v0/b/deeplearning-7f788.appspot.com/o/Err' +
                 'orIMG(1).png?alt=media&token=ba0dab40-7125-474a-892e-a5d3da70157e'
     }
-
     onClickFunction = (e, id) => {
         e.preventDefault();
-
         this.setState({Id: id})
         this.onOpenModal(e)
     }
     render() {
-
         const {
             loading,
             messag_error,
@@ -248,30 +250,45 @@ class Page extends Component {
             Labeled,
             Dataset,
             Id,
-        
+            Load_fetching
         } = this.state;
         if (loading) {
             return <Loading/>;
         }
-        const img_data = this
+        let img_data ;
+        if(Load_fetching){
+            img_data=<Loading/>
+        }
+        else{
+        img_data=this
             .state
             .Dataset
             .map((arr, i) => (
-
                 <div key={i}>
-
-                    <Image
-                        className="img"
-                        is='128x128'
-                        src={arr.metadataFile.downloadURL}
-                        onClick=
-                        { e => { this.onClickFunction(e, i) } }
-                        onError={this.addDefaultSrc}/>
-
+                    <Card className="img">
+                        <Card.Content>
+                            <Media>
+                                <Tag success className="status-line">Status: Labled</Tag>
+                            </Media>
+                        </Card.Content>
+                        <Card.Image
+                            src
+                            ={arr.metadataFile.downloadURL}
+                            ratio='4by3'
+                            onError={this.addDefaultSrc}
+                            onClick=
+                            { e => { this.onClickFunction(e, i) } }/>
+                        <Card.Content>
+                            <Media>
+                                <Media.Content>
+                                    <Title is='6'>Name: {arr.metadataFile.name}</Title>
+                                </Media.Content>
+                            </Media>
+                        </Card.Content>
+                    </Card>
                 </div>
-
             ))
-
+        }
         return (
             <div className="contrainer">
                 <div className="messag">{messag_success
@@ -285,7 +302,18 @@ class Page extends Component {
                             </Notification>
                         : null}</div>
                 <Navbar/>
-
+                <Hero info>
+                    <Hero.Body>
+                        <Container>
+                            <Title>
+                                Welcome Labeler
+                            </Title>
+                            <SubTitle>
+                                Dashboard for Labeler
+                            </SubTitle>
+                        </Container>
+                    </Hero.Body>
+                </Hero>
                 <Card>
                     <Level>
                         <Level.Item hasTextCentered>
@@ -314,12 +342,10 @@ class Page extends Component {
                                         {Labeled}
                                         /{work}</Title >
                                     <Heading className="Label">Images</Heading>
-
                                     <Progress success className="progress-work" value={Labeled} max={Data}></Progress>
                                 </Card>
                             </div>
                         </Level.Item>
-
                     </Level>
                     <Card
                         style={{
@@ -330,9 +356,6 @@ class Page extends Component {
                             className="Upload"
                             allowMultiple={true}
                             files={this.state.files}
-                            acceptedFileTypes={['images/jpg', 'image/png']}
-                            fileValidateTypeDetectType=
-                            { (source, type) => new Promise((resolve, reject) => { resolve(type); }) }
                             allowImageCrop={true}
                             maxFiles={100}
                             ref=
@@ -343,57 +366,20 @@ class Page extends Component {
                                 .handleProcessing
                                 .bind(this)
                         }}>
-
                             {this
                                 .state
                                 .files
                                 .map(file => (<File key={file} source={file}/>))}
-
                         </FilePond>
-                        <Level>
-                                
-                            <Level.Item hasTextCentered>
-                                
-                                <Button success large onClick={this.request_Data}>
-                                    LOAD
-                                </Button>
-
-                            </Level.Item>
-
-                        </Level>
                         <Card className="gallery">
-
                             <Level>
-
                                 <Level.Item hasTextCentered>
-
-                                    {img_data}
-
+                                   {img_data}
                                 </Level.Item>
-
                             </Level>
-
                         </Card>
-
                     </Card>
                 </Card>
-
-                <Level>
-                    <Level.Item>
-                        <p>
-                            Copyright © 2019
-                            <div>Icons made by
-                                <a href="https://www.freepik.com/" title="Freepik">Freepik</a>
-                                from
-                                <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
-                                is licensed by
-                                <a
-                                    href="http://creativecommons.org/licenses/by/3.0/"
-                                    title="Creative Commons BY 3.0">CC 3.0 BY</a>
-                            </div>
-                        </p>
-                    </Level.Item>
-                </Level>
                 <Modal open={open} onClose={this.onCloseModal}>
 
                     <Label img={Dataset} imgid ={Id}/>
