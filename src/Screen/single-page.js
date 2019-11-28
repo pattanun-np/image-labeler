@@ -22,24 +22,23 @@ import {
     Title,
     Notification,
     Progress,
-    Image,
-    Button,
     SubTitle,
     Hero,
     Container,
-    Content,
     Tag,
     Media
 } from 'reactbulma';
 import firebase from '../Firebase';
 var DB = firebase.database();
-
+var db = firebase.firestore();
 registerPlugin(FilePondImagePreview);
 registerPlugin(FilePondPluginImageCrop);
 registerPlugin(FilePondPluginFileValidateType);
 registerPlugin(FilePondPluginImageEdit);
+
 class Page extends Component {
     constructor(props) {
+        
         super(props);
         this.logout = this
             .logout
@@ -53,7 +52,6 @@ class Page extends Component {
             messag_error: '',
             Data: 0,
             Labeled: 0,
-            activeTab: 'Tab3',
             files: [], //ใช้เก็บข้อมูล File ที่ Upload
             uploadValue: 0, //ใช้เพื่อดู Process การ Upload
             filesMetadata: [], //ใช้เพื่อรับข้อมูล Metadata จาก Firebase
@@ -63,7 +61,7 @@ class Page extends Component {
             open: false,
             img: '',
             Id: '',
-            Load_fetching:false
+            Load_fetching: false
         }
     }
     logout() {
@@ -74,13 +72,13 @@ class Page extends Component {
     componentDidMount() {
         let img = []
         this.getUserData();
-        const user = firebase
+        const userId = firebase
             .auth()
             .currentUser
             .uid;
         const databaseRef = firebase
             .database()
-            .ref('/UserData/files' + user + 'DownloadURL')
+            .ref('/UserData/files' + userId + 'DownloadURL')
 
         databaseRef.on('value', (snapshot) => {
             img = snapshot.val()
@@ -96,30 +94,29 @@ class Page extends Component {
 
     }
     getUserData = () => {
-        const user = firebase
+        const userId = firebase
             .auth()
             .currentUser
             .uid;
-        const userdataRef = DB
-            .ref('/data')
-            .child('users/' + user);
-        userdataRef.on('value', (snapshot) => {
-            var getuserdata = snapshot.val();
+        const userdataRef = db
+            .collection('users')
+            .doc(userId);
+      
+            var getuserdata = userdataRef.get();
 
             this.setState({name: getuserdata.name, email: getuserdata.email, position: getuserdata.position, uid: getuserdata.uid});
-        });
+       
     }
     handleProcessing(fieldName, file, metadata, load, error, progress, abort) {
         // handle file upload here
-
+      const userId = firebase
+          .auth()
+          .currentUser
+          .uid;
         const fileUpload = file;
-        const user = firebase
-            .auth()
-            .currentUser
-            .uid;
         const storageRef = firebase
             .storage()
-            .ref(`UserData/${user}/${file.name}`);
+            .ref(`UserData/${userId}/${file.name}`);
         const task = storageRef.put(fileUpload)
         task.on(`state_changed`, (snapshort) => {
             let percentage = (snapshort.bytesTransferred % snapshort.totalBytes) * 100;
@@ -129,7 +126,7 @@ class Page extends Component {
         }, (error) => {
             //Error
             this.setState({messag_error: `Upload error : ${error.message}`})
-            setTimeout(() => this.setState({messag_error: null}), 2000);
+            setTimeout(() => this.setState({messag_error: null}), 5000);
         }, () => {
             Swal
                 .fire('Upload Done', 'success', 'success')
@@ -137,10 +134,10 @@ class Page extends Component {
                     if (
                     /* Read more about handling dismissals below */
                     result.dismiss === Swal.DismissReason.timer) {
-                        console.log('I was closed by the timer')
+                        
                     }
                 })
-            setTimeout(() => this.setState({messag_success: null}), 2000);
+            setTimeout(() => this.setState({messag_success: null}), 5000);
             storageRef
                 .getDownloadURL()
                 .then((url) => {
@@ -150,24 +147,25 @@ class Page extends Component {
             storageRef
                 .getMetadata()
                 .then((metadata,) => {
-                    const databaseRef = firebase
-                        .database()
-                        .ref('/UserData')
-                        .child('files/' + user + '/images/')
+                    let databaseRef = db
+                        .collection('Files').doc(userId).collection('Images')
                     let metadataFile = {
                         name: metadata.name,
                         size: metadata.size,
                         contentType: metadata.contentType,
                         fullPath: metadata.fullPath,
                         downloadURL: this.state.picture,
-                        Status:'No Label'
+                        Status: 'No Label'
                     }
                     //Process save metadata
-                    databaseRef.push({metadataFile});
+                      
+                      databaseRef.add({
+                          metadataFile
+                      });
                 })
                 .catch((error) => {
                     this.setState({messag_error: `Upload error : ${error.message}`})
-                    setTimeout(() => this.setState({messag_error: null}), 2000);
+                    setTimeout(() => this.setState({messag_error: null}), 5000);
                 });
         })
     }
@@ -193,24 +191,18 @@ class Page extends Component {
         });
     }
     getLabel_Counts = () => {
-<<<<<<< HEAD
+
         const user = firebase
             .auth()
             .currentUser
             .uid;
         const labled_ref = DB.ref('Labeled_Images/' + user + '/labeled_count')
-=======
-         const user = firebase
-             .auth()
-             .currentUser
-             .uid;
-        const labled_ref = DB.ref('Labeled_Images/'+user+'/labeled_count')
-        if(this.state.Lable>0){
->>>>>>> 8db1b6958dff75ee5c7a5bd07761c5270daefabd
-        labled_ref.on('value', (snapshot) => {
-            var counts_labeled = snapshot.val();
-            this.setState({Labeled: counts_labeled});
-        });}
+        if (this.state.Lable > 0) {
+            labled_ref.on('value', (snapshot) => {
+                var counts_labeled = snapshot.val();
+                this.setState({Labeled: counts_labeled});
+            });
+        }
     }
     request_Data = () => {
 
@@ -218,42 +210,22 @@ class Page extends Component {
             .auth()
             .currentUser
             .uid;
-<<<<<<< HEAD
         const num = 31
         this.setState({
-            Load_fetching:true
-        },()=>{
-        
-        axios
-            .get(`https://random-img.herokuapp.com/random-data/${user}/${num}`)
-            .catch(function (error) {
-                if (error.response) {
-                    // <p>{error.response.data}</p> 
+            Load_fetching: true
+        }, () => {
+            axios.get(`https://random-img.herokuapp.com/random-data/${user}/${num}`)
+            const Img_data = DB.ref('randomed_list/' + user + '/result/0')
+            Img_data.on('value', (snapshot) => {
+                const Img_data_load = snapshot.val();
+                // console.log(Img_data_load)
+                if (Img_data_load !== null) {
+                    this.setState({work: Img_data_load.length, Dataset: Img_data_load, Load_fetching: false});
                 }
             });
-=======
-       const num=(this.state.Data-3)
-        axios.get(`https://random-img.herokuapp.com/random-data/${user}/${num}`)
->>>>>>> 8db1b6958dff75ee5c7a5bd07761c5270daefabd
-        const Img_data = DB.ref('randomed_list/' + user + '/result/0')
-        if(this.state.Data>0){
-        Img_data.on('value', (snapshot) => {
-            const Img_data_load = snapshot.val();
-            if (Img_data_load !== null) {
-                this.setState({work: Img_data_load.length, Dataset: Img_data_load, Load_fetching:false});
-            }
-<<<<<<< HEAD
-=======
-        
 
->>>>>>> 8db1b6958dff75ee5c7a5bd07761c5270daefabd
         });
-     });
     }
-<<<<<<< HEAD
-=======
-    }
->>>>>>> 8db1b6958dff75ee5c7a5bd07761c5270daefabd
     addDefaultSrc(ev) {
         ev.target.src = 'https://firebasestorage.googleapis.com/v0/b/deeplearning-7f788.appspot.com/o/Err' +
                 'orIMG(1).png?alt=media&token=ba0dab40-7125-474a-892e-a5d3da70157e'
@@ -279,39 +251,40 @@ class Page extends Component {
         if (loading) {
             return <Loading/>;
         }
-        let img_data ;
-        if(Load_fetching){
-            img_data=<Loading/>
-        }
-        else{
-        img_data=this
-            .state
-            .Dataset
-            .map((arr, i) => (
-                <div key={i}>
-                    <Card className="img">
-                        <Card.Content>
-                            <Media>
-                                <Tag success className="status-line">Status: Labled</Tag>
-                            </Media>
-                        </Card.Content>
-                        <Card.Image
-                            src
-                            ={arr.metadataFile.downloadURL}
-                            ratio='4by3'
-                            onError={this.addDefaultSrc}
-                            onClick=
-                            { e => { this.onClickFunction(e, i) } }/>
-                        <Card.Content>
-                            <Media>
-                                <Media.Content>
-                                    <Title is='6'>Name: {arr.metadataFile.name}</Title>
-                                </Media.Content>
-                            </Media>
-                        </Card.Content>
-                    </Card>
-                </div>
-            ))
+        let img_data;
+        if (Load_fetching) {
+            img_data = <Loading/>
+        } else {
+            img_data = this
+                .state
+                .Dataset
+                .map((arr, i) => (
+                    <div key={i}>
+                        <Card className="img">
+                            <Card.Content>
+                                <Media>
+
+                                    <Tag info className="status-line">Status:{arr.metadataFile.Status}</Tag>
+
+                                </Media>
+                            </Card.Content>
+                            <Card.Image
+                                src
+                                ={arr.metadataFile.downloadURL}
+                                ratio='4by3'
+                                onError={this.addDefaultSrc}
+                                onClick=
+                                { e => { this.onClickFunction(e, i) } }/>
+                            <Card.Content>
+                                <Media>
+                                    <Media.Content>
+                                        <Title is='6'>Name: {arr.metadataFile.name}</Title>
+                                    </Media.Content>
+                                </Media>
+                            </Card.Content>
+                        </Card>
+                    </div>
+                ))
         }
         return (
             <div className="contrainer">
@@ -398,7 +371,7 @@ class Page extends Component {
                         <Card className="gallery">
                             <Level>
                                 <Level.Item hasTextCentered>
-                                   {img_data}
+                                    {img_data}
                                 </Level.Item>
                             </Level>
                         </Card>

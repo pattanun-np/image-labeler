@@ -4,6 +4,7 @@ import {Button, Level, Tag, Card} from 'reactbulma';
 import '../Style/Navbar.css'
 import firebase from '../Firebase';
 var DB = firebase.database();
+var db = firebase.firestore();
 class Navbar extends Component {
     constructor(props) {
         super(props);
@@ -36,20 +37,43 @@ class Navbar extends Component {
 
     }
     getUserData = () => {
-        const user = firebase
+        const userId = firebase
             .auth()
             .currentUser
-            .uid;
-        const userdataRef = DB
-            .ref('/data')
-            .child('users/' + user);
+            .uid
+        
+        const userdataRef = db
+            .collection('users')
+            .doc(userId);
+            
 
-        userdataRef.on('value', (snapshot) => {
-            var getuserdata = snapshot.val();
+         userdataRef
+            .get()
+            .then(doc => {
+                if (!doc.exists) {
+                   console.log('No such document!');
+                } else {
+                   // console.log('Document data:', doc.data());
+                    this.setState({
+                        name: doc
+                            .data()
+                            .name,
+                        email: doc
+                            .data()
+                            .email,
+                        position: doc
+                            .data()
+                            .position,
+                        uid: doc
+                            .data()
+                            .uid
+                    });
+                }
+            })
+            .catch(err => {
+              //  console.log('Error getting document', err);
+            });
 
-            this.setState({name: getuserdata.name, email: getuserdata.email, position: getuserdata.position, uid: getuserdata.uid});
-
-        });
     }
 
     handleClick() {
@@ -103,51 +127,6 @@ class Navbar extends Component {
                                         Login as {position
 }
                                     </Tag>
-                                    {/* <Button
-                                        className={this.state.notify
-                                        ? 'dropdown is-right '
-                                        : 'dropdown is-right is-active'}
-                                        aria-haspopup="true"
-                                        aria-controls="dropdown-menu6"
-                                        onClick={this.handleClick}
-                                        style={{
-                                        marginRight: '10px'
-                                    }}>
-                                        < i className="fas fa-bell"
-                                            style={{
-                                                marginRight: '5px',
-                                            }}
-                                        ></i>
-                                        <div class="dropdown-trigger"></div>
-                                        <div class="dropdown-menu" id="dropdown-menu6" role="menu">
-                                            <div class="dropdown-content">
-                                                <div class="dropdown-item">
-                                                    <ul>
-                                                        <li>
-                                                            Notify
-                                                        </li>
-                                                        <li>
-                                                            Notify
-                                                        </li>
-                                                        <li>
-                                                            Notify
-                                                        </li>
-                                                        <li>
-                                                            Notify
-                                                        </li>
-                                                        <li>
-                                                            Notify
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <Tag
-                                            danger
-                                            style={{
-                                            marginLeft: '5px'
-                                        }}Tag >{this.state.notift_num}</Tag>
-                                    </Button> */}
                                     <Button danger onClick={this.handleLongout} className="logout_btn">
                                         Logout
                                     </Button>

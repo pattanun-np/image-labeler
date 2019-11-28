@@ -14,8 +14,7 @@ import {
     Control
 } from 'reactbulma'
 import firebase from '../Firebase';
-const DB = firebase.database();
-
+var db = firebase.firestore();
 class Login extends Component {
     constructor(props) {
 
@@ -79,9 +78,9 @@ class Login extends Component {
                     .history
                     .push("/");
 
-                DB
-                    .ref('/data')
-                    .child('users/' + userId)
+                db
+                    .collection('users')
+                    .doc( userId)
                     .set({
                         name: this.state.name,
                         email: this.state.email,
@@ -209,10 +208,10 @@ class Login extends Component {
                                         .handleChange
                                         .bind(this)}>
                                         <option>Select your role</option>
-                                        <option>Advicer(Dr. Knoot)</option>
+                                        <option>Advicer(Dr. Kanoot)</option>
                                         <option>Dentist(student)</option>
                                         <option>Co-Advicer(Dr. Artith)</option>
-                                        <option>Research</option>
+                                        <option>Researcher</option>
                                     </select>
                                 </div>
                             </Control>
