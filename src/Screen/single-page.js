@@ -3,7 +3,6 @@ import Swal from 'sweetalert2'
 import '../Style/single-page.css'
 import Loading from '../components/Loading';
 import {FilePond, File, registerPlugin} from 'react-filepond';
-
 import Label from '../components/Label';
 import Navbar from '../components/Navbar'
 import 'filepond/dist/filepond.min.css';
@@ -178,17 +177,15 @@ class Page extends Component {
         this.setState({open: false});
     };
     getData_Counts = () => {
-        const user = firebase
+        const userId = firebase
             .auth()
             .currentUser
             .uid;
-        const data_ref = DB.ref('UserData/files/' + user + '/images_count')
-        data_ref.on('value', (snapshot) => {
-            var counts_data = snapshot.val();
-            // console.log(counts_data)
-            this.setState({Data: counts_data});
-
-        });
+       let userdataRef = db
+           .collection('Files').doc(userId)
+       var num = FieldValue.increment()
+             console.log(num)
+          
     }
     getLabel_Counts = () => {
 

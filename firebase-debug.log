@@ -3670,3 +3670,721 @@ If you are renaming a function or changing its region, it is recommended that yo
 [info] ✔  Deploy complete!
 [info] 
 [info] Project Console: https://console.firebase.google.com/project/deeplearning-7f788/overview
+[debug] [2019-11-28T16:04:14.119Z] ----------------------------------------------------------------------
+[debug] [2019-11-28T16:04:14.123Z] Command:       /home/pattanun-np/.nvm/versions/node/v12.10.0/lib/node_modules/node/bin/node /mnt/c/Users/pattanun/AppData/Roaming/npm/node_modules/firebase-tools/lib/bin/firebase.js deploy --only functions --debug
+[debug] [2019-11-28T16:04:14.125Z] CLI Version:   7.2.2
+[debug] [2019-11-28T16:04:14.125Z] Platform:      linux
+[debug] [2019-11-28T16:04:14.126Z] Node Version:  v8.12.0
+[debug] [2019-11-28T16:04:14.130Z] Time:          Thu Nov 28 2019 23:04:14 GMT+0700 (+07)
+[debug] [2019-11-28T16:04:14.131Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-11-28T16:04:14.197Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-11-28T16:04:14.198Z] > authorizing via signed-in user
+[debug] [2019-11-28T16:04:14.199Z] [iam] checking project deeplearning-7f788 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2019-11-28T16:04:14.202Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-11-28T16:04:14.202Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2019-11-28T16:04:14.790Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:04:14.825Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/deeplearning-7f788:testIamPermissions  
+
+[debug] [2019-11-28T16:04:16.167Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'deeplearning-7f788'...
+[info] 
+[info] i  deploying functions
+[info] Running command: npm --prefix "$RESOURCE_DIR" run lint
+[error] 
+[error] Error: functions predeploy error: Command terminated with non-zero exit code1
+[debug] [2019-11-28T16:05:45.138Z] ----------------------------------------------------------------------
+[debug] [2019-11-28T16:05:45.142Z] Command:       /home/pattanun-np/.nvm/versions/node/v12.10.0/lib/node_modules/node/bin/node /mnt/c/Users/pattanun/AppData/Roaming/npm/node_modules/firebase-tools/lib/bin/firebase.js deploy --only functions --debug
+[debug] [2019-11-28T16:05:45.143Z] CLI Version:   7.2.2
+[debug] [2019-11-28T16:05:45.143Z] Platform:      linux
+[debug] [2019-11-28T16:05:45.145Z] Node Version:  v8.12.0
+[debug] [2019-11-28T16:05:45.146Z] Time:          Thu Nov 28 2019 23:05:45 GMT+0700 (+07)
+[debug] [2019-11-28T16:05:45.147Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-11-28T16:05:45.163Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-11-28T16:05:45.165Z] > authorizing via signed-in user
+[debug] [2019-11-28T16:05:45.166Z] [iam] checking project deeplearning-7f788 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2019-11-28T16:05:45.172Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/deeplearning-7f788:testIamPermissions  
+
+[debug] [2019-11-28T16:05:46.523Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'deeplearning-7f788'...
+[info] 
+[info] i  deploying functions
+[info] Running command: npm --prefix "$RESOURCE_DIR" run lint
+[error] 
+[error] Error: functions predeploy error: Command terminated with non-zero exit code1
+[debug] [2019-11-28T16:07:39.919Z] ----------------------------------------------------------------------
+[debug] [2019-11-28T16:07:39.925Z] Command:       /home/pattanun-np/.nvm/versions/node/v12.10.0/lib/node_modules/node/bin/node /mnt/c/Users/pattanun/AppData/Roaming/npm/node_modules/firebase-tools/lib/bin/firebase.js deploy --only functions --debug
+[debug] [2019-11-28T16:07:39.927Z] CLI Version:   7.2.2
+[debug] [2019-11-28T16:07:39.928Z] Platform:      linux
+[debug] [2019-11-28T16:07:39.928Z] Node Version:  v8.12.0
+[debug] [2019-11-28T16:07:39.929Z] Time:          Thu Nov 28 2019 23:07:39 GMT+0700 (+07)
+[debug] [2019-11-28T16:07:39.929Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-11-28T16:07:39.949Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-11-28T16:07:39.956Z] > authorizing via signed-in user
+[debug] [2019-11-28T16:07:39.957Z] [iam] checking project deeplearning-7f788 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2019-11-28T16:07:39.960Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/deeplearning-7f788:testIamPermissions  
+
+[debug] [2019-11-28T16:07:41.389Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'deeplearning-7f788'...
+[info] 
+[info] i  deploying functions
+[info] Running command: npm --prefix "$RESOURCE_DIR" run lint
+[error] 
+[error] Error: functions predeploy error: Command terminated with non-zero exit code1
+[debug] [2019-11-28T16:12:41.436Z] ----------------------------------------------------------------------
+[debug] [2019-11-28T16:12:41.441Z] Command:       /home/pattanun-np/.nvm/versions/node/v12.10.0/lib/node_modules/node/bin/node /mnt/c/Users/pattanun/AppData/Roaming/npm/node_modules/firebase-tools/lib/bin/firebase.js deploy --only functions --debug
+[debug] [2019-11-28T16:12:41.443Z] CLI Version:   7.2.2
+[debug] [2019-11-28T16:12:41.445Z] Platform:      linux
+[debug] [2019-11-28T16:12:41.446Z] Node Version:  v8.12.0
+[debug] [2019-11-28T16:12:41.447Z] Time:          Thu Nov 28 2019 23:12:41 GMT+0700 (+07)
+[debug] [2019-11-28T16:12:41.447Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-11-28T16:12:41.476Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-11-28T16:12:41.479Z] > authorizing via signed-in user
+[debug] [2019-11-28T16:12:41.480Z] [iam] checking project deeplearning-7f788 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2019-11-28T16:12:41.497Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/deeplearning-7f788:testIamPermissions  
+
+[debug] [2019-11-28T16:12:42.920Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'deeplearning-7f788'...
+[info] 
+[info] i  deploying functions
+[info] Running command: npm --prefix "$RESOURCE_DIR" run lint
+[info] ✔  functions: Finished running predeploy script.
+[debug] [2019-11-28T16:12:48.026Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "lint": "eslint .",
+    "serve": "firebase serve --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "8"
+  },
+  "dependencies": {
+    "firebase-admin": "^8.0.0",
+    "firebase-functions": "^3.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.12.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "firebase-functions-test": "^0.1.6"
+  },
+  "private": true
+}
+[info] i  functions: ensuring necessary APIs are enabled...
+[debug] [2019-11-28T16:12:48.032Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/deeplearning-7f788/services/cloudfunctions.googleapis.com  
+ 
+[debug] [2019-11-28T16:12:48.034Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/deeplearning-7f788/services/runtimeconfig.googleapis.com  
+ 
+[debug] [2019-11-28T16:12:49.749Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:12:49.820Z] <<< HTTP RESPONSE 200
+[info] ✔  functions: all necessary APIs are enabled
+[debug] [2019-11-28T16:12:49.822Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/deeplearning-7f788/adminSdkConfig  
+ 
+[debug] [2019-11-28T16:12:50.279Z] <<< HTTP RESPONSE 200
+[info] i  functions: preparing functions directory for uploading...
+[debug] [2019-11-28T16:12:50.285Z] >>> HTTP REQUEST GET https://runtimeconfig.googleapis.com/v1beta1/projects/deeplearning-7f788/configs  
+ 
+[debug] [2019-11-28T16:12:52.252Z] <<< HTTP RESPONSE 200
+[info] i  functions: packaged functions (36.69 KB) for uploading
+[debug] [2019-11-28T16:12:55.355Z] >>> HTTP REQUEST POST https://cloudfunctions.googleapis.com/v1/projects/deeplearning-7f788/locations/us-central1/functions:generateUploadUrl  
+ 
+[debug] [2019-11-28T16:12:56.490Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:12:56.492Z] >>> HTTP REQUEST PUT https://storage.googleapis.com/gcf-upload-us-central1-2efc57cb-3cb5-4be6-b2dd-8ab31209747a/105c61c4-cb4e-4d80-a6e0-35f653c4d70e.zip?GoogleAccessId=service-746305078311@gcf-admin-robot.iam.gserviceaccount.com&Expires=1574959377&Signature=KVVDx4mhXiEnfEyqyfVF7AhHwZmQHLyJwdBqq3fLf3K6Yv9VIXg5G78tsWdjohtYjk6JwLY2%2FfTnijjGOZt3Q5m5jwLjcGdslX2wpQXGwJHBO1xqzSSVMriMRvUAx9569P5TxduEBWCByynCPWx727A%2B%2FpoWqNQZjTZ9KqpWs%2BRYSrKz8AnQKtCGidAdhncMwoPj%2Bw5%2BKHPEuV9tj9%2BZ%2FyX4e551wp2%2FkG94612L9CxaAN3acWq%2BOqnK%2BA3kz%2FobrshMhglnBZRuRdAQJMw7FzmHJtD9%2Fwc6eK5VVLHd8QhqpDFD7w6b3I3zqIhSj%2Bpb5Ltbwmjl5Z3kKgdpypuNDA%3D%3D  
+ <request body omitted>
+[debug] [2019-11-28T16:12:57.155Z] <<< HTTP RESPONSE 200
+[info] ✔  functions: functions folder uploaded successfully
+[debug] [2019-11-28T16:12:57.161Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/projects/deeplearning-7f788/locations/-/functions  
+ 
+[debug] [2019-11-28T16:12:58.020Z] <<< HTTP RESPONSE 200
+[info] i  functions: creating Node.js 8 function countDocumentsChange(us-central1)...
+[debug] [2019-11-28T16:12:58.026Z] Trigger is:  {"eventTrigger":{"resource":"projects/deeplearning-7f788/databases/(default)/documents/Files/{uid}/Images/{imagesId}","eventType":"providers/cloud.firestore/eventTypes/document.write","service":"firestore.googleapis.com"}}
+[info] 
+The following functions are found in your project but do not exist in your local source code:
+	countImagesChange(us-central1)
+
+If you are renaming a function or changing its region, it is recommended that you create the new function first before deleting the old one to prevent event loss. For more info, visit https://firebase.google.com/docs/functions/manage-functions#modify
+
+[info] i  functions: deleting function countImagesChange(us-central1)...
+[debug] [2019-11-28T16:13:04.670Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/deeplearning-7f788/services/cloudscheduler.googleapis.com  
+ 
+[debug] [2019-11-28T16:13:06.267Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:13:06.271Z] >>> HTTP REQUEST POST https://cloudfunctions.googleapis.com/v1/projects/deeplearning-7f788/locations/us-central1/functions  
+
+[debug] [2019-11-28T16:13:06.277Z] >>> HTTP REQUEST DELETE https://cloudfunctions.googleapis.com/v1/projects/deeplearning-7f788/locations/us-central1/functions/countImagesChange  
+ 
+[debug] [2019-11-28T16:13:07.341Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:13:07.351Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:13:07.354Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL2VpaXZ4aGNsRlFZ  
+ 
+[debug] [2019-11-28T16:13:07.355Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50SW1hZ2VzQ2hhbmdlL3JjVjBDbkt4ZnVn  
+ 
+[debug] [2019-11-28T16:13:08.050Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:13:08.060Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:13:10.052Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL2VpaXZ4aGNsRlFZ  
+ 
+[debug] [2019-11-28T16:13:10.066Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50SW1hZ2VzQ2hhbmdlL3JjVjBDbkt4ZnVn  
+ 
+[debug] [2019-11-28T16:13:10.731Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:13:10.742Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:13:12.733Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50SW1hZ2VzQ2hhbmdlL3JjVjBDbkt4ZnVn  
+ 
+[debug] [2019-11-28T16:13:12.744Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL2VpaXZ4aGNsRlFZ  
+ 
+[debug] [2019-11-28T16:13:13.432Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:13:13.443Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:13:15.439Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50SW1hZ2VzQ2hhbmdlL3JjVjBDbkt4ZnVn  
+ 
+[debug] [2019-11-28T16:13:15.447Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL2VpaXZ4aGNsRlFZ  
+ 
+[debug] [2019-11-28T16:13:16.126Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:13:16.130Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:13:18.128Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50SW1hZ2VzQ2hhbmdlL3JjVjBDbkt4ZnVn  
+ 
+[debug] [2019-11-28T16:13:18.132Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL2VpaXZ4aGNsRlFZ  
+ 
+[debug] [2019-11-28T16:13:18.866Z] <<< HTTP RESPONSE 200
+[info] ✔  functions[countImagesChange(us-central1)]: Successful delete operation. 
+[debug] [2019-11-28T16:13:18.872Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:13:20.875Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL2VpaXZ4aGNsRlFZ  
+ 
+[debug] [2019-11-28T16:13:21.547Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:13:23.549Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL2VpaXZ4aGNsRlFZ  
+ 
+[debug] [2019-11-28T16:13:24.222Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:13:26.224Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL2VpaXZ4aGNsRlFZ  
+ 
+[debug] [2019-11-28T16:13:26.902Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:13:28.905Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL2VpaXZ4aGNsRlFZ  
+ 
+[debug] [2019-11-28T16:13:29.610Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:13:31.612Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL2VpaXZ4aGNsRlFZ  
+ 
+[debug] [2019-11-28T16:13:32.020Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:13:34.022Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL2VpaXZ4aGNsRlFZ  
+ 
+[debug] [2019-11-28T16:13:34.700Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:13:36.703Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL2VpaXZ4aGNsRlFZ  
+ 
+[debug] [2019-11-28T16:13:37.394Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:13:39.397Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL2VpaXZ4aGNsRlFZ  
+ 
+[debug] [2019-11-28T16:13:40.111Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:13:42.113Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL2VpaXZ4aGNsRlFZ  
+ 
+[debug] [2019-11-28T16:13:42.809Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:13:44.811Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL2VpaXZ4aGNsRlFZ  
+ 
+[debug] [2019-11-28T16:13:45.485Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:13:47.487Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL2VpaXZ4aGNsRlFZ  
+ 
+[debug] [2019-11-28T16:13:48.180Z] <<< HTTP RESPONSE 200
+[info] ✔  functions[countDocumentsChange(us-central1)]: Successful create operation. 
+[info] 
+[info] ✔  Deploy complete!
+[info] 
+[info] Project Console: https://console.firebase.google.com/project/deeplearning-7f788/overview
+[debug] [2019-11-28T16:21:13.693Z] ----------------------------------------------------------------------
+[debug] [2019-11-28T16:21:13.704Z] Command:       /home/pattanun-np/.nvm/versions/node/v12.10.0/lib/node_modules/node/bin/node /mnt/c/Users/pattanun/AppData/Roaming/npm/node_modules/firebase-tools/lib/bin/firebase.js deploy --only functions --debug
+[debug] [2019-11-28T16:21:13.706Z] CLI Version:   7.2.2
+[debug] [2019-11-28T16:21:13.706Z] Platform:      linux
+[debug] [2019-11-28T16:21:13.707Z] Node Version:  v8.12.0
+[debug] [2019-11-28T16:21:13.707Z] Time:          Thu Nov 28 2019 23:21:13 GMT+0700 (+07)
+[debug] [2019-11-28T16:21:13.708Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-11-28T16:21:13.727Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-11-28T16:21:13.737Z] > authorizing via signed-in user
+[debug] [2019-11-28T16:21:13.738Z] [iam] checking project deeplearning-7f788 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2019-11-28T16:21:13.741Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/deeplearning-7f788:testIamPermissions  
+
+[debug] [2019-11-28T16:21:15.199Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'deeplearning-7f788'...
+[info] 
+[info] i  deploying functions
+[info] Running command: npm --prefix "$RESOURCE_DIR" run lint
+[info] ✔  functions: Finished running predeploy script.
+[debug] [2019-11-28T16:21:22.103Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "lint": "eslint .",
+    "serve": "firebase serve --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "8"
+  },
+  "dependencies": {
+    "firebase-admin": "^8.0.0",
+    "firebase-functions": "^3.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.12.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "firebase-functions-test": "^0.1.6"
+  },
+  "private": true
+}
+[info] i  functions: ensuring necessary APIs are enabled...
+[debug] [2019-11-28T16:21:22.118Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/deeplearning-7f788/services/cloudfunctions.googleapis.com  
+ 
+[debug] [2019-11-28T16:21:22.129Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/deeplearning-7f788/services/runtimeconfig.googleapis.com  
+ 
+[debug] [2019-11-28T16:21:23.767Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:21:23.829Z] <<< HTTP RESPONSE 200
+[info] ✔  functions: all necessary APIs are enabled
+[debug] [2019-11-28T16:21:23.833Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/deeplearning-7f788/adminSdkConfig  
+ 
+[debug] [2019-11-28T16:21:24.372Z] <<< HTTP RESPONSE 200
+[info] i  functions: preparing functions directory for uploading...
+[debug] [2019-11-28T16:21:24.379Z] >>> HTTP REQUEST GET https://runtimeconfig.googleapis.com/v1beta1/projects/deeplearning-7f788/configs  
+ 
+[debug] [2019-11-28T16:21:26.096Z] <<< HTTP RESPONSE 200
+[info] i  functions: packaged functions (36.69 KB) for uploading
+[debug] [2019-11-28T16:21:26.839Z] >>> HTTP REQUEST POST https://cloudfunctions.googleapis.com/v1/projects/deeplearning-7f788/locations/us-central1/functions:generateUploadUrl  
+ 
+[debug] [2019-11-28T16:21:27.794Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:21:27.796Z] >>> HTTP REQUEST PUT https://storage.googleapis.com/gcf-upload-us-central1-2efc57cb-3cb5-4be6-b2dd-8ab31209747a/1e0e1cda-d445-4cb2-872b-cf32d92c4584.zip?GoogleAccessId=service-746305078311@gcf-admin-robot.iam.gserviceaccount.com&Expires=1574959888&Signature=KacrbNnWSWcSVxrmx09MH%2BCTDujgdclObvxgN%2BTcM1MtX%2BJw3etxa8bDZ0nE3xE9sVbf5RlNV1dmgG%2FO3UZte8vzzhHi8Yr615DZfZNZ2Koth9gVRxwerxoO6KayKnhXlAz%2BG8CXls29aU1qJDFyWPZwATDf3N50hbFNv9ceV7PwI35EqJMrkh9J86Kg2ARQ6%2FzLAZfttDhwOLkV%2B2Epy8ApqP7zv4r8zmgMp1wIIRwG%2FSEKmRjB%2FbIHtBjG8HA5pBBnfn3fs2tzPeHE4YTwHRxuKEw0semWOUJHjXdAKq3F5rv3AixLisdyAj6oKP9172HWEGvoqF5E9Vp%2FvUxnpg%3D%3D  
+ <request body omitted>
+[debug] [2019-11-28T16:21:28.850Z] <<< HTTP RESPONSE 200
+[info] ✔  functions: functions folder uploaded successfully
+[debug] [2019-11-28T16:21:28.855Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/projects/deeplearning-7f788/locations/-/functions  
+ 
+[debug] [2019-11-28T16:21:29.713Z] <<< HTTP RESPONSE 200
+[info] i  functions: updating Node.js 8 function countDocumentsChange(us-central1)...
+[debug] [2019-11-28T16:21:29.718Z] Trigger is:  {"eventTrigger":{"resource":"projects/deeplearning-7f788/databases/(default)/documents/Files/{uid}/Images/{imagesId}","eventType":"providers/cloud.firestore/eventTypes/document.write","service":"firestore.googleapis.com"}}
+[debug] [2019-11-28T16:21:29.720Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/deeplearning-7f788/services/cloudscheduler.googleapis.com  
+ 
+[debug] [2019-11-28T16:21:31.315Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:21:31.321Z] >>> HTTP REQUEST PATCH https://cloudfunctions.googleapis.com/v1/projects/deeplearning-7f788/locations/us-central1/functions/countDocumentsChange {"updateMask":"sourceUploadUrl,name,labels,runtime,eventTrigger.resource,eventTrigger.eventType,eventTrigger.service"} 
+
+[debug] [2019-11-28T16:21:32.341Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:21:32.348Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL3FJcWhuNjJiTWZR  
+ 
+[debug] [2019-11-28T16:21:32.840Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:21:34.844Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL3FJcWhuNjJiTWZR  
+ 
+[debug] [2019-11-28T16:21:35.519Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:21:37.521Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL3FJcWhuNjJiTWZR  
+ 
+[debug] [2019-11-28T16:21:38.235Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:21:40.236Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL3FJcWhuNjJiTWZR  
+ 
+[debug] [2019-11-28T16:21:40.934Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:21:42.936Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL3FJcWhuNjJiTWZR  
+ 
+[debug] [2019-11-28T16:21:43.618Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:21:45.623Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL3FJcWhuNjJiTWZR  
+ 
+[debug] [2019-11-28T16:21:46.326Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:21:48.328Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL3FJcWhuNjJiTWZR  
+ 
+[debug] [2019-11-28T16:21:49.074Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:21:51.077Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL3FJcWhuNjJiTWZR  
+ 
+[debug] [2019-11-28T16:21:51.758Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:21:53.759Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL3FJcWhuNjJiTWZR  
+ 
+[debug] [2019-11-28T16:21:54.482Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:21:56.485Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL3FJcWhuNjJiTWZR  
+ 
+[debug] [2019-11-28T16:21:57.280Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:21:59.282Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL3FJcWhuNjJiTWZR  
+ 
+[debug] [2019-11-28T16:21:59.980Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:22:01.985Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL3FJcWhuNjJiTWZR  
+ 
+[debug] [2019-11-28T16:22:02.699Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:22:04.701Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL3FJcWhuNjJiTWZR  
+ 
+[debug] [2019-11-28T16:22:05.407Z] <<< HTTP RESPONSE 200
+[info] ✔  functions[countDocumentsChange(us-central1)]: Successful update operation. 
+[info] 
+[info] ✔  Deploy complete!
+[info] 
+[info] Project Console: https://console.firebase.google.com/project/deeplearning-7f788/overview
+[debug] [2019-11-28T16:33:39.436Z] ----------------------------------------------------------------------
+[debug] [2019-11-28T16:33:39.441Z] Command:       /home/pattanun-np/.nvm/versions/node/v12.10.0/lib/node_modules/node/bin/node /mnt/c/Users/pattanun/AppData/Roaming/npm/node_modules/firebase-tools/lib/bin/firebase.js deploy --only functions --debug
+[debug] [2019-11-28T16:33:39.442Z] CLI Version:   7.2.2
+[debug] [2019-11-28T16:33:39.442Z] Platform:      linux
+[debug] [2019-11-28T16:33:39.442Z] Node Version:  v8.12.0
+[debug] [2019-11-28T16:33:39.443Z] Time:          Thu Nov 28 2019 23:33:39 GMT+0700 (+07)
+[debug] [2019-11-28T16:33:39.443Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-11-28T16:33:39.453Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-11-28T16:33:39.454Z] > authorizing via signed-in user
+[debug] [2019-11-28T16:33:39.454Z] [iam] checking project deeplearning-7f788 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2019-11-28T16:33:39.459Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/deeplearning-7f788:testIamPermissions  
+
+[debug] [2019-11-28T16:33:40.857Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'deeplearning-7f788'...
+[info] 
+[info] i  deploying functions
+[info] Running command: npm --prefix "$RESOURCE_DIR" run lint
+[info] ✔  functions: Finished running predeploy script.
+[debug] [2019-11-28T16:33:46.100Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "lint": "eslint .",
+    "serve": "firebase serve --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "8"
+  },
+  "dependencies": {
+    "firebase-admin": "^8.0.0",
+    "firebase-functions": "^3.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.12.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "firebase-functions-test": "^0.1.6"
+  },
+  "private": true
+}
+[info] i  functions: ensuring necessary APIs are enabled...
+[debug] [2019-11-28T16:33:46.106Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/deeplearning-7f788/services/cloudfunctions.googleapis.com  
+ 
+[debug] [2019-11-28T16:33:46.107Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/deeplearning-7f788/services/runtimeconfig.googleapis.com  
+ 
+[debug] [2019-11-28T16:33:47.775Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:33:47.817Z] <<< HTTP RESPONSE 200
+[info] ✔  functions: all necessary APIs are enabled
+[debug] [2019-11-28T16:33:47.820Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/deeplearning-7f788/adminSdkConfig  
+ 
+[debug] [2019-11-28T16:33:48.327Z] <<< HTTP RESPONSE 200
+[info] i  functions: preparing functions directory for uploading...
+[debug] [2019-11-28T16:33:48.332Z] >>> HTTP REQUEST GET https://runtimeconfig.googleapis.com/v1beta1/projects/deeplearning-7f788/configs  
+ 
+[debug] [2019-11-28T16:33:48.852Z] <<< HTTP RESPONSE 200
+[info] i  functions: packaged functions (36.68 KB) for uploading
+[debug] [2019-11-28T16:33:49.155Z] >>> HTTP REQUEST POST https://cloudfunctions.googleapis.com/v1/projects/deeplearning-7f788/locations/us-central1/functions:generateUploadUrl  
+ 
+[debug] [2019-11-28T16:33:50.299Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:33:50.300Z] >>> HTTP REQUEST PUT https://storage.googleapis.com/gcf-upload-us-central1-2efc57cb-3cb5-4be6-b2dd-8ab31209747a/135f4e10-458e-4fdc-ae01-33e651aa268a.zip?GoogleAccessId=service-746305078311@gcf-admin-robot.iam.gserviceaccount.com&Expires=1574960631&Signature=lNCdeVlEZbUT1LYDIzyVVxoTAQSZJzj1LAZYAmWg3hiAyJtHiFqG6Bav1z0QJ0P%2B4Hvglwhzr1rRk%2BKHNJ6hsiCcDcs24mQXX3J5Vy15kxTnnPc2wx7denQMSEXhqNJZNHuSAna5mm4RLzes%2Byy9VeUYvzTpQA7%2BGFkxvTIHwRSgiwcmyB%2FkusoEPoPJrpOjW8NHHHlXGaeG8VnSIzw7ZRNzFIWJFU3sI0gW%2F5vBHaJKx3HubfnPGzrasBN4lYXVvNTyR%2FQ9rQIWPQho3iouhYAZEd7n%2F%2FBBMRWCXHlpfRkEnGCacyLwMCFwq%2FqMYYbi55ABfcp1sREKWJt6tt7wsA%3D%3D  
+ <request body omitted>
+[debug] [2019-11-28T16:33:51.008Z] <<< HTTP RESPONSE 200
+[info] ✔  functions: functions folder uploaded successfully
+[debug] [2019-11-28T16:33:51.014Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/projects/deeplearning-7f788/locations/-/functions  
+ 
+[debug] [2019-11-28T16:33:51.821Z] <<< HTTP RESPONSE 200
+[info] i  functions: updating Node.js 8 function countDocumentsChange(us-central1)...
+[debug] [2019-11-28T16:33:51.826Z] Trigger is:  {"eventTrigger":{"resource":"projects/deeplearning-7f788/databases/(default)/documents/Files/{uid}/Images/{imagesId}","eventType":"providers/cloud.firestore/eventTypes/document.write","service":"firestore.googleapis.com"}}
+[debug] [2019-11-28T16:33:51.828Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/deeplearning-7f788/services/cloudscheduler.googleapis.com  
+ 
+[debug] [2019-11-28T16:33:53.413Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:33:53.417Z] >>> HTTP REQUEST PATCH https://cloudfunctions.googleapis.com/v1/projects/deeplearning-7f788/locations/us-central1/functions/countDocumentsChange {"updateMask":"sourceUploadUrl,name,labels,runtime,eventTrigger.resource,eventTrigger.eventType,eventTrigger.service"} 
+
+[debug] [2019-11-28T16:33:54.273Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:33:54.278Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL3ZBNkhLc1htaTM4  
+ 
+[debug] [2019-11-28T16:33:54.949Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:33:56.951Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL3ZBNkhLc1htaTM4  
+ 
+[debug] [2019-11-28T16:33:57.641Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:33:59.642Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL3ZBNkhLc1htaTM4  
+ 
+[debug] [2019-11-28T16:34:00.333Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:34:02.336Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL3ZBNkhLc1htaTM4  
+ 
+[debug] [2019-11-28T16:34:03.025Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:34:05.027Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL3ZBNkhLc1htaTM4  
+ 
+[debug] [2019-11-28T16:34:05.822Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:34:07.823Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL3ZBNkhLc1htaTM4  
+ 
+[debug] [2019-11-28T16:34:08.494Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:34:10.498Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL3ZBNkhLc1htaTM4  
+ 
+[debug] [2019-11-28T16:34:10.911Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:34:12.913Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL3ZBNkhLc1htaTM4  
+ 
+[debug] [2019-11-28T16:34:13.590Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:34:15.593Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL3ZBNkhLc1htaTM4  
+ 
+[debug] [2019-11-28T16:34:16.281Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:34:18.283Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL3ZBNkhLc1htaTM4  
+ 
+[debug] [2019-11-28T16:34:18.975Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:34:20.977Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL3ZBNkhLc1htaTM4  
+ 
+[debug] [2019-11-28T16:34:21.665Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:34:23.667Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL3ZBNkhLc1htaTM4  
+ 
+[debug] [2019-11-28T16:34:24.356Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:34:26.358Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL3ZBNkhLc1htaTM4  
+ 
+[debug] [2019-11-28T16:34:27.051Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:34:29.053Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL3ZBNkhLc1htaTM4  
+ 
+[debug] [2019-11-28T16:34:29.762Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:34:31.765Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL3ZBNkhLc1htaTM4  
+ 
+[debug] [2019-11-28T16:34:32.483Z] <<< HTTP RESPONSE 200
+[info] ✔  functions[countDocumentsChange(us-central1)]: Successful update operation. 
+[info] 
+[info] ✔  Deploy complete!
+[info] 
+[info] Project Console: https://console.firebase.google.com/project/deeplearning-7f788/overview
+[debug] [2019-11-28T16:38:12.722Z] ----------------------------------------------------------------------
+[debug] [2019-11-28T16:38:12.727Z] Command:       /home/pattanun-np/.nvm/versions/node/v12.10.0/lib/node_modules/node/bin/node /mnt/c/Users/pattanun/AppData/Roaming/npm/node_modules/firebase-tools/lib/bin/firebase.js deploy --only functions --debug
+[debug] [2019-11-28T16:38:12.730Z] CLI Version:   7.2.2
+[debug] [2019-11-28T16:38:12.731Z] Platform:      linux
+[debug] [2019-11-28T16:38:12.731Z] Node Version:  v8.12.0
+[debug] [2019-11-28T16:38:12.732Z] Time:          Thu Nov 28 2019 23:38:12 GMT+0700 (+07)
+[debug] [2019-11-28T16:38:12.732Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-11-28T16:38:12.743Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-11-28T16:38:12.744Z] > authorizing via signed-in user
+[debug] [2019-11-28T16:38:12.745Z] [iam] checking project deeplearning-7f788 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2019-11-28T16:38:12.753Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/deeplearning-7f788:testIamPermissions  
+
+[debug] [2019-11-28T16:38:14.138Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'deeplearning-7f788'...
+[info] 
+[info] i  deploying functions
+[info] Running command: npm --prefix "$RESOURCE_DIR" run lint
+[info] ✔  functions: Finished running predeploy script.
+[debug] [2019-11-28T16:38:20.309Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "lint": "eslint .",
+    "serve": "firebase serve --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "8"
+  },
+  "dependencies": {
+    "firebase-admin": "^8.0.0",
+    "firebase-functions": "^3.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.12.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "firebase-functions-test": "^0.1.6"
+  },
+  "private": true
+}
+[info] i  functions: ensuring necessary APIs are enabled...
+[debug] [2019-11-28T16:38:20.316Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/deeplearning-7f788/services/cloudfunctions.googleapis.com  
+ 
+[debug] [2019-11-28T16:38:20.317Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/deeplearning-7f788/services/runtimeconfig.googleapis.com  
+ 
+[debug] [2019-11-28T16:38:21.919Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:38:21.979Z] <<< HTTP RESPONSE 200
+[info] ✔  functions: all necessary APIs are enabled
+[debug] [2019-11-28T16:38:21.981Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/deeplearning-7f788/adminSdkConfig  
+ 
+[debug] [2019-11-28T16:38:22.399Z] <<< HTTP RESPONSE 200
+[info] i  functions: preparing functions directory for uploading...
+[debug] [2019-11-28T16:38:22.405Z] >>> HTTP REQUEST GET https://runtimeconfig.googleapis.com/v1beta1/projects/deeplearning-7f788/configs  
+ 
+[debug] [2019-11-28T16:38:23.047Z] <<< HTTP RESPONSE 200
+[info] i  functions: packaged functions (36.68 KB) for uploading
+[debug] [2019-11-28T16:38:23.351Z] >>> HTTP REQUEST POST https://cloudfunctions.googleapis.com/v1/projects/deeplearning-7f788/locations/us-central1/functions:generateUploadUrl  
+ 
+[debug] [2019-11-28T16:38:24.376Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:38:24.378Z] >>> HTTP REQUEST PUT https://storage.googleapis.com/gcf-upload-us-central1-2efc57cb-3cb5-4be6-b2dd-8ab31209747a/4b15bd9f-1211-41ab-9966-5829d1bc0372.zip?GoogleAccessId=service-746305078311@gcf-admin-robot.iam.gserviceaccount.com&Expires=1574960905&Signature=GGeSYDmfKzAez83eDN9U4tjk1CgQUKedtgWmUBHRA3lyjx0Wav4sDKaxoYDh0bBlgYaao9ACknXlrkNrnXvsSpTCz%2B2Lc22taqwc%2FcMogIQoFp3xDf7Vx39jVieSW5gXwKkMBu5bGhv6a6pB7jJ%2FxhwC%2FXXODW%2BctFiSLOXKnpesFoQLjIlACHdEgH9Rk4sY%2BYd0ytqfK9aXRQRw2PrGBSXcKgxrCCiFhO29%2Bb6nBjGJ5vSgqv2psf2vru5ILl2QFhw7BZFAOsb7fzeXrLnfAkA%2FqjZgCWE7umgoBINmu4PxbFvhzjh%2BkeE9BRdIfXB0cDciGb8zmuBBlsxEAxvQjQ%3D%3D  
+ <request body omitted>
+[debug] [2019-11-28T16:38:25.075Z] <<< HTTP RESPONSE 200
+[info] ✔  functions: functions folder uploaded successfully
+[debug] [2019-11-28T16:38:25.080Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/projects/deeplearning-7f788/locations/-/functions  
+ 
+[debug] [2019-11-28T16:38:25.617Z] <<< HTTP RESPONSE 200
+[info] i  functions: updating Node.js 8 function countDocumentsChange(us-central1)...
+[debug] [2019-11-28T16:38:25.622Z] Trigger is:  {"eventTrigger":{"resource":"projects/deeplearning-7f788/databases/(default)/documents/Files/{uid}/Images/{imagesId}","eventType":"providers/cloud.firestore/eventTypes/document.write","service":"firestore.googleapis.com"}}
+[debug] [2019-11-28T16:38:25.624Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/deeplearning-7f788/services/cloudscheduler.googleapis.com  
+ 
+[debug] [2019-11-28T16:38:27.167Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:38:27.171Z] >>> HTTP REQUEST PATCH https://cloudfunctions.googleapis.com/v1/projects/deeplearning-7f788/locations/us-central1/functions/countDocumentsChange {"updateMask":"sourceUploadUrl,name,labels,runtime,eventTrigger.resource,eventTrigger.eventType,eventTrigger.service"} 
+
+[debug] [2019-11-28T16:38:28.065Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:38:28.069Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlLzNkOGt0bWNHQnBn  
+ 
+[debug] [2019-11-28T16:38:28.796Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:38:30.803Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlLzNkOGt0bWNHQnBn  
+ 
+[debug] [2019-11-28T16:38:31.490Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:38:33.492Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlLzNkOGt0bWNHQnBn  
+ 
+[debug] [2019-11-28T16:38:34.181Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:38:36.183Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlLzNkOGt0bWNHQnBn  
+ 
+[debug] [2019-11-28T16:38:36.916Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:38:38.917Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlLzNkOGt0bWNHQnBn  
+ 
+[debug] [2019-11-28T16:38:39.596Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:38:41.598Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlLzNkOGt0bWNHQnBn  
+ 
+[debug] [2019-11-28T16:38:42.327Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:38:44.329Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlLzNkOGt0bWNHQnBn  
+ 
+[debug] [2019-11-28T16:38:45.009Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:38:47.012Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlLzNkOGt0bWNHQnBn  
+ 
+[debug] [2019-11-28T16:38:47.704Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:38:49.706Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlLzNkOGt0bWNHQnBn  
+ 
+[debug] [2019-11-28T16:38:55.748Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:38:57.751Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlLzNkOGt0bWNHQnBn  
+ 
+[debug] [2019-11-28T16:38:58.438Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:39:00.440Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlLzNkOGt0bWNHQnBn  
+ 
+[debug] [2019-11-28T16:39:01.147Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:39:03.149Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlLzNkOGt0bWNHQnBn  
+ 
+[debug] [2019-11-28T16:39:03.818Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:39:05.820Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlLzNkOGt0bWNHQnBn  
+ 
+[debug] [2019-11-28T16:39:06.528Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-28T16:39:08.530Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlLzNkOGt0bWNHQnBn  
+ 
+[debug] [2019-11-28T16:39:09.247Z] <<< HTTP RESPONSE 200
+[info] ✔  functions[countDocumentsChange(us-central1)]: Successful update operation. 
+[info] 
+[info] ✔  Deploy complete!
+[info] 
+[info] Project Console: https://console.firebase.google.com/project/deeplearning-7f788/overview
+[debug] [2019-11-29T05:58:32.326Z] ----------------------------------------------------------------------
+[debug] [2019-11-29T05:58:32.347Z] Command:       /home/pattanun-np/.nvm/versions/node/v12.10.0/lib/node_modules/node/bin/node /mnt/c/Users/pattanun/AppData/Roaming/npm/node_modules/firebase-tools/lib/bin/firebase.js deploy --only functions --debug
+[debug] [2019-11-29T05:58:32.348Z] CLI Version:   7.2.2
+[debug] [2019-11-29T05:58:32.348Z] Platform:      linux
+[debug] [2019-11-29T05:58:32.349Z] Node Version:  v8.12.0
+[debug] [2019-11-29T05:58:32.350Z] Time:          Fri Nov 29 2019 12:58:32 GMT+0700 (+07)
+[debug] [2019-11-29T05:58:32.350Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-11-29T05:58:32.483Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-11-29T05:58:32.484Z] > authorizing via signed-in user
+[debug] [2019-11-29T05:58:32.485Z] [iam] checking project deeplearning-7f788 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2019-11-29T05:58:32.488Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-11-29T05:58:32.489Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2019-11-29T05:58:38.318Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-29T05:58:38.349Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/deeplearning-7f788:testIamPermissions  
+
+[debug] [2019-11-29T05:58:40.299Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'deeplearning-7f788'...
+[info] 
+[info] i  deploying functions
+[info] Running command: npm --prefix "$RESOURCE_DIR" run lint
+[info] ✔  functions: Finished running predeploy script.
+[debug] [2019-11-29T05:59:21.010Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "lint": "eslint .",
+    "serve": "firebase serve --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "8"
+  },
+  "dependencies": {
+    "firebase-admin": "^8.0.0",
+    "firebase-functions": "^3.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.12.0",
+    "eslint-plugin-promise": "^4.0.1",
+    "firebase-functions-test": "^0.1.6"
+  },
+  "private": true
+}
+[info] i  functions: ensuring necessary APIs are enabled...
+[debug] [2019-11-29T05:59:21.015Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/deeplearning-7f788/services/cloudfunctions.googleapis.com  
+ 
+[debug] [2019-11-29T05:59:21.017Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/deeplearning-7f788/services/runtimeconfig.googleapis.com  
+ 
+[debug] [2019-11-29T05:59:26.319Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-29T05:59:26.576Z] <<< HTTP RESPONSE 200
+[info] ✔  functions: all necessary APIs are enabled
+[debug] [2019-11-29T05:59:26.578Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/deeplearning-7f788/adminSdkConfig  
+ 
+[debug] [2019-11-29T05:59:28.626Z] <<< HTTP RESPONSE 200
+[info] i  functions: preparing functions directory for uploading...
+[debug] [2019-11-29T05:59:28.632Z] >>> HTTP REQUEST GET https://runtimeconfig.googleapis.com/v1beta1/projects/deeplearning-7f788/configs  
+ 
+[debug] [2019-11-29T05:59:30.715Z] <<< HTTP RESPONSE 200
+[info] i  functions: packaged functions (36.71 KB) for uploading
+[debug] [2019-11-29T05:59:34.064Z] >>> HTTP REQUEST POST https://cloudfunctions.googleapis.com/v1/projects/deeplearning-7f788/locations/us-central1/functions:generateUploadUrl  
+ 
+[debug] [2019-11-29T05:59:35.692Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-29T05:59:35.694Z] >>> HTTP REQUEST PUT https://storage.googleapis.com/gcf-upload-us-central1-2efc57cb-3cb5-4be6-b2dd-8ab31209747a/336d2ecc-6a7b-482d-9b45-db9d41e72da0.zip?GoogleAccessId=service-746305078311@gcf-admin-robot.iam.gserviceaccount.com&Expires=1575008976&Signature=O83M8RTbDDDHVFSAMh%2F289FcqYevrS34hmeHBhhnV%2B2MYu%2B4PHsHYSnFj0PHAkZJS467zhywWGap7EjfCFA7ymIMPGZPoNMkjsa4Z8crKHn1lW8PQ0s9EauwToZ%2BdJuRLcjz0NsVtj4mWWcEfHFnOleVsncSEyz4HPC9T1qWPAqvlplZgemS7Cchc%2FHj74jk7QY6ghWCbzcKNtM3HbF6S9N3fzqN%2FWiL0Xyz6%2FFBvtlKgLHvFfapLxpEG2gpi4zJmrS8jtIaIjLNC3TuEkfjQuataLlkiyHOZQNfxwn4JPV8Wh%2Bizlg0UJ1g5pktyWLZh9E5ab2Gl8cDs5nLKqwM9Q%3D%3D  
+ <request body omitted>
+[debug] [2019-11-29T05:59:36.957Z] <<< HTTP RESPONSE 200
+[info] ✔  functions: functions folder uploaded successfully
+[debug] [2019-11-29T05:59:36.962Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/projects/deeplearning-7f788/locations/-/functions  
+ 
+[debug] [2019-11-29T05:59:37.696Z] <<< HTTP RESPONSE 200
+[info] i  functions: updating Node.js 8 function countDocumentsChange(us-central1)...
+[debug] [2019-11-29T05:59:37.701Z] Trigger is:  {"eventTrigger":{"resource":"projects/deeplearning-7f788/databases/(default)/documents/Files/{uid}/Images/{imagesId}","eventType":"providers/cloud.firestore/eventTypes/document.write","service":"firestore.googleapis.com"}}
+[debug] [2019-11-29T05:59:37.703Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/deeplearning-7f788/services/cloudscheduler.googleapis.com  
+ 
+[debug] [2019-11-29T05:59:39.517Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-29T05:59:39.522Z] >>> HTTP REQUEST PATCH https://cloudfunctions.googleapis.com/v1/projects/deeplearning-7f788/locations/us-central1/functions/countDocumentsChange {"updateMask":"sourceUploadUrl,name,labels,runtime,eventTrigger.resource,eventTrigger.eventType,eventTrigger.service"} 
+
+[debug] [2019-11-29T05:59:40.750Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-29T05:59:40.754Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL3NmY1RpZ3ppdEFV  
+ 
+[debug] [2019-11-29T05:59:41.705Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-29T05:59:43.707Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL3NmY1RpZ3ppdEFV  
+ 
+[debug] [2019-11-29T05:59:44.596Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-29T05:59:46.599Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL3NmY1RpZ3ppdEFV  
+ 
+[debug] [2019-11-29T05:59:47.422Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-29T05:59:49.424Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL3NmY1RpZ3ppdEFV  
+ 
+[debug] [2019-11-29T05:59:49.879Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-29T05:59:51.881Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL3NmY1RpZ3ppdEFV  
+ 
+[debug] [2019-11-29T05:59:52.603Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-29T05:59:54.605Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL3NmY1RpZ3ppdEFV  
+ 
+[debug] [2019-11-29T05:59:55.327Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-29T05:59:57.329Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL3NmY1RpZ3ppdEFV  
+ 
+[debug] [2019-11-29T05:59:58.118Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-29T06:00:00.120Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL3NmY1RpZ3ppdEFV  
+ 
+[debug] [2019-11-29T06:00:00.857Z] <<< HTTP RESPONSE 200
+[debug] [2019-11-29T06:00:02.871Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/ZGVlcGxlYXJuaW5nLTdmNzg4L3VzLWNlbnRyYWwxL2NvdW50RG9jdW1lbnRzQ2hhbmdlL3NmY1RpZ3ppdEFV  
+ 
+[debug] [2019-11-29T06:00:08.875Z] <<< HTTP RESPONSE 200
+[info] ✔  functions[countDocumentsChange(us-central1)]: Successful update operation. 
+[info] 
+[info] ✔  Deploy complete!
+[info] 
+[info] Project Console: https://console.firebase.google.com/project/deeplearning-7f788/overview
