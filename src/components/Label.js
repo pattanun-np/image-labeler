@@ -1,22 +1,22 @@
 import React, {Component} from "react";
 import CanvasDraw from "./index";
 import '../Style/Label.css';
-import firebase from '../Firebase';
+// import firebase from '../firebase';
 import Loading from './Loading';
 import Swal from 'sweetalert2'
 import {Button, Tag, Image, Notification, Level} from 'reactbulma';
 import 'rc-slider/assets/index.css';
 import 'rc-tooltip/assets/bootstrap.css';
 import Slider from 'rc-slider';
-
+// var db = firebase.firestore();
 class Label extends Component {
     constructor(props) {
         super(props);
         this.state = {
             color: "#f44336",
-            width: 640,
-            height: 640,
-            brushRadius: 1,
+            width:680,
+            height:500,
+            brushRadius: 1.5,
             messag_success: null,
             messag_error: null,
             lazyRadius: 2,
@@ -25,12 +25,6 @@ class Label extends Component {
             hideGrid: 'hideGrid'
         };
     }
-    componentDidMount() {
-
-        this.getImage();
-
-    }
-
     handleChangeComplete = (color) => {
         this.setState({color: color.hex});
     };
@@ -43,22 +37,7 @@ class Label extends Component {
     save_data() {
         Swal.fire('Good job!', 'Saved label data Success', 'success')
     }
-    getImage() {
-        const user = firebase
-            .auth()
-            .currentUser
-            .uid;
-        const storageRef = firebase
-            .storage()
-            .ref(`UserData/${user}`);
-        storageRef
-            .getDownloadURL()
-            .then(function (url) {
-
-                this.setState({picture: url})
-            })
-
-    };
+    
     addDefaultSrc(ev) {
         ev.target.src = 'https://firebasestorage.googleapis.com/v0/b/deeplearning-7f788.appspot.com/o/Err' +
                 'orIMG(1).png?alt=media&token=ba0dab40-7125-474a-892e-a5d3da70157e'
@@ -75,11 +54,11 @@ class Label extends Component {
         let Canvas = this
             .props
             .img
-            .map((arr, i) => (
-
-                <div key={i}>
-
-                    <CanvasDraw
+            .map((arr, id) => (
+              
+                <div key={id}>
+                    
+                    <CanvasDraw className="draw"
                         ref={canvasDraw => (this.saveableCanvas = canvasDraw)}
                         brushColor={this.state.color}
                         brushRadius={this.state.brushRadius}
@@ -87,7 +66,7 @@ class Label extends Component {
                         canvasWidth={this.state.width}
                         canvasHeight={this.state.height}
                         hideGrid={this.state.hideGrid}
-                        imgSrc={arr.metadataFile.downloadURL}/>
+                        imgSrc={arr.data.downloadURL}/>
 
                 </div>
 

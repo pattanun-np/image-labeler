@@ -51,3 +51,6 @@ overflow-x:auto;
     transition: 0.3s;
 
 }
+.draw{
+     overflow-x: auto;
+}

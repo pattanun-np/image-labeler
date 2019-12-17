@@ -7,10 +7,10 @@ class Loading extends Component {
             <div>
                 <LoadingScreen
                     loading={true}
-                    bgColor = '#061b45'
+                    bgColor = 'rgba(186, 226, 253, 0.31)'
                     spinnerColor = '#035efc'
-                    textColor = '#035efc'
-                    text='Loading Data...'></LoadingScreen>
+                    textColor = 'rgba(55, 226, 253, 0.2)'
+                    text=''></LoadingScreen>
             </div>
 
         );

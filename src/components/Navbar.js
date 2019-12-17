@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Swal from 'sweetalert2';
 import {Button, Level, Tag, Card} from 'reactbulma';
 import '../Style/Navbar.css'
-import firebase from '../Firebase';
+import firebase from '../firebase';
 var db = firebase.firestore();
 class Navbar extends Component {
     constructor(props) {
@@ -40,19 +40,18 @@ class Navbar extends Component {
             .auth()
             .currentUser
             .uid
-        
+
         const userdataRef = db
             .collection('users')
             .doc(userId);
-            
 
-         userdataRef
+        userdataRef
             .get()
             .then(doc => {
                 if (!doc.exists) {
-                   console.log('No such document!');
+                    console.log('No such document!');
                 } else {
-                   // console.log('Document data:', doc.data());
+                    // console.log('Document data:', doc.data());
                     this.setState({
                         name: doc
                             .data()
@@ -70,7 +69,7 @@ class Navbar extends Component {
                 }
             })
             .catch(err => {
-              //  console.log('Error getting document', err);
+                //  console.log('Error getting document', err);
             });
 
     }
@@ -118,19 +117,26 @@ class Navbar extends Component {
                                             style={{
                                             marginRight: '5px'
                                         }}></i>
-                                        <h1>
-                                            {name}
-                                        </h1>
+
+                                        {name}
+
                                     </Tag>
                                     < Tag success large>
                                         Login as {position
 }
                                     </Tag>
                                     <Button danger onClick={this.handleLongout} className="logout_btn">
+                                        <i
+                                            className = "fas fa-sign-out-alt"
+                                            style={{
+                                            marginRight: '5px'
+                                        }}i ></i>
                                         Logout
                                     </Button>
                                 </div>
+                                
                             </Level.Right>
+                            
                         </Level.Item>
                     </Level>
                 </Card>

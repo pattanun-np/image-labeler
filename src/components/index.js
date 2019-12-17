@@ -4,8 +4,8 @@ import {LazyBrush} from "lazy-brush";
 import {Catenary} from "catenary-curve";
 import ResizeObserver from "resize-observer-polyfill";
 import drawImage from "./drawImage";
-import firebase from '../Firebase';
-var DB = firebase.database();
+import firebase from '../firebase';
+var db = firebase.firestore();
 function midPointBtw(p1, p2) {
     return {
         x: p1.x + (p2.x - p1.x) / 2,
@@ -182,15 +182,18 @@ export default class extends PureComponent {
     };
 
     getSaveData = () => {
-        const user = firebase
+        const userId = firebase
             .auth()
             .currentUser
             .uid;
-        const DBRef = DB
-            .ref('/Labeled_Images/')
-            .child(user+'/labeled/');
-        DBRef.push(this.data_images);
-
+        let sender = db
+            .collection('Lebeled')
+            .doc(userId)
+            .collection('Images')
+        let data_sent = this.data_images;
+        if(this.data_images.length>0){
+        sender.add({data_sent});
+        }
         return JSON.stringify({lines: this.lines, width: this.props.canvasWidth, height: this.props.canvasHeight});
     };
 

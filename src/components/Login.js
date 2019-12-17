@@ -13,7 +13,7 @@ import {
     Field,
     Control
 } from 'reactbulma'
-import firebase from '../Firebase';
+import firebase from '../firebase';
 var db = firebase.firestore();
 class Login extends Component {
     constructor(props) {
