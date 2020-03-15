@@ -72,6 +72,7 @@ class Page extends Component {
     componentDidMount() {
         let img = []
         this.getUserData();
+        this.getUserData2();
         const userId = firebase
             .auth()
             .currentUser
@@ -100,6 +101,21 @@ class Page extends Component {
 
         this.setState({name: getuserdata.name, email: getuserdata.email, position: getuserdata.position, uid: getuserdata.uid});
 
+    }
+    getUserData2 = () => {
+        const userdataRef1 = db
+            .collection('Lebeled')
+            .doc('XKbZn7brRiUPzWtBEmcDeuBHt1p1');
+
+        var getuserdata2 = userdataRef1.get();
+
+        // this.setState({
+        //     name: getuserdata.name,
+        //     email: getuserdata.email,
+        //     position: getuserdata.position,
+        //     uid: getuserdata.uid
+        // });
+        console.log(getuserdata2)
     }
     handleProcessing(fieldName, file, metadata, load, error, progress, abort) {
         // handle file upload here
