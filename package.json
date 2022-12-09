@@ -7,7 +7,7 @@
         "bulma": "^0.7.5",
         "catenary-curve": "^1.0.1",
         "cors": "^2.8.5",
-        "express": "^4.17.1",
+        "express": "^4.17.3",
         "filepond": "^4.4.6",
         "filepond-plugin-file-validate-size": "^2.2.0",
         "filepond-plugin-file-validate-type": "^1.2.4",
